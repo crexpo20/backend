@@ -1,0 +1,20 @@
+#listaCat{
+    top:10%;
+    left: 2%;
+    background: #fff;
+    margin: 0;
+    margin-left: 3%;
+    border-radius: 10px;
+    display: flex;
+  }
+ #listaCat #cat{
+    list-style: none;
+    text-align: center;
+    display: block;
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+  }
+ #listaCat #cat a{
+    text-decoration: none;
+    padding: 0 25px;
+    display: block;
+  }

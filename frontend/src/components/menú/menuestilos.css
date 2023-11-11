@@ -1,0 +1,169 @@
+*,
+::before,
+::after{
+    margin :0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.react-modalMenu-overlay{
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: auto;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    z-index: 1;
+}
+
+.react-modalMenu-wrapper{
+    max-width: 250px;
+    margin: 3.5rem;
+}
+
+.react-modalMenu-content{
+    position: relative;
+    background-color: #ffffff;
+    border: 1px solid rgba(0,0,0,0.3)  ;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.react-modalMenu-header,
+.react-modalMenu-body,
+.react-modalMenu-footer{
+    padding: 1rem;
+}
+
+.react-modalMenu-header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #dedede;
+    
+}
+
+.react-modalMenu-title{
+    line-height: 1.5;
+    font-size: 1.25rem;
+    
+    
+}
+
+.react-modalMenu-title #lista-menu{
+    list-style-type: disc; /* Establece el tipo de marcador de lista, como disc, circle, etc. */
+  
+  list-style: none;
+}
+
+.react-modalMenu-title #lista-menu #menu-item{
+    margin: 0.5rem 0;
+}
+
+#lista-menu #menu-item{
+    list-style: none;
+    text-align:justify;
+}
+
+#lista-menu #username{
+    background-color: aqua;
+    list-style: none;
+    text-align:justify;
+
+    
+}
+#nombreuser{
+    font-family: 'JejuMyeongjo';
+    font-size: 20px;
+    color: black;
+    background: none;
+    width: 195px;
+    cursor:default;
+
+}
+.btn-closed{
+    border: none;
+    font-size: 1rem;
+    padding: 0.25rem;
+    cursor: pointer;
+    font-weight: bold;
+    color: rgba(0,0,0,0.5);
+    background: transparent;
+}
+
+.react-modalMenu-body #body-huespedes #huesped-lista{
+    padding-left: 25%;
+    padding-top: 5%;
+    
+    
+}
+
+.react-modalMenu-body #body-huespedes #huesped-lista a{
+    font-family: 'JejuMyeongjo';
+    font-size: large;
+}
+#Lugar{
+    color: rgba(11, 4, 44, 0.85);
+    background: none;
+    font-family: 'JejuMyeongjo';
+    font-size: 20px;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    padding-left: 0;
+}
+
+#btn-menu{
+    border-radius: 25px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    
+   
+}
+#elementosmenu{
+    display: flex;
+}
+
+
+#elementos{
+    
+    width: 50%;
+    align-items: center;
+}
+#elemento{
+    font-family: 'JejuMyeongjo';
+    font-size: 16px;
+}
+#btn-menu:hover {
+    box-shadow: 0 0 3px rgba(112, 111, 111, 0.5); /* Agrega una sombra al botón en el estado "hover" */
+}
+
+
+#ini-button,
+#reg-button
+{  color: black;
+    background: none;
+    width: 130px;
+    font-family: 'JejuMyeongjo';
+    font-size: 15px;
+}
+
+#ini-button:hover,
+#reg-button:hover,
+#close-button:hover
+ {  color:#ffffff;
+    background-color: rgba(218, 20, 103, 0.85);
+    box-shadow: 0 0 3px rgba(112, 111, 111, 0.5); /* Agrega una sombra al botón en el estado "hover" */
+}
+
+
+#close-button,
+#menu-item a
+{   
+    color: black;
+    background: none;
+    width: 170px;
+    font-family: 'JejuMyeongjo';
+    font-size: 15px;
+}

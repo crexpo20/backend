@@ -1,0 +1,1 @@
+export const URL_API = "http://synergisoft.tis.cs.umss.edu.bo/api";

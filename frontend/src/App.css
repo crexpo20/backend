@@ -1,0 +1,981 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  
+}
+
+#arriba{
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+
+
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: block;
+  justify-content: space-between; 
+  height: 165px;
+  padding-right: 20px;
+  background-color: #ffffff;
+  z-index: 2; /* Establece un valor mayor que 1 para elevar el encabezado por encima del contenido */
+}
+
+body {
+  /* Rectangle 53 */
+  background: #E8DAE1;
+  margin-top: 165px;
+  z-index: 1; /* Establece un valor menor que 2 para que el contenido del cuerpo esté detrás del encabezado */
+}
+
+/* TelosSuite */
+h1{
+  
+  
+    position:relative;
+    top:0;
+    left: 5%;
+    padding-right: 5%;
+    margin: 0;
+    padding: 1px 0;
+    border-radius: 10px;
+    display: flex;
+    
+ 
+
+  color: rgba(218, 20, 103, 0.85);
+  
+  }
+
+/**/
+
+ 
+
+/*LOGO TELOSSUITE https://iconos8.es/icon/yPK5jE9e0UVd/casa*/
+#iconoprincipal
+{
+  /* image 32 */
+margin-top: 200px;
+position:relative;
+width: 81px;
+height: 75px;
+
+
+}
+
+#logo{
+
+width: 422px;
+height: 70px;
+left: 207px;
+top: 106px;
+
+font-family: 'JejuMyeongjo';
+font-style: normal;
+font-weight: 400;
+font-size: 40px;
+line-height: 40px;
+text-decoration: none;
+color: rgba(15, 13, 14, 0.85);
+}
+/*letras login , registro*/
+a{
+
+  text-align: center;
+  cursor: pointer;
+  padding: 10px;
+  font-family: 'JejuMyeongjo';
+  font-style: normal;
+  font-weight: 100;
+  font-size: 15px;
+  line-height: 40px;
+  text-decoration: none;
+  color: rgba(218, 20, 103, 0.85);
+  }
+
+/* Rectangle 53 */
+
+/* Actualizar Inmueble */
+
+.izquierda{
+  position: fixed;
+  background: rgba(218, 20, 103, 0.85);
+  height: 100vh;
+  width: 25%;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 130vh; 
+}
+
+.derecha{
+  background: #E8DAE1;
+  height: 100vh;
+  width: 75%;
+  margin-left: 25%;
+}
+#pantalla-dividida{
+  display: flex;
+}
+
+form{
+  margin-right: 20px;
+  margin-top: 30px;
+  width: auto;
+  
+  font-family: 'JejuMyeongjo';
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 40px;
+  color: black;
+
+}
+
+.Grid1 input{
+  margin-top: 14px;
+  width: 65.4%;
+  float: right;
+}
+.Grid1 textarea{
+  margin-top: 14px;
+  width: 65.4%;
+  float: right;
+  height: 70px; 
+  resize: vertical;
+}
+.Grid1 button{
+  margin-top: 6px;
+  width: 65.4%;
+  float: right;
+  border-radius: 350px;
+}
+
+.Grid2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  grid-column-gap: 10px; 
+}
+
+.Grid2 select{
+  margin-top: 14px;
+  width: 30%;
+  float: right;
+}
+.Grid2 input{
+  margin-top: 14px;
+  width: 30%;
+  float: right;
+}
+.Grid2 button{
+  margin-top: 5px;
+  width: 30%;
+  float: right;
+  border-radius: 350px;
+}
+.Grid3 textarea{
+  margin-top: 14px;
+  width: 65.4%;
+  float: right;
+  height: 70px; 
+  resize: vertical;
+  
+}
+
+.Colum1 {
+  margin-bottom: 10px; 
+  
+}
+
+
+.Colum2 {
+  margin-bottom: 10px; 
+}
+
+label{
+  margin-left: 50px;
+  justify-self: end;
+}
+.BotonesInf{
+  display: flex;
+  justify-content: center;
+  border-radius: 350px;
+}
+.BotonesInf button {
+  margin: 0 10px; /* Agregar margen horizontal para separar los botones */
+}
+.BotonCancelar{
+  position: relative;
+  border-radius: 350px;
+}
+.guardarcambios{
+  position: relative;
+  border-radius: 350px;
+}
+
+.infInmueble{
+  border: 1px solid #000; 
+  background-color: #f0f0f0; 
+  padding: 10px; 
+  width: 300px; 
+  margin-top: 40px;
+}
+
+.BotonesEditEli{
+  display: flex;
+}
+
+.BotonEditar{
+  display: inline-block; 
+  padding: 1px 10px; 
+  border: 1px solid #ccc; 
+  border-radius: 350px; 
+  text-decoration: none; 
+  color: black; 
+  background-color: #ccc; 
+  margin-left: 5px;
+}
+
+.eliminar-btn {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 150px;
+
+}
+.eliminar-btn img {
+  width: 34px;
+  height: 34px;
+}
+
+
+.btn-eliminar{
+  margin-left: 170px;
+  bottom: 10px;
+  right: 10px;
+  border-radius: 350px; 
+  font-family: 'JejuMyeongjo';
+  font-style: normal;
+  font-weight: 100;
+  font-size: 20px;
+  color: black;
+}
+
+.InmueblesHost{
+  border: 1px solid #000; 
+  background-color: #f0f0f0; 
+  padding: 10px; 
+  width: 300px; 
+  margin-left: 40px;
+}
+
+h4{
+  font-family: 'JejuMyeongjo';
+  font-weight: 400;
+  font-size: 25px;
+  margin-left: 40px;
+  line-height: 60px;
+  color: rgba(218, 20, 103, 0.85);
+}
+.verinm{
+  display: inline-block; 
+  margin-right: 11px; 
+  max-width: 300px;
+  margin-bottom: 15px;
+}
+
+.modalEliminar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.37);
+  z-index: 999;
+}
+
+.modal-contenido {
+  background-color:#f7c6df;
+  border: 1px solid #ccc;
+  padding: 50px;
+  border-radius: 60px;
+  text-align: center;
+  max-width: 450px;
+  font-family: 'JejuMyeongjo';
+  font-style: normal;
+  font-size: 25px;
+}
+
+/* Estilos para los botones dentro del modal */
+.modal-contenido button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-family: 'JejuMyeongjo';
+  font-style: normal;
+  font-size: 18px;
+}
+
+/* Rectangle 64 */
+
+/*division nav*/
+#buscador{
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 5%;
+  width: 55%;
+  display: flex;
+  color: #d2086d;
+  border-radius: 30px;
+  background-color: #ffffff;border: 1px solid #ccc;
+ 
+}
+#reg{
+  font-size: 30px;
+}
+#buscadorCliente{
+ 
+  width: 55%;
+  display: flex;
+ 
+}
+#navRegs{
+  padding-top: 20px;
+  font-family: 'JejuMyeongjo';
+  padding-left: 42%;
+  color: rgba(13, 10, 11, 0.85);
+   width: 1000px;
+   display: flex;
+} 
+#navReg{
+ padding-left: 18%;
+  width: 55%;
+  display: flex;
+ 
+}
+
+#buscador li{
+  padding: 0 10px;
+  list-style: none;
+}
+#buscador #prim{
+  border-right: 1px solid #000;
+  
+  }
+/*letras logo*/
+#TelosSuite{
+  font-family: 'JejuMyeongjo';
+  
+  font-size: 30px;
+  padding-top: 10px;
+  color: rgba(13, 10, 11, 0.85);
+  }
+
+  #TS {
+    font-family: 'JejuMyeongjo';
+  
+  font-size: 30px;
+  padding-top: 3px;
+  color: rgba(13, 10, 11, 0.85);
+    display: none; /* Asegúrate de que el elemento "TS" esté oculto por defecto */
+  }
+  
+  @media (max-width: 768px) {
+    #TelosSuite {
+      display: none; /* Oculta el elemento de texto "TelosSuite" cuando la pantalla se minimiza a la mitad o menos */
+    }
+  
+    #TS {
+      display: block; /* Muestra el elemento "TS" cuando la pantalla se minimiza a la mitad o menos */
+    }
+  }
+#head{
+  padding-top: 1%;
+  padding-bottom:5px;
+  
+  display: flex;
+  height: 40%;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.09);
+}
+#head-izq{
+  width: 33%;
+  padding-left: 5%;
+  display: flex;
+}
+#logoP{
+  font-size: 35px;
+  color: rgba(218, 20, 103, 0.85);
+}
+#logo-nav{
+  font-size: 35px;
+}
+#head-der{
+    width: 33%;
+    display: inline-block;
+    position: relative;
+    padding-right: 2%;
+
+}
+#head-der3{
+  display: inline-block;
+  width: 50%;
+}
+#head-der2{
+  display: inline-block;
+  white-space: nowrap;
+  width: 50%;
+}
+#hab{
+  white-space: normal;
+}
+
+#head-der2 a{
+  background-color: #000;
+  white-space: nowrap;
+  width: 100%;
+}
+#head-der3{
+  padding-left:13%;
+  margin-left: auto;
+
+}
+
+@media (max-width: 768px) {
+  #head-der2{
+      display: none;
+  }
+}
+
+
+
+
+#nav-menu{
+  text-align: right; /* Alinea el texto a la derecha */
+  white-space: nowrap; /* Evita el ajuste de línea automático */
+  overflow: hidden;
+  padding-right: 20px; 
+}
+#navDer{
+  width: 85%;
+}
+#opt-nav{
+  display: flex;
+  justify-items: left;
+}
+#navAbajo{
+  margin-top: 0.5%;
+  display: flex;
+}
+#nav{
+  
+  width: 70%;
+}
+#opciones{
+  padding-left: 16%;
+  padding-top: 1.5%;
+  display: flex;
+}
+
+/*-------------*/
+.price-filter-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'JejuMyeongjo';
+}
+
+.price-filter-popup {
+  background-color: #F8E6F3;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-family: 'JejuMyeongjo';
+  position: relative;
+}
+
+.price-filter-popup h2 {
+  margin-bottom: 10px;
+  color: #DA1467;
+  font-family: 'JejuMyeongjo';
+}
+
+.price-inputs {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.price-inputs label {
+  width: 30%;
+  text-align: right;
+  padding-right: 10px;
+}
+
+.price-inputs input {
+  width: 65%;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-family: 'JejuMyeongjo';
+}
+.close-button {
+  position: absolute;
+  top: 10px; /* Ajusta la posición vertical según tus necesidades */
+  right: 10px; /* Ajusta la posición horizontal según tus necesidades */
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  color: #DA1467;
+  cursor: pointer;
+}
+.close-button:hover {
+  color: #E8DAE1;
+}
+
+button {
+  background-color: #ccc;
+  color: black;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #DA1467;
+}
+
+.filtro-button {
+  background-color: #DA1467;
+  /* Color de fondo para el botón Filtro */
+  
+  font-family: 'JejuMyeongjo';
+}
+
+
+.error-message {
+  color: red; 
+  font-size: 14px; 
+  line-height: 1.2;
+  padding-left: 10%;
+  
+}
+
+.RegistroUsuario{
+  
+  background-color:#ffffff;
+  border: 1px;
+  border-radius: 10px;
+  max-width: 500px;
+  font-family: 'JejuMyeongjo';
+  font-style: normal;
+  font-size: 20px;
+  display: flex; 
+  flex-direction: column;
+}
+.RegistroUsuario #label-registro{
+  float: left;
+  margin-right: 5px; 
+  
+}
+.RegistroUsuario #input-registro{
+  border: none; /* Elimina el borde del input */
+  border-bottom: 1px solid #000; /* Agrega una línea de abajo con el color deseado */
+  outline: none;
+}
+
+#body-registro{
+  background: linear-gradient(rgb(248, 205, 234), rgb(255, 120, 199));
+  display: flex;
+  top: 0;
+  width: 100%;
+  height: 100%;
+
+}
+
+.react-modalRegistro-content{
+  background-Color: #E8DAE1;
+}
+
+.registrocss input{
+  background-Color: #E8DAE1;
+}
+
+.registrocss label{
+  background-Color: #E8DAE1;
+  color: #DA1467;
+}
+.botonRegistro{
+  text-align: right;
+}
+.aceptar-button {
+  background-color: #DA1467;
+  border: 2px solid #DA1467;
+  color: white;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 2px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-right: 10px;
+}
+.aceptar-button:hover {
+  background-color:#b6004c; 
+}
+.facebook-button, .google-button {
+  background-color: white;
+  border: 2px solid #DA1467;
+  color: #DA1467;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 2px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-right: 10px;
+}
+
+.facebook-button:hover, .google-button:hover {
+  background-color: #f5e9ee; 
+}
+.modalAceptarRegistro {
+  display: none; /* Inicialmente oculto */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); 
+  z-index: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content-aceptar-registro {
+  background-color: #fff;
+  padding: 100px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+
+.close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 70px;
+  cursor: pointer;
+}
+
+/*----------select lugares-----------*/
+
+.contenedor {
+	width: 90%;
+	max-width: 1000px;
+	margin: auto;
+	padding: 40px 0;
+}
+.selectbox {
+	width: 50%;
+	margin: auto;
+	position: relative;
+}
+
+.select {
+	background: #fff;
+	width: 100%;
+	box-shadow: 0px 0px 0px rgba(0, 0, 0, .16);
+	border-radius: 10px;
+	cursor: pointer;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	transition: .2s ease all;
+	margin-bottom: 30px;
+	padding: 30px;
+	position: relative;
+	z-index: 200;
+	border: 2px solid transparent;
+}
+
+.select.active,
+.select:hover {
+	box-shadow: 0px 5px 10px rgba(0, 0, 0, .16);
+	border: 2px solid #213f8f;
+}
+
+.select.active:before {
+	content: "";
+	display: block;
+	height: 0;
+	width: 0;
+	border-top: 15px solid #213f8f;
+	border-right: 15px solid transparent;
+	border-bottom: 15px solid transparent;
+	border-left: 15px solid transparent;
+	position: absolute;
+	bottom: -30px;
+	left: calc(50% - 15px);
+}
+
+.select i {
+	font-size: 30px;
+	margin-left: 30px;
+	color: #213f8f;
+}
+
+.titulo {
+	margin-bottom: 10px;
+	color: #000;
+	font-weight: 600;
+	font-size: 30px;
+}
+
+.descripcion {
+	font-size: 18px;
+	color: #434343;
+}
+
+.opciones {
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0px 5px 10px rgba(0,0,0,.16);
+	max-height: 400px;
+	overflow: auto;
+	z-index: 100;
+	width: 100%;
+	display: none;
+}
+
+.opciones.active {
+	display: block;
+	animation: fadeIn .3s forwards;
+}
+
+@keyframes fadeIn {
+	from {
+		transform: translateY(-200px) scale(.5);
+	}
+	to {
+		transform: translateY(0) scale(1);
+	}
+}
+
+.contenido-opcion {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	transition: .2s ease all;
+}
+
+.opciones .contenido-opcion {
+	padding: 30px;
+}
+
+.contenido-opcion img {
+	width: 60px;
+	height: 60px;
+	margin-right: 30px;
+}
+
+.opciones .contenido-opcion:hover {
+	background: #213F8F;
+}
+
+.opciones .contenido-opcion:hover .titulo,
+.opciones .contenido-opcion:hover .descripcion {
+	color: #fff;
+}
+
+@media screen and (max-width: 800px){
+	.selectbox {
+		width: 100%;
+	}
+}
+/*---------------------------*/
+/*Registro Inmuble*/
+
+
+.carousel-container {
+  max-width: 800px; /* Ancho máximo del carrusel */
+
+  margin: 0 auto; /* Centrar el carrusel en la página */
+  padding: 20px; /* Espaciado interno del carrusel */
+  background-color: #ffffff;
+  padding: 20px;
+  margin-top: 200px;
+  border-radius: 10px; 
+}
+
+/* Estilo para las preguntas */
+.carousel-question {
+  font-size: 20px; /* Tamaño de fuente para las preguntas */
+  margin-bottom: 20px; /* Espaciado inferior entre preguntas y opciones */
+  color: rgba(218, 20, 103, 0.85);
+  text-align: center;
+  
+}
+h5 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: rgba(218, 20, 103, 0.85);
+  text-align: center; /* Centrar horizontalmente */
+  position:relative;
+  
+  
+ 
+}
+/* Estilo para los botones de opciones */
+.custom-button {
+  font-size: 16px; /* Tamaño de fuente para los botones de opciones */
+  padding: 10px 20px; /* Espaciado interno de los botones */
+  margin-right: 10px; /* Espaciado derecho entre botones */
+  border: 1px solid transparent;; /* Borde del botón */
+  background-color: transparent; /* Color de fondo del botón */
+  color: rgba(218, 20, 103, 0.85); /* Color del texto del botón */
+  cursor: pointer;
+  transition: background-color 0.3s ease; /* Transición de color de fondo al pasar el ratón */
+}
+
+
+
+.custom-button:hover {
+  background-color: rgba(218, 20, 103, 0.5); /* Cambia el color de fondo al acercar el ratón */
+  color: #fff; /* Cambia el color del texto al acercar el ratón */
+}
+
+/* Estilo para el botón al hacer clic */
+.custom-button:active {
+  background-color: rgba(218, 20, 103, 0.8); /* Cambia el color de fondo al hacer clic */
+  color: #fff; /* Cambia el color del texto al hacer clic */
+}
+
+.slick-dots {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.slick-dots li {
+  display: inline-block;
+  margin: 0 5px;
+}
+
+.slick-dots {
+  position: absolute;
+  top: 450px; /* Ajusta esta propiedad para controlar la distancia desde la parte superior */
+  right: 10px; /* Ajusta esta propiedad para controlar la distancia desde la derecha */
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.slick-dots li {
+  display: inline-block;
+  margin-right: 5px; /* Espaciado entre los puntos (dots) */
+}
+
+.slick-dots li button {
+  font-size: 16px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+}
+
+.slick-dots li.slick-active button {
+  background-color: #e0198a; /* Cambia el color de fondo para el botón activo */
+}
+.elemento-por-encima {
+  z-index: 2;
+}
+
+.elemento-detras {
+  z-index: 1;
+}
+.elemento {
+  position: relative; /* Otra opción: absolute, fixed, etc. */
+}
+.iconos {
+  width: 40px; /* Tamaño personalizado */
+  height: 40px; /* Tamaño personalizado */
+ 
+}
+.custom-button {
+  display: flex;
+  align-items: center; /* Alinea verticalmente el texto y la imagen */
+}
+
+
+
+/* Agrega estos estilos CSS en un archivo .css o .scss */
+
+.custom-input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc; /* Borde personalizado */
+  border-radius: 4px;
+  outline: none;
+  transition: border-color 0.2s;
+
+  /* Estilo al enfocar el input */
+  &:focus {
+    border-color: #e80980; /* Cambiar el color del borde al enfocar */
+  }
+}
+
+/* Estilos para los botones de opciones */
+.custom-button {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+
+  /* Estilo al hacer hover en el botón */
+  &:hover {
+    background-color: #dfa8d0;
+  }
+
+  
+}
+
+/* Estilos para el campo de archivo */
+.custom-file-input {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+
+  /* Estilo al hacer hover en el campo de archivo */
+  &:hover {
+    background-color: #ddd;
+  }
+}
+

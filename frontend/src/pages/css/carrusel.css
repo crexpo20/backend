@@ -1,0 +1,363 @@
+.carousel-slide {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Alinea los elementos al final y los separa */
+    height: 55vh; /* Asegura que el slide ocupe todo el espacio vertical */
+    
+    padding: 20px; /* Agrega espacio entre el contenido y los bordes del slide */
+  }
+
+  .button-container{
+    position: relative; /* Importante para posicionar el botón dentro del contenedor */
+ 
+  }
+  
+  .next {
+    position: absolute;
+    bottom: 10px; /* Ajusta la distancia desde la parte inferior según tus necesidades */
+    right: 10px; /* Ajusta la distancia desde la parte derecha según tus necesidades */
+    padding: 10px 20px;
+    background:none;
+    color:  #DA1467;
+    font-size: 40px;
+  }
+
+  .prev{
+    background:none;
+    color:  #DA1467;
+   font-size: 40px;
+   position: absolute;
+    bottom: 10px; /* Ajusta la distancia desde la parte inferior según tus necesidades */
+    left: 10px; /* Ajusta la distancia desde la parte derecha según tus necesidades */
+    padding: 10px 20px;
+    color:  #DA1467;
+    font-size: 40px;
+  }
+
+  .prev:hover{
+    background-color: unset;
+  }
+
+  .next:hover{
+    background-color: unset;
+  }
+
+  .icon-option-label.selected {
+    border: 2px solid #007bff; /* Color del borde al seleccionar */
+    padding: 5px; /* Espacio interno para resaltar el borde */
+    border-radius: 5px; /* Bordes redondeados para resaltar */
+  }
+  
+  /* Estilos para el label no seleccionado */
+  .icon-option-label {
+    border: 1px solid #ccc; /* Color del borde predeterminado */
+    padding: 4px; /* Espacio interno predeterminado */
+    border-radius: 4px; /* Bordes redondeados predeterminados */
+    margin: 5px; /* Márgenes para separar los labels */
+    cursor: pointer; /* Cambia el cursor al pasar el mouse para indicar que es interactivo */
+  }
+
+  .property-type-label.selected {
+    border: 2px solid #DA1467;
+    border-radius: 6px;
+  }
+  .property-type-label{
+    display: flex;
+    font-size: 30px;
+    color: #DA1467;
+    font-family: 'JejuMyeongjo'
+  }
+  
+   
+  .property-options {
+   
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: 'JejuMyeongjo';
+    color: #DA1467;
+    font-size: 30vh;
+
+  }
+  .property-options #cuerpo{
+   
+    padding-top: 18%;
+    padding-left: 18%;
+
+  }
+  .property-options-label{
+  }
+  #borde{
+    padding-left: 50%;
+  }
+  h3{
+    color: #DA1467;
+    text-align: center;
+    font-size: 35px;
+    font-family: 'JejuMyeongjo';
+  
+  }
+  .option-label.selected {
+    border: 2px solid #DA1467;
+    border-radius: 6px;  }
+  
+  .property-options-label.selected {
+    border: 2px solid #DA1467;
+    border-radius: 6px;
+}
+
+.property-options-label{
+    display: flex;
+    margin-bottom: 10%;
+    align-items: flex-start;
+    font-family: 'JejuMyeongjo';
+    color: #DA1467;
+    font-size: 35px;
+    
+}
+#label-precio{
+    display: inline-block;
+    
+}
+#precioA{
+    font-family: 'JejuMyeongjo';
+    border: none;
+    font-size: 25vh;
+    width: 100%;
+   
+    display: flex;
+}
+#precioA:focus {
+    outline: none;
+  }
+
+
+  #precioA[type="number"]::-webkit-inner-spin-button,
+  #precioA[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0; /* Opcional: puedes ajustar el espaciado según tus preferencias */
+  }
+
+  #titulo h3{
+    text-align: center;
+  }
+  #cuerpo{
+    display: flex;
+    
+  }
+  #cuerpo-izq{
+    
+    width: 50%;
+    padding-top: 10%;
+   
+  }
+  #cuerpo-der{
+    padding-top: 10%;
+    
+    width: 50%;
+  }
+  .property-options-labelniños{
+    background-color: #007bff;
+  }
+
+  
+  .fin{
+    position: absolute;
+    bottom: 10px; 
+      right: 10px;
+        padding: 10px 20px;
+    color:  #DA1467;
+    font-size: 25px;
+  }
+  
+  .property-type-selection {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+  .property-type-label {
+    flex: 1 1 calc(50% - 10px); 
+     margin: 5px;
+     margin-top:10% ; 
+  }
+
+
+  .property-info {
+    padding-top: 2%;
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .property-info .left {
+    flex-basis: 45%; /* Ajusta el ancho del lado izquierdo según tus necesidades */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .property-info .right {
+    flex-basis: 45%; /* Ajusta el ancho del lado derecho según tus necesidades */
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .property-info label {
+    padding-top: 18%;
+    display: flex;
+    flex-direction: column;
+    
+  }
+  
+  .property-info input {
+    border: none;
+    border-bottom: 1px solid #000; /* Borde inferior */
+    outline: none;
+  }
+
+ 
+  input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+#info, #info2{
+  padding-left: 20%;
+
+}
+#indotext1{
+  margin-left: 0;
+  width: 300px;
+}
+.property-info .right label,
+.property-info .right input {
+  color:  #DA1467;
+  font-size:x-large;
+  font-family: 'JejuMyeongjo';
+  display: inline-block;
+  width: 50%;
+}
+
+.property-info .right label:last-child,
+.property-info .right input:last-child {
+  margin-right: 0; /* Elimina el margen derecho del último elemento */
+  
+}
+
+.property-info .left label,
+.property-info .left input {
+  color:  #DA1467;
+  font-size:x-large;
+  font-family: 'JejuMyeongjo';
+  display: inline-block;
+ width: 60%;
+}
+
+.property-info .left label:last-child,
+.property-info .left input:last-child {
+  margin-right: 0; /* Elimina el margen derecho del último elemento */
+}
+
+.property-info .right input {
+  border: none;
+  border-bottom: 2px solid #dddcdc; /* Borde inferior */
+  
+  transition: border-bottom 1s; }
+
+.property-info .right input:focus {
+  border-color: #DA1467; /* Color del borde al seleccionar el input */
+  outline: none; /* Elimina el contorno predeterminado de enfoque */
+}
+
+.property-info .left input {
+  border: none;
+  border-bottom: 2px solid #dddcdc; /* Borde inferior */
+  
+  transition: border-bottom 1s; }
+
+.property-info .left input:focus {
+  border-color: #DA1467; /* Color del borde al seleccionar el input */
+  outline: none; /* Elimina el contorno predeterminado de enfoque */
+}
+  
+.property-title-description h2, h2{
+  color:  #DA1467;
+  font-family: 'JejuMyeongjo';
+}
+
+#titulo{
+  
+  font-family: 'JejuMyeongjo';
+  padding: 8px;
+  border-radius:5px ;
+  font-size: larger;
+  border: none;
+  border-bottom: 2px solid #ccc; /* Borde inferior */
+  width: 100%;
+  transition: border-bottom 0.3s; 
+}
+#titulo:focus {
+  outline: none; 
+  border-radius: 5px;/* Quita el borde predeterminado al hacer clic */
+  border: 2px solid rgba(218, 20, 103, 0.85); /* Color del borde inferior al estar seleccionado */
+}
+
+#descripcion{
+  
+  font-family: 'JejuMyeongjo';
+  padding: 8px;
+  font-size: larger;
+  border-radius:5px ;
+
+  border: 2px solid #ccc; /* Borde inferior */
+  width: 100%;
+  height: 18vh;
+  transition: border-bottom 0.3s; 
+  resize: none;
+}
+
+#descripcion:focus {
+  outline: none; 
+  border-radius: 5px;/* Quita el borde predeterminado al hacer clic */
+  border: 2px solid rgba(218, 20, 103, 0.85); /* Color del borde inferior al estar seleccionado */
+}
+
+#normas{
+  
+  font-family: 'JejuMyeongjo';
+  padding: 8px;
+  font-size: larger;
+  border-radius:5px ;
+  border: 2px solid #ccc; /* Borde inferior */
+  width: 100%;
+  height: 20vh;
+  transition: border-bottom 0.3s; 
+  resize: none;
+}
+#normas:focus {
+  outline: none; 
+  border-radius: 5px;/* Quita el borde predeterminado al hacer clic */
+  border: 2px solid rgba(218, 20, 103, 0.85); /* Color del borde inferior al estar seleccionado */
+}
+
+.property-price #cuerpo{
+}
+.property-price #cuerpo #cuerpo-der{
+ padding-left: 28%;
+  margin-top: 9%;
+  font-size: 40px;
+}
+
+.property-type-labels {
+  flex: 1 1 calc(50% - 10px); 
+   margin: 5px; 
+}
+.property-type-labels.selected {
+  border: 2px solid #DA1467;
+  border-radius: 6px;
+}
+.property-type-labels{
+  display: flex;
+  padding-left: 45%;
+  font-size: 23px;
+  color: #DA1467;
+  font-family: 'JejuMyeongjo'
+}

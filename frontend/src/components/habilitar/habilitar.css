@@ -1,0 +1,161 @@
+*,
+::before,
+::after{
+    margin :0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.react-modalHabilitar-overlay{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+    background-color: rgba(0,0,0,0.1);
+    z-index: 1;
+}
+
+.react-modalHabilitar-wrapper{
+    max-width: 500px;
+    margin: 12rem auto;
+}
+
+.react-modalHabilitar-content{
+    position: relative;
+    background-color: #ffffff;
+    border: 1px solid rgba(0,0,0,0.3)  ;
+    border-radius: 1rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.react-modalHabilitar-header,
+.react-modalHabilitar-body,
+.react-modalHabilitar-footer{
+    padding: 1rem;
+}
+
+.react-modalHabilitar-body{
+    background-color: aqua;
+}
+.react-modalHabilitar-header{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 35%;
+    border-bottom: 1px solid #dedede;
+}
+
+.react-modalHabilitar-header .react-modalHabilitar-title{
+    line-height: 1.5;
+    font-size: 1.25rem;
+    text-align: center;
+    
+}
+
+.react-modalHabilitar-body .formHabilitar{
+     margin-left: none;
+}
+
+.react-modalHabilitar-body .formHabilitar #primerValor #nombre{
+    background-color: beige;
+    margin-left: 0;
+}
+
+
+
+
+
+.react-modalHabilitar-body {
+    padding-top: 5%;
+    
+    
+}
+
+.react-modalhabilitar-body #body-huespedes #huesped-lista a{
+    font-family: 'JejuMyeongjo';
+    font-size: large;
+}
+#Lugar{
+    color: rgba(11, 4, 44, 0.85);
+    background: none;
+    font-family: 'JejuMyeongjo';
+    font-size: 20px;
+    padding-top: 0.5%;
+    padding-bottom: 0.5%;
+    padding-left: 0;
+}
+
+#btn-menu{
+    border-radius: 25px;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    
+   
+}
+#elementosmenu{
+    display: flex;
+}
+#elementos{
+    width: 50%;
+    align-items: center;
+}
+
+#btn-menu:hover {
+    box-shadow: 0 0 3px rgba(112, 111, 111, 0.5); /* Agrega una sombra al botón en el estado "hover" */
+}
+
+.form-group {
+    margin-bottom: 10px;
+    padding-right: 15%;
+  }
+  
+  #valor {
+    display: inline-block;
+    width: 120px; /* Ajusta el ancho según tus necesidades */
+    text-align: left;
+    margin-right: 30px; /* Espacio entre label e input */
+    font-weight: bold; /* Opcional, agrega negrita si lo deseas */
+    
+  }
+  
+  #ingresar {
+    display: inline-block;
+    width: 200px; /* Ajusta el ancho según tus necesidades */
+    padding: 5px;
+    border: none;
+    border-bottom: 2px solid #ccc; /* Borde inferior */
+    
+    transition: border-bottom 0.3s; 
+  }
+ 
+  
+  #ingresar:focus {
+    outline: none; 
+    border-radius: 5px;/* Quita el borde predeterminado al hacer clic */
+    border: 2px solid rgba(218, 20, 103, 0.85); /* Color del borde inferior al estar seleccionado */
+  }
+
+  .initbuton{
+    margin-right: 35%;
+    margin-bottom: 15px;
+  }
+
+
+
+  
+#activar-button:hover
+ {  color:#ffffff;
+    background-color: rgba(218, 20, 103, 0.85);
+    box-shadow: 0 0 3px rgba(112, 111, 111, 0.5); /* Agrega una sombra al botón en el estado "hover" */
+}
+
+
+#activar-button
+{
+    background: none;
+    font-family: 'JejuMyeongjo';
+    font-size: 15px;
+}

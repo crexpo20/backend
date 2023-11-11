@@ -1,0 +1,14 @@
+.modalWhere{
+    display: flex;
+    flex-direction: column;
+    width:600px ;
+    height: 600px;
+}
+
+.containerWhere{
+    display: flex;
+    padding: 10px;
+    height: 400px;
+    width: 400px;
+    overflow: hidden;
+}
