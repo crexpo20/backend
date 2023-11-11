@@ -171,7 +171,7 @@ class RegisterPage extends Component{
         return response;
       }
       
-      const respuestaJson = await postProducto( "http://127.0.0.1:8000/api/postusuario", usuario);
+      const respuestaJson = await postProducto( "https://telossuite.amicornios.com/api/postusuario", usuario);
 
       console.log("Response:------> " + respuestaJson.status);
       // Mostrar el objeto por consola
