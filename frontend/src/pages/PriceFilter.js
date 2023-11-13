@@ -4,16 +4,18 @@ import React, { useState, useEffect } from 'react';
 // Importando el archivo de estilos CSS
 import '../CSS/PriceFilters.css';
 
+
 function PriceFilter(props) {
   // Estados para manejar los precios mínimo y máximo, y para controlar la visibilidad del filtro
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
+  const [minPrice, setMinPrice] = useState(localStorage.getItem('precioMinimo') || '');
+  const [maxPrice, setMaxPrice] = useState(localStorage.getItem('precioMaximo') || '');
   const [showFilter, setShowFilter] = useState(true);
   // Estados para manejar las selecciones de habitaciones, camas y baños
-  const [selectedRoom, setSelectedRoom] = useState('Cualquiera');
-  const [selectedBed, setSelectedBed] = useState('Cualquiera');
-  const [selectedBath, setSelectedBath] = useState('Cualquiera');
-
+  const [selectedRoom, setSelectedRoom] = useState(localStorage.getItem('habitaciones') || 'Cualquiera');
+  const [selectedBed, setSelectedBed] = useState(localStorage.getItem('camas') || 'Cualquiera');
+  const [selectedBath, setSelectedBath] = useState(localStorage.getItem('baños') || 'Cualquiera');
+  const [rating, setRating] = useState(0);
+  const [hoverAt, setHoverAt] = useState(null);
   // Agrega un nuevo estado para los servicios con un objeto que contenga cada servicio
   const [services, setServices] = useState({
     wifi: 0,
@@ -29,22 +31,30 @@ function PriceFilter(props) {
     compartido: 0
   });
   
-  // Efecto para cargar los precios guardados en el localStorage cuando el componente se monta
-  useEffect(() => {
-    const storedMinPrice = localStorage.getItem('minPrice');
-    const storedMaxPrice = localStorage.getItem('maxPrice');
 
-    if (storedMinPrice) setMinPrice(storedMinPrice);
-    if (storedMaxPrice) setMaxPrice(storedMaxPrice);
+  useEffect(() => {
+    resetFilterValues();
   }, []);
+  const resetFilterValues = () => {
+    setMinPrice('');
+    setMaxPrice('');
+    setSelectedRoom('Cualquiera');
+    setSelectedBed('Cualquiera');
+    setSelectedBath('Cualquiera');
+    // ... restablece otros estados si es necesario ...
+  };
 
   // Funciones para manejar los cambios en los inputs de precios mínimo y máximo
   const handleMinPriceChange = (e) => {
-    setMinPrice(e.target.value);
+    const value = e.target.value;
+    setMinPrice(value);
+    localStorage.setItem('precioMinimo', value);
   };
 
   const handleMaxPriceChange = (e) => {
-    setMaxPrice(e.target.value);
+    const value = e.target.value;
+    setMaxPrice(value);
+    localStorage.setItem('precioMaximo', value);
   };
 
   // Función para cerrar el filtro de precios
@@ -55,24 +65,38 @@ function PriceFilter(props) {
   // Función para manejar la submit del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Precio mínimo:', minPrice);
-    console.log('Precio máximo:', maxPrice);
-    // Aquí puedes agregar la lógica para filtrar y actualizar la vista
-    // Por ejemplo: props.updateResults(minPrice, maxPrice)
-    setShowFilter(false);
+    localStorage.setItem('precioMinimo', minPrice);
+    localStorage.setItem('precioMaximo', maxPrice);
+    
+    // Dispara un evento personalizado para notificar que los precios han cambiado
+    window.dispatchEvent(new CustomEvent('priceFilterChanged', {
+      detail: {
+        minPrice: minPrice,
+        maxPrice: maxPrice,
+        rooms: selectedRoom,
+        beds: selectedBed,
+        baths: selectedBath
+      }
+    }));
+  
+    setShowFilter(false); // Suponiendo que esto cierra tu modal de filtro
   };
-  // Funciones para manejar las selecciones de habitaciones, camas y baños
-  const handleRoomSelection = (room) => {
+  
+   // Funciones para manejar las selecciones de habitaciones, camas y baños y guardar en localStorage
+   const handleRoomSelection = (room) => {
     setSelectedRoom(room);
+    localStorage.setItem('habitaciones', room);
   };
 
   const handleBedSelection = (bed) => {
     setSelectedBed(bed);
+    localStorage.setItem('camas', bed);
   };
 
   const handleBathSelection = (bath) => {
     setSelectedBath(bath);
-  };
+    localStorage.setItem('baños', bath);
+  }; 
 
  // Función para manejar los cambios en las casillas de verificación de los servicios
  const handleServiceChange = (service) => {
@@ -99,12 +123,15 @@ function PriceFilter(props) {
       <div className="price-filter-container">
         <div className="price-filter-popup" style={{ overflowY: 'auto', maxHeight: '500px' }}>
           <div className="filter-header">
-            <span className="filter-title">Filtro</span>
-            <button className="close-button" onClick={handleCloseClick}>
-              <AiOutlineCloseCircle />
-            </button>
+          <div className="title-container">
+          <span className="filter-title">Filtro</span>
+        <button className="close-button" onClick={handleCloseClick}>
+          <AiOutlineCloseCircle />
+        </button>
+            </div>
+           
           </div>
-          <div className="line"></div>
+         
           <h2>Rango de Precios</h2>
           <div className="price-inputs">
             <div className="input-group">
@@ -203,9 +230,27 @@ function PriceFilter(props) {
           </label>
         </div>
 
-        <form onSubmit={handleSubmit}>
-          <button type="submit" className="submit-button">Aceptar</button>
-        </form>
+        <div className="rating-container">
+        <h2 className="calificacion-title">Calificación:</h2>
+        {[...Array(5)].map((n, i) => (
+          <span 
+            key={i}
+            className={`star ${i < (hoverAt || rating) ? "selected" : ""}`}
+            onClick={() => setRating(i + 1)}
+            onMouseEnter={() => setHoverAt(i + 1)}
+            onMouseLeave={() => setHoverAt(null)}
+          >
+            &#9733;
+          </span>
+        ))}
+      </div>
+
+
+        <div className="accept-button-container">
+          <form onSubmit={handleSubmit}>
+            <button type="submit" className="submit-button">Aceptar</button>
+          </form>
+        </div>
       </div>
     </div>
   )

@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 70vh; 
+  }
+  
+  .pagoGrid {
+    display: grid;
+    grid-template-columns: 1fr;
+    border-radius: 5%;
+    width: 70%;
+    height: 70%;
+    background-color: rgb(252, 167, 181);
+    text-align: center;
+  }
+  .pagoGrid h1 {
+    font-size: 35px;
+    font-family: 'JejuMyeongjo';
+    margin-top: 30px; 
+    margin-left: 250px;
+  }
+  .pagoGrid p {
+    margin-left: 370px;
+  }
+  .pagoGrid button {
+    background-color: #b1b1b1;
+    font-size: 20px;
+    font-family: 'JejuMyeongjo';
+    color: black;
+    border: none;
+    padding: 10px 20px;
+    margin: 15px; 
+    cursor: pointer;
+  }
+  
+  .pagoGrid button:hover {
+    background-color: #DA1467;
+  }

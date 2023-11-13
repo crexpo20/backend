@@ -1,0 +1,64 @@
+.Grid1 {
+    display: flex;
+    flex-direction: row; 
+    align-items: center; 
+    grid-template-columns: 1fr 2fr;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+    border: 1px solid #ccc; 
+  }
+
+  .TituloInfHost{
+    position:relative;
+    margin-top: 2%;
+    text-align: left;
+    display: flex;
+    color: black;
+    font-family: 'JejuMyeongjo';
+    font-size: 35px;
+  }
+
+  .telefono-btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin-left: 150px;
+    background: none;
+  }
+  .telefono-btn img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .InfHostInm{
+    display: grid;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+    grid-template-columns: 1fr;
+    border: 1px solid #ccc; 
+  }
+
+  .Inf1 {
+    display: flex;
+    align-items: center;
+    
+  }
+  .Inf1 label{
+    float: left;
+  }
+
+  label{
+    font-family: 'JejuMyeongjo';
+    font-size: 25px;
+    margin-top: 12px;
+    margin-left: 70px;
+  }
+
+  .Inf1 button{
+    float: right;
+  }

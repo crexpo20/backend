@@ -10,6 +10,8 @@ root.render(
   <React.StrictMode>
     
      <App />
+     <script src="https://widget.cloudinary.com/v2.0/global/all.js" type="text/javascript"></script>
+  
   </React.StrictMode>
 );
 

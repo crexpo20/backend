@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between; /* Alinea los elementos al final y los separa */
-    height: 55vh; /* Asegura que el slide ocupe todo el espacio vertical */
+    height: 62vh; /* Asegura que el slide ocupe todo el espacio vertical */
     
     padding: 20px; /* Agrega espacio entre el contenido y los bordes del slide */
   }
@@ -69,7 +69,17 @@
   }
   
    
-  .property-options {
+  .property-options  {
+   
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: 'JejuMyeongjo';
+    color: #DA1467;
+    font-size: 30vh;
+
+  }
+
+  .property-options   {
    
     flex-direction: column;
     align-items: flex-start;
@@ -137,8 +147,28 @@
     margin: 0; /* Opcional: puedes ajustar el espaciado según tus preferencias */
   }
 
-  #titulo h3{
+  .slick-prev,
+.slick-next {
+  font-size: 24px;
+  color: #000; /* Cambia el color según tus preferencias */
+}
+
+.slick-prev {
+  left: 10px;
+}
+
+.slick-next {
+  right: 10px;
+}
+
+  #titulo h3,
+  .property-images h3,
+  .property-done h3
+  {
     text-align: center;
+    color:  #DA1467;
+    font-size:xx-large;
+    font-family: 'JejuMyeongjo';
   }
   #cuerpo{
     display: flex;

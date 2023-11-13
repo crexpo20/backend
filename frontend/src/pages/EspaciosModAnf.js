@@ -1,22 +1,33 @@
-import React, {Component} from 'react';
-import {Link, Outlet } from 'react-router-dom';
-import { sitios } from '../sitios';
+import React, { Component } from 'react';
+import {  Link, Outlet } from 'react-router-dom';
 import iconoEliminar from '../iconos/iconoEliminar.png';
-class EspaciosModAnf extends Component{
-  state = {
-    sitios: [], 
-    modalAbierto: false,
-    sitioSeleccionado: null,
-  };
-  eliminarSitio = (sitio) => {
-    // Filtra la lista de sitios para excluir el sitio que se va a eliminar
-    const nuevosSitios = this.state.sitios.filter((s) => s.id !== sitio.id);
-    // Actualiza el estado para reflejar la lista sin el sitio eliminado
-    this.setState({
-      sitios: nuevosSitios,
-      modalAbierto: false, // Cierra el modal después de eliminar
-      sitioSeleccionado: null, // Limpia el sitio seleccionado
-    });
+import axios from 'axios';
+import Slider from 'react-slick';
+import 'slick-carousel/slick/slick.css';
+
+import '../CSS/slick.css'
+class EspaciosModAnf extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      inmueble: [],
+      modalAbierto: false,
+      sitioSeleccionado: null,
+    };
+    this.getProductos = this.getProductos.bind(this);
+  }
+
+  componentDidMount() {
+    this.getProductos();
+  }
+
+  getProductos = async () => {
+    try {
+      const response = await axios.get('http://127.0.0.1:8000/api/getinmuebles');
+      this.setState({ inmueble: response.data });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   handleEliminarClick = (sitio) => {
@@ -34,90 +45,97 @@ class EspaciosModAnf extends Component{
     this.setState({ modalAbierto: false });
   };
 
-  //RUTAS
+  eliminarSitio = (sitio) => {
+    // Agrega tu lógica para eliminar el sitio, por ejemplo, una llamada a la API
+    console.log(`Eliminando sitio: ${sitio.id}`);
+    // Luego actualiza el estado o realiza otras acciones necesarias
+    // this.setState({ inmueble: updatedData });
+    // ...
+  };
 
-         /*const onSubmit = async (e)=>{
-          e.preventDefault();
-          const newInmueble={
-            idinmueble: this.state.idinmueble,
-            tipopropiedad: this.state.tipopropiedad,
-            tituloanuncio: this.state.tituloanuncio,
-            descripcion: this.state.descripcion,
-            ubicacion: this.state.ubicacion,
-            precio: this.state.precio,
-            capacidad: this.state.capacidad,
-            habitaciones: this.state.habitaciones,
-            baños: this.state.baños,
-            camas: this.state.camas,
-            niños: this.state.niños,
-            normas: this.state.normas,
-            mascotas: this.state.mascotas,
-            qr: this.state.qr,
-          }
-          
-          try {
-            await Axios.post('/postinmuebles', newInmueble);
-            // Cualquier código que deba ejecutarse después de que la solicitud POST sea exitosa puede ir aquí.
-          } catch (error) {
-            // Maneja los errores aquí
-            console.error(error);
-          }
-        } */
-  
-    render(){
-        
-        return(
-          <>
-          
-          <body>
-          <h4>Tus espacios</h4>
-                
-                <div>
-                    { sitios.map (sitio =>(
-                        <div class='verinm' key = {sitio.id}>
-                            <div class='InmueblesHost'>
-                            <img class='inmueble_fot' src="https://picsum.photos/280/280"></img>
-                            
-                            <h3 class='inmueble_name'>{sitio.nombre}</h3>
-                            <div class='inmueble_info'>
-                                <p class='inmDet'>{sitio.desc}</p>
-                                <p class='inmCamas'>{sitio.camas}</p>
-                                <p class='inmPrecio'>{sitio.precio}</p>
-                            </div>
-                            <div class='BotonesEditEli'>
+  render() {
+    // Configuración del carrusel
+    const carouselSettings = {
+      
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      arrows:true
+      
+    };
+
+    return (
+      <>
+        <body>
+          <div className="verinm">
+            {this.state.inmueble.map((sitio) => {
+              if (sitio.idusuario === parseInt(localStorage.getItem('userID'))) {
+                return (
+                  <div className="InmueblesHost" key={sitio.id}>
+                    <Slider {...carouselSettings}>
+                      <div>
+                        <img className="inmueble_fot" src={sitio.imagen1} alt="Inmueble 1" />
+                      </div>
+                      <div>
+                       <img className="inmueble_fot" src={sitio.imagen2} alt="Inmueble 2" />
+                      </div>
+                      <div>
+                        <img className="inmueble_fot" src={sitio.imagen3} alt="Inmueble 1" />
+                      </div>
+                      <div>
+                        <img className="inmueble_fot" src={sitio.imagen4} alt="Inmueble 1" />
+                      </div>
+                      <div>
+                        <img className="inmueble_fot" src={sitio.imagen5} alt="Inmueble 1" />
+                      </div>
+                  </Slider>
+                     
+                    <h3 className="inmueble_name">{sitio.tipopropiedad}</h3>
+                    <div className="inmueble_info">
+                      <p className="inmDet">{sitio.idinmueble}</p>
+                      <p className="inmCamas">{sitio.camas}</p>
+                      <p className="inmPrecio">{sitio.precio}</p>
+                    </div>
+
+                    <div class='BotonesEditEli'>
                                 <div class='BotonEditar'>
-                                    <Link to={`/cliente/${sitio.id}`}>editar</Link>
+                                    <Link to={`/cliente/${sitio.idinmueble}`}>editar</Link>
                                 </div>
                                 <button className="eliminar-btn" onClick={() => this.handleEliminarClick(sitio)}>
                                   <img src={iconoEliminar} alt="Eliminar" />
                                 </button>
                             </div>
-                        </div>
-                        </div>
-                    )
-                    )
 
-                    }
-                        {/* Modal de confirmación para el BOTON ELIMINAR */}
-                            {this.state.modalAbierto && (
-                            <div className="modalEliminar">
-                                <div className="modal-contenido">
-                                <p>¿Estás seguro que deseas eliminar {this.state.sitioSeleccionado ? this.state.sitioSeleccionado.nombre : ''}?</p>
-                                <br></br>
-                                <button onClick={this.confirmarEliminacion}>Eliminar</button>
-                                <button onClick={this.confirmarElimi}>Cancelar</button>
-                                </div>
-                            </div>
-                        )}
+                    <div className="BotonesEditEli">
+                      <button className="eliminar-btn" onClick={() => this.handleEliminarClick(sitio)}>
+                        <img src={iconoEliminar} alt="Eliminar" />
+                      </button>
+                    </div>
+                  </div>
+                );
+              }
+
+              return null;
+            })}
+
+            {/* Modal de confirmación para el BOTON ELIMINAR */}
+            {this.state.modalAbierto && (
+              <div className="modalEliminar">
+                <div className="modal-contenido">
+                  <p>¿Estás seguro que deseas eliminar {this.state.sitioSeleccionado ? this.state.sitioSeleccionado.nombre : ''}?</p>
+                  <br />
+                  <button onClick={this.confirmarEliminacion}>Eliminar</button>
+                  <button onClick={this.confirmarElimi}>Cancelar</button>
                 </div>
-                    
-          </body>
-          
-          <Outlet />
-          </>
-          
-        );
-      }
-      
+              </div>
+            )}
+          </div>
+        </body>
+        <Outlet />
+      </>
+    );
   }
-  export default EspaciosModAnf;
+}
+
+export default EspaciosModAnf;

@@ -53,11 +53,13 @@ const ModalCuantosHeader = ({ children }) => {
   );
 };
 
+// ...
+
 const ModalCuantosBody = ({ onValuesChange }) => {
   const { onClose } = useContext(ModalCuantosContext);
   const [adultos, setAdultos] = useState(localStorage.getItem("huespedes") || "");
-  const [infantes, setInfantes] = useState(localStorage.getItem("niños") || "");
-  const [mascotas, setMascotas] = useState(localStorage.getItem("mascotas") || "");
+  const [infantes, setInfantes] = useState(localStorage.getItem("niños") === "1");
+  const [mascotas, setMascotas] = useState(localStorage.getItem("mascotas") === "1");
   const [tipo, setTipo] = useState(localStorage.getItem("tipo") || "");
 
   const handleAdultosChange = (event) => {
@@ -66,16 +68,14 @@ const ModalCuantosBody = ({ onValuesChange }) => {
     localStorage.setItem("huespedes", newValue); // Actualiza el valor en localStorage
   };
 
-  const handleInfantesChange = (event) => {
-    const newValue = event.target.value;
-    setInfantes(newValue);
-    localStorage.setItem("niños", newValue); // Actualiza el valor en localStorage
+  const handleInfantesChange = () => {
+    setInfantes(!infantes); // Cambia el valor entre verdadero y falso
+    localStorage.setItem("niños", infantes ? "0" : "1"); // Actualiza el valor en localStorage
   };
 
-  const handleMascotasChange = (event) => {
-    const newValue = event.target.value;
-    setMascotas(newValue);
-    localStorage.setItem("mascotas", newValue); // Actualiza el valor en localStorage
+  const handleMascotasChange = () => {
+    setMascotas(!mascotas); // Cambia el valor entre verdadero y falso
+    localStorage.setItem("mascotas", mascotas ? "0" : "1"); // Actualiza el valor en localStorage
   };
 
   const handleTipoChange = (event) => {
@@ -86,7 +86,7 @@ const ModalCuantosBody = ({ onValuesChange }) => {
 
   const handleButtonClick = () => {
     // Llamar a la función onValuesChange y pasar los valores
-    onValuesChange(adultos, infantes, mascotas, tipo);
+    onValuesChange(adultos, infantes ? "1" : "0", mascotas ? "1" : "0", tipo);
     onClose();
   };
 
@@ -94,7 +94,7 @@ const ModalCuantosBody = ({ onValuesChange }) => {
     <div className="react-modal-body">
       <div id="body-huespedes">
         <div id="huesped-lista">
-          <a id="huesped-a"> Adultos: </a>
+          <a id="huesped-a"> Cantidad de personas: </a>
           <input
             type="number"
             placeholder={localStorage.getItem("huespedes")}
@@ -107,44 +107,30 @@ const ModalCuantosBody = ({ onValuesChange }) => {
           />
         </div>
         <div id="huesped-lista">
-          <a id="huesped-a"> Infantes: </a>
-          <input
-            type="number"
-            placeholder={localStorage.getItem("niños")}
-            id="tentacles"
-            name="tentacles"
-            min="0"
-            max="100"
-            value={infantes}
-            onChange={handleInfantesChange}
-          />
+          <label>
+            <input
+              type="checkbox"
+              checked={infantes}
+              onChange={handleInfantesChange}
+            />{" "}
+            Niños
+          </label>
         </div>
         <div id="huesped-lista">
-          <a id="huesped-a"> Mascotas: </a>
-          <input
-            type="number"
-            placeholder={localStorage.getItem("mascotas")}
-            id="tentacles"
-            name="tentacles"
-            min="0"
-            max="100"
-            value={mascotas}
-            onChange={handleMascotasChange}
-          />
+          <label>
+            <input
+              type="checkbox"
+              checked={mascotas}
+              onChange={handleMascotasChange}
+            />{" "}
+            Mascotas
+          </label>
         </div>
-        <div id="huesped-lista">
-          <a id="huesped-a"> tipo: </a>
-          <input
-            type="text"
-            placeholder={localStorage.getItem("tipo")}
-            id="tentacles"
-            name="tentacles"
-            value={tipo}
-            onChange={handleTipoChange}
-          />
-        </div>
+        
       </div>
-      <button type="button" onClick={handleButtonClick}>Aceptar</button>
+      <button type="button" onClick={handleButtonClick}>
+        Aceptar
+      </button>
     </div>
   );
 };

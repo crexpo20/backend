@@ -1,7 +1,6 @@
-// Navbar.js
 
 import React, { useState, useEffect } from 'react';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet, useNavigate,NavLink } from 'react-router-dom';
 import { RiHomeSmileLine } from 'react-icons/ri';
 import PriceFilter from '../pages/PriceFilter';
 import { HiArrowsRightLeft } from 'react-icons/hi2';
@@ -56,9 +55,8 @@ function Navbar() {
   };
 
   const handleReloadTarija = () => {
-    navigate(`/${destino}`);
+    navigate(`/busqueda`);
     console.log(localStorage.getItem("camas"))
-    window.location.reload();
   };
 
   const toggleModoAnfPopup = () => {
@@ -148,53 +146,64 @@ function Navbar() {
             <ul id="listaCat">
             <li id="cat">
                   <Link to="/home">
-                    <div class="icon">
+                    <div className="icon">
                       <i id="logo-nav">
                         <PiHouseLine />
                       </i>
                     </div>
-                    Tu búsqueda
+                    Inicio
                   </Link>
                 </li>
                 <li id="cat">
-                  <Link to="/Casa">
+
+                <NavLink to="/busqueda"  activeClassName="active">
+                <div class="icon">
+                      <i id="logo-nav">
+                        <PiHouseLine />
+                      </i>
+                    </div>
+                    Tu busqueda
+                </NavLink>
+                </li>
+                <li id="cat">
+                  <NavLink to="/Casa"  activeClassName="active">
                     <div class="icon">
                       <i id="logo-nav">
                         <RiHomeLine />
                       </i>
                     </div>
                     Casa
-                  </Link>
+                  </NavLink>
                 </li>
                 <li id="cat">
-                  <Link to="/Departamento">
+                  <NavLink to="/Departamento"  activeClassName="active">
                     <div class="icon">
                       <i id="logo-nav">
                         <PiSwimmingPool />
                       </i>
                     </div>
                     Departamento
-                  </Link>
+                  </NavLink>
                 </li>
                 <li id="cat">
-                  <Link to="/Cabaña">
+                  <NavLink to="/Cabaña"  activeClassName="active">
                     <div class="icon">
                       <i id="logo-nav">
                         <MdCabin />
                       </i>
                     </div>
                     Cabaña
-                  </Link>
+                  </NavLink>
                 </li>
               <li id="cat">
-                    <Link to="/Habitacion">
+                    <NavLink to="/Habitacion"  activeClassName="active">
                       <div class="icon">
                         <i id="logo-nav">
                           <FaMountainCity />
                         </i>
                       </div>
                       Habitación
-                    </Link>
+                    </NavLink>
                   </li>
               </ul>
           </div>

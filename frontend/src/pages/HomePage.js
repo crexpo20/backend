@@ -6,6 +6,8 @@ import { inmuebles } from '../components/inmuebles';
 import iconocorazon1 from '../iconos/corazon1.png';
 import iconocorazon2 from '../iconos/corazon2.png';
 
+import PriceFilterService from './PriceFilterService';
+
 import axios from "axios";
 import ModalInicio from '../components/inicioSesion/inicio';
 class HomePage extends Component {
@@ -14,6 +16,8 @@ class HomePage extends Component {
     this.state={
       inmueble:[],
       favorites: [],
+      allInmuebles: [], 
+       inmueble: [], 
       showLoginModal: false,
     }
     this.getProductos = this.getProductos.bind(this);
@@ -26,11 +30,13 @@ toggleFavorite = (sitio) => {
     const { favorites } = this.state;
     const sitioId = sitio.idinmueble;
   
-    if (favorites.includes(sitioId)) {
+    if (sitio.favorito === 0) {
       const updatedFavorites = favorites.filter((id) => id !== sitioId);
       this.setState({ favorites: updatedFavorites }, () => {
         console.log('Favoritos actualizados:', this.state.favorites);
-      });
+      }
+      );
+      console.log("no está")
     } else {
       this.setState(
         { favorites: [...favorites, sitioId] },
@@ -38,6 +44,7 @@ toggleFavorite = (sitio) => {
           console.log('Favoritos actualizados:', this.state.favorites);
         }
       );
+      console.log("ya está")
   }
   
   }else{
@@ -57,17 +64,63 @@ getFavoritos() {
 
 componentDidMount(){
   this.getProductos();
- 
+  window.addEventListener('priceFilterChanged', this.handlePriceFilterChange);
 }
 
-getProductos=async()=>{
-  await axios.get('https://telossuite.amicornios.com/api/getinmuebles')
+componentWillUnmount() {
+  window.removeEventListener('priceFilterChanged', this.handlePriceFilterChange);
+}
+
+// En tu componente HomePage
+// En tu componente HomePage
+
+handlePriceFilterChange = (event) => {
+  // Parsea los valores de los detalles del evento
+  const minPrice = parseInt(event.detail.minPrice, 10) || 0;
+  const maxPrice = parseInt(event.detail.maxPrice, 10) || Infinity;
+  const rooms = event.detail.selectedRoom || 'Cualquiera'; // Asegúrate de que estos nombres coincidan con los nombres de las propiedades de tus detalles del evento
+  const beds = event.detail.selectedBed || 'Cualquiera';
+  const baths = event.detail.selectedBath || 'Cualquiera';
+
+  // Filtra primero por precio
+  let nuevosInmueblesFiltrados = PriceFilterService.filterByPrice(this.state.allInmuebles, minPrice, maxPrice);
+
+  // Luego filtra por habitaciones, camas y baños
+  nuevosInmueblesFiltrados = PriceFilterService.filterByRoomsBedsBaths(nuevosInmueblesFiltrados, rooms, beds, baths);
+
+  // Actualiza el estado con los inmuebles filtrados
+  this.setState({
+    inmueble: nuevosInmueblesFiltrados,
+    minPrice,
+    maxPrice,
+    // Aquí asumimos que tienes estado para habitaciones, camas y baños también
+    selectedRoom: rooms,
+    selectedBed: beds,
+    selectedBath: baths
+  });
+}
+
+
+/*getProductos=async()=>{
+  await axios.get('http://127.0.0.1:8000/api/getinmuebles')
   .then(res=>{
       this.setState({inmueble: res.data});
       console.log(this.state.inmueble)
   }).catch((error)=>{
       console.log(error);
   });
+}*/
+// Dentro de la clase HomePage
+getProductos = async () => {
+  try {
+    const response = await axios.get('http://127.0.0.1:8000/api/getinmuebles');
+    this.setState({
+      allInmuebles: response.data, // Guarda la lista completa de inmuebles
+      inmueble: response.data,     // Inicializa la lista filtrada igual a la completa
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 

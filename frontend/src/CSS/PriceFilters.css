@@ -1,8 +1,8 @@
 .price-filter-popup { 
   background-color: #ffffff;
-  padding: 2rem;  /* 20px */
+  padding: 0;  /* 20px */
   border: 1px solid #ccc;
-  border-radius: 1rem;  /* 5px */
+  border-radius: 0.5rem;  /* 5px */
   box-shadow: 0 0 0.625rem rgba(0, 0, 0, 0.2);  /* 10px */
   text-align: center;
   font-family: 'JejuMyeongjo';
@@ -13,24 +13,32 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: relative;
-  padding: 0.625rem 0;  /* 10px 0 */
+  padding: 1.5rem;  /* 10px 0 */
+  position: sticky;
+  top: 0;
+  background: #FFFFFF;
+  z-index: 1000;
+  text-align: center;
+  border-bottom: 2px solid #b0b0b0;
+  
 }
 
 .filter-title {
   background-color: #ffffff;
-  position: absolute;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-1%);
   top: -0.625rem;  /* 10px */
-  padding: 0 0.3125rem;  /* 5px */
+  padding: 0rem;  /* 5px */
+  display: inline-block;
+  font-size: 24px;
+  
 }
-
-.line {
-  height: 1px;
-  background-color: rgb(0, 0, 0);
-  margin-top: 0.625rem;  /* 10px */
-  margin-bottom: 0.625rem;  /* 10px */
+.title-container {
+  text-align: center;
+  width: calc(100% - 1px); /* Ajusta este valor si tu botón de cierre es más grande o más pequeño */
+  margin: 0;
+  padding: 0;
+  display: block;
 }
 
 .close-button {
@@ -40,9 +48,10 @@
   color: #DA1467;
   cursor: pointer;
   position: absolute;
-  top: -0.625rem;  /* -10px */
+  top: 0.2rem;  /* -10px */
   right: 0;
   padding: 0;
+  z-index: 1000000;
 }
 
 .close-button:hover {
@@ -55,6 +64,8 @@
   margin-bottom: 1rem;  /* 10px */
   color: #DA1467;
   font-family: 'JejuMyeongjo';
+  text-align: center;
+  width: 100%;
 }
 
 .price-inputs {
@@ -75,6 +86,16 @@
   border: 1px solid #ccc;
   border-radius: 0.1875rem;  /* 3px */
   font-family: 'JejuMyeongjo';
+}
+
+.accept-button-container {
+  position: sticky;
+  bottom: 0;
+  width: 100%; /* Esto debería ocupar todo el ancho del elemento padre */
+  padding-top: 0rem;
+  padding-bottom: 0.5rem;
+  background: white;
+  box-sizing: border-box;
 }
 
 .submit-button {
@@ -114,6 +135,7 @@
 
 .price-filter-container {
   padding: 20px;
+  z-index: 1001;
 }
 
 .filter-section h2 {
@@ -208,6 +230,36 @@ label {
   justify-items: start; /* Alinea los elementos de la cuadrícula individualmente a la izquierda */
   text-align: left; /* Alinea el texto dentro de los elementos a la izquierda */
 }
-.tipo-inmueble-inputs > label { /* Aplica los mismos estilos a las etiquetas de ambos contenedores */
-  justify-self: start; /* Alinea individualmente cada etiqueta a la izquierda dentro de su celda de cuadrícula */
+.tipo-inmueble-inputs > label { 
+  justify-self: start; 
+}
+/* Añade margen a la izquierda del primer botón */
+.selector-button:first-child {
+  margin-left: 25px;
+}
+
+/* Añade margen a la derecha del último botón */
+.selector-button:last-child {
+  margin-right: 25px; 
+}
+
+.star {
+  cursor: pointer; /* Esto muestra un cursor tipo "mano" que indica que el elemento es clickeable */
+  font-size: 25px; /* Ajusta esto según sea necesario */
+  color: #ccc; /* Color por defecto de las estrellas */
+  transition: color 0.2s; /* Esto es opcional, para una transición suave al cambiar el color */
+}
+
+.star.selected {
+  color: #DA1467; /* Color de las estrellas cuando están seleccionadas */
+}
+
+/* Estos estilos son opcionales para mejorar la interactividad visual */
+.star:hover {
+  color: #DA1467; /* Color al pasar el mouse sobre las estrellas */
+}
+
+.calificacion-title {
+  color: #DA1467;/* Usa el mismo color que para los otros títulos */
+  margin-bottom: 0.5rem; /* Añade un espacio entre el título y las estrellas */
 }

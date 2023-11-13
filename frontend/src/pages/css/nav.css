@@ -11,10 +11,22 @@
     list-style: none;
     text-align: center;
     display: block;
-    border-right: 1px solid rgba(0, 0, 0, 0.2);
-  }
+  
+    
+ }
+
+ .headerdetail
+ {
+  background-color: aqua;
+ }
  #listaCat #cat a{
     text-decoration: none;
     padding: 0 25px;
     display: block;
+  }
+  .active {
+    background-color: rgb(255, 0, 144);
+    color: white; /* Cambia este valor al color que desees */
+    border-radius: 10px;
+    
   }

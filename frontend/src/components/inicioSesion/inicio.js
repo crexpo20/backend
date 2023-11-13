@@ -61,8 +61,8 @@ const ModalInicioBody = ({ onValuesChange }) => {
     console.log(formData.username)
   
     try {
-      const userData1 = await axios.get(`https://telossuite.amicornios.com/api/getusername/${formData.username}`);
-      const userData2 = await axios.get(`https://telossuite.amicornios.com/api/getcorreo/${formData.username}`);
+      const userData1 = await axios.get(`http://127.0.0.1:8000/api/getusername/${formData.username}`);
+      const userData2 = await axios.get(`http://127.0.0.1:8000/api/getcorreo/${formData.username}`);
        console.log(userData1.data.length)
        console.log(userData2.data.length)
       if (userData1.data.length > 0) {
@@ -73,7 +73,8 @@ const ModalInicioBody = ({ onValuesChange }) => {
           localStorage.setItem("userID", userData1.data[0].idusuario)
           localStorage.setItem("anfitrion", userData1.data[0].anfitrion)
            console.log("exito"); 
-          onClose(); 
+           window.location.reload();
+          
         } else {
           setError("Contraseña incorrecta.");
         }
@@ -85,7 +86,8 @@ const ModalInicioBody = ({ onValuesChange }) => {
             localStorage.setItem("init",1)
             localStorage.setItem("userID", userData2.data[0].idusuario)
             localStorage.setItem("anfitrion", userData2.data[0].anfitrion)
-             console.log("exito"); 
+            console.log("exito"); 
+            window.location.reload();
             onClose(); 
           } else {
             setError("Contraseña incorrecta.");

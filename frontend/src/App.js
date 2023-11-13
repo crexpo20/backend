@@ -7,8 +7,8 @@ function App() {
   const [localStorageData, setLocalStorageData] = useState({
     destino: "CualquierLUgar",
     huespedes: 1,
-    niños: 0,
-    mascotas: 0,
+    niños: 1,
+    mascotas: 1,
     tipo: "cualquiera",
     precioMinimo: 50,
     precioMaximo: 200,
@@ -66,10 +66,10 @@ function App() {
       localStorage.setItem('huespedes', 1);
     }
     if (niños === null) {
-      localStorage.setItem('niños', 0);
+      localStorage.setItem('niños', 1);
     }
     if (mascotas === null) {
-      localStorage.setItem('mascotas', 0);
+      localStorage.setItem('mascotas', 1);
     }
     if (tipo === null) {
       localStorage.setItem('tipo', 'cualquiera');

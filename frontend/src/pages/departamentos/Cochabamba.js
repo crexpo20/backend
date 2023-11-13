@@ -18,7 +18,7 @@ componentDidMount(){
 }
 
 getProductos=async()=>{
-  await axios.get('https://telossuite.amicornios.com/api/getinmuebles')
+  await axios.get('http://127.0.0.1:8000/api/getinmuebles')
   .then(res=>{
       this.setState({inmueble: res.data});
       console.log(this.state.inmueble)

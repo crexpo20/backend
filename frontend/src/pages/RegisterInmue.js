@@ -1,9 +1,16 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { BsHouse } from 'react-icons/bs';
 import { IoIosArrowDroprightCircle } from 'react-icons/io';
 import { IoIosArrowDropleftCircle } from 'react-icons/io';
 import { MdApartment } from 'react-icons/md';
 import "./css/carrusel.css";
+import {RiHomeSmileLine} from "react-icons/ri";
+import { Link, Outlet,useNavigate  } from 'react-router-dom';
+import {default as Subir} from './servicio-img';
+import Swal from 'sweetalert';
+import { withRouter } from 'react-router-dom';
+import MapaRegistro from '../pages/MapaRegistro.js';
+import credentials from '../pages/credentials.js';
 
 class RegisterInmue extends Component {
   constructor(props) {
@@ -25,7 +32,7 @@ class RegisterInmue extends Component {
         normas: '',
         mascotas: 0,
         qr: '',
-        cuidad: '',
+        ciudad: '',
         wifi: 0,
         parqueo: 0,
         cocina: 0,
@@ -37,6 +44,16 @@ class RegisterInmue extends Component {
         titleCharacterCount: 0,
         descriptionCharacterCount: 0,
         normasCharacterCount: 0,
+        imagen1:"",
+        descripcion1:"",
+        imagen2:"",
+        descripcion2:"",
+        imagen3:"",
+        descripcion3:"",
+        imagen4:"",
+        descripcion4:"",
+        imagen5:"",
+        descripcion5:"",
       },
       
       propertyTypes: [
@@ -69,7 +86,7 @@ class RegisterInmue extends Component {
   }
 
   handleNextSlide = () => {
-    if (this.state.currentSlide < 14) {
+    if (this.state.currentSlide < 20) {
       this.setState(
         (prevState) => ({
           currentSlide: prevState.currentSlide + 1,
@@ -84,21 +101,21 @@ class RegisterInmue extends Component {
       formData[field] = value;
   
       if (field === "tituloanuncio") {
-        // Contar los caracteres del título y actualizar el estado
         this.setState({ titleCharacterCount: value.length });
       }
   
       return { formData };
     });
   };
+
+  
   handleNormas = (field, value) => {
     this.setState((prevState) => {
       const formData = { ...prevState.formData };
       formData[field] = value;
   
       if (field === "normas") {
-        // Contar los caracteres del título y actualizar el estado
-        this.setState({ titleCharacterCount: value.length });
+       this.setState({ titleCharacterCount: value.length });
       }
   
       return { formData };
@@ -110,7 +127,7 @@ class RegisterInmue extends Component {
       formData[field] = value;
   
       if (field === "tituloanuncio") {
-        // Contar los caracteres del título y actualizar el estado
+      
         this.setState({ descriptionCharacterCount: value.length });
       }
   
@@ -164,37 +181,100 @@ class RegisterInmue extends Component {
 
   handleCityChange = (city) => {
     this.setState((prevState) => {
-      const formData = { ...prevState.formData, cuidad: city };
+      const formData = { ...prevState.formData, ciudad: city };
       return { formData };
     });
   };
 
+  handleImage1Change = (image) => {
+    this.setState((prevState) => {
+      const formData = { ...prevState.formData, imagen1: image };
+      return { formData };
+    });
+    console.log("Imagen cambiada:", image);
+  };
+  handleImage2Change = (image) => {
+    this.setState((prevState) => {
+      const formData = { ...prevState.formData, imagen2: image };
+      return { formData };
+    });
+    console.log("Imagen cambiada:", image);
+  };
+  handleImage3Change = (image) => {
+    this.setState((prevState) => {
+      const formData = { ...prevState.formData, imagen3: image };
+      return { formData };
+    });
+    console.log("Imagen cambiada:", image);
+  };
 
-  onSubmit = async () => {
+  eliminarEstado = (nombreEstado) => {
+    this.setState((prevState) => {
+      const formData = { ...prevState.formData, [nombreEstado]: "" };
+      return { formData };
+      
+    });
+    console.log("iimage:")
+    console.log("imagen: " + this.state.formData.imagen1)
+  };
+
+
+  handleImage4Change = (image) => {
+    this.setState((prevState) => {
+      const formData = { ...prevState.formData, imagen4: image };
+      return { formData };
+    });
+    console.log("Imagen cambiada:", image);
+  };
+  handleImage5Change = (image) => {
+    this.setState((prevState) => {
+      const formData = { ...prevState.formData, imagen5: image };
+      return { formData };
+    });
+    console.log("Imagen cambiada:", image);
+  };
+
+  onSubmit = async (e) => {
+    e.preventDefault();
       // Crear un objeto con los datos del formulario
       const lugar = {
-         idanfitrion :3,
-         tipopropiedad :this.state.formData.tipopropiedad,
-         tituloanuncio :this.state.formData.tituloanuncio,
-         descripcion :this.state.formData.descripcion,
-         ubicacion :"NOHAY",
-         precio :this.state.formData.precio,
-         capacidad :  this.state.formData.capacidad,
-         habitaciones :this.state.formData.habitaciones,
-         baños :this.state.formData.banos,
-         camas :this.state.formData.camas,
-         niños :this.state.formData.niños,
-         normas :this.state.formData.normas,
-         mascotas :this.state.formData.mascotas,
-         qr :"n hay",
-         ciudad: this.state.formData.cuidad,
-        wifi: this.state.formData.wifi,
-        parqueo: this.state.formData.parqueo,
-        cocina: this.state.formData.cocina,
-        refrigerador: this.state.formData.refrigerador,
-        lavaropa: this.state.formData.lavaropa,
-        piscina: this.state.formData.piscina,
-      };
+        idusuario : parseInt(localStorage.getItem("userID")),
+        tipopropiedad :this.state.formData.tipopropiedad,
+        tituloanuncio :this.state.formData.tituloanuncio,
+        descripcion :this.state.formData.descripcion,
+        ubicacion :"NOHAY",
+        precio :parseInt(this.state.formData.precio),
+        capacidad :  parseInt(this.state.formData.capacidad),
+        habitaciones :parseInt(this.state.formData.habitaciones),
+        baños :parseInt(this.state.formData.banos),
+        camas :parseInt(this.state.formData.camas),
+        niños :this.state.formData.niños,
+        normas :this.state.formData.normas,
+        mascotas :1,
+        qr :"n hay",
+        ciudad: this.state.formData.ciudad,
+       wifi: this.state.formData.wifi,
+       parqueo: this.state.formData.parqueo,
+       cocina: this.state.formData.cocina,
+       refrigerador: this.state.formData.refrigerador,
+       lavaropa: this.state.formData.lavaropa,
+       piscina: this.state.formData.piscina,
+       privado: this.state.formData.privado,
+       compartido: this.state.formData.compartido,
+       estado:0,
+       contacto:65307821,
+       favorito:0,
+       imagen1:this.state.formData.imagen1,
+       descripcion1:this.state.formData.descripcion1,
+       imagen2:this.state.formData.imagen2,
+       descripcion2:this.state.formData.descripcion2,
+       imagen3:this.state.formData.imagen3,
+       descripcion3:this.state.formData.descripcion3,
+       imagen4:this.state.formData.imagen4,
+       descripcion4:this.state.formData.descripcion4,
+       imagen5:this.state.formData.imagen5,
+       descripcion5:this.state.formData.descripcion5
+     };
       const postProducto = async (url, lugar) => {
         const response = await fetch(url, {
                       
@@ -209,12 +289,45 @@ class RegisterInmue extends Component {
         return response;
       }
       
-      const respuestaJson = await postProducto( "https://telossuite.amicornios.com/api/postinmuebles", lugar);
+      const respuestaJson = await postProducto( "http://127.0.0.1:8000/api/postinmuebles", lugar);
 
       console.log("Response:------> " + respuestaJson.status);
-      // Mostrar el objeto por consola
       console.log('Datos de registro:', lugar);
+      if (this.state.currentSlide < 20) {
+        this.setState(
+          (prevState) => ({
+            currentSlide: prevState.currentSlide + 1,
+          })
+        );
+      }
     
+  };
+
+  abrirModalSweetAlert = () => {
+    const { history } = this.props;
+    Swal({
+      title: 'Cancelar registro',
+      text: '¿Estás seguro de que deseas cancelar el registro?',
+      icon: 'warning',
+      buttons: {
+        cancel: 'Cancelar',
+        confirm: {
+          text: 'Confirmar',
+          className: 'btn-confirmar-reg', },
+      },
+      dangerMode: true,
+      customClass: {
+        content: 'custom-swal-content',
+      },
+    }).then((confirmacion) => {
+      if (confirmacion) {
+        window.location.href = '/cliente';
+   
+                 
+      } else {
+         console.log('Acción cancelada');
+      }
+    });
   };
   
 
@@ -222,7 +335,44 @@ class RegisterInmue extends Component {
     const currentSlide = this.state.currentSlide;
     const { formData, propertyTypes, options,privacy, cities} = this.state;
 
+    const mapURL = `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${credentials.mapsKey}`;
+
     return (
+     <>
+      <header>
+            <div id='head'>
+               <div id='head-izq'>
+                </div>
+                    
+          
+               <div id='navReg'>
+               <div id = "logoT">
+                  <i id='logoP'><RiHomeSmileLine/></i>
+                  </div>
+                    
+                  <div id = 'logoL'>
+                  <a id="TelosSuite">TelosSuite</a>
+                  </div>
+               </div>
+
+               <div id='head-der'>
+                </div>
+
+            </div>
+              <div id='navAbajo'>
+              <div id='navRegs'>
+              <div id="reg">Registro de inmueble</div>
+                  </div>
+                  {currentSlide < 17 && 
+                   (
+                      <div  id='opt-nav'>
+                        <button id="btn-volver" onClick={this.abrirModalSweetAlert}>Volver</button>
+                      </div>
+                  )}
+             </div>
+           
+        </header>
+
       <div className="carousel-container">
         <div className="carousel-slide">
           <div className="slide">
@@ -284,7 +434,7 @@ class RegisterInmue extends Component {
             {currentSlide === 2 && (
               
             <div>
-<div id='titulo'>
+                 <div id='titulo'>
                        <h3>Informacion basica sobre tu inmueble</h3>
                 </div>
            <div className="property-info">
@@ -455,7 +605,7 @@ class RegisterInmue extends Component {
                   <label
                     key={index}
                     className={`property-type-labels ${
-                      formData.cuidad === city ? 'selected' : ''
+                      formData.ciudad === city ? 'selected' : ''
                     }`}
                   >
                     {city}
@@ -463,7 +613,7 @@ class RegisterInmue extends Component {
                       type="radio"
                       name="city"
                       value={city}
-                      checked={formData.cuidad === city}
+                      checked={formData.ciudad === city}
                       onChange={() => this.handleCityChange(city)}
                       style={{ display: 'none' }}
                     />
@@ -574,7 +724,7 @@ class RegisterInmue extends Component {
             {currentSlide === 8 && (
               <div className="property-price">
                 <div id='titulo'>
-                    <h3>Es momento de poner un precio a tu inmueble:</h3>
+                    <h3>Ingresa el precio por noche:</h3>
                 </div>
                <div id='cuerpo'>
                 <div id='cuerpo-der'>
@@ -599,8 +749,314 @@ class RegisterInmue extends Component {
                </div>
               </div>
             )}
-            {currentSlide === 9 && (
+
+{currentSlide === 9 && (
+  <div className="property-images">
+      <br>
+      </br>
+      <br></br>
+      <br>
+      </br>
+      <br></br>
+      <h3>A continuación, ingresa 5 imágenes con una breve descripción.</h3>
+      <h3>Se paciente! es para atraer posibles huespedes!</h3>
+ 
+  </div>
+)}
+{currentSlide === 10 && (
+<div>
+  <div className="property-images">
+      <div id='titulo'>
+          <h3>Ingresa la imagen 1 más su descripción</h3>
+      </div>
+  </div>
+  <div className='imagenes'>
+ 
+  <div className='div-izquierdo'> 
+        <div id='img'>
+             <img src={this.state.formData.imagen1}/>
+        </div>
+        
+        <div id='footerimg'>
+        {this.state.formData.imagen1  === "" &&
+           <Subir onImageChange={this.handleImage1Change} />
+        }
+        
+        {this.state.formData.imagen1  !== "" &&
+           <button  onClick={() => this.eliminarEstado('imagen1')}> eliminar </button>
+        }
+        </div>
+        
+  </div>
+
+  <div className='div-derecho'>
+     <br></br>
+     <br></br>
+    <span className="character-count">
+        {formData.descripcion1.length} / 50
+      </span>
+    
+      <textarea
+                 id="descripcion"
+                  name="descripcion"
+                  value={formData.descripcion1}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    if (newValue.length <= 50) {
+                      this.handleDesc("descripcion1", newValue);
+                    }
+                  }}
+                />
+    
+  </div>
+ </div>
+  
+</div>
+ 
+)}
+{currentSlide === 11 && (
+ <div>
+  <div className="property-images">
+      <div id='titulo'>
+          <h3>Ingresa la imagen 2 más su descripción</h3>
+      </div>
+  </div>
+  <div className='imagenes'>
+ 
+  <div className='div-izquierdo'> 
+        <div id='img'>
+             <img src={this.state.formData.imagen2}/>
+        </div>
+        
+        <div id='footerimg'>
+        {this.state.formData.imagen2  === "" &&
+           <Subir onImageChange={this.handleImage2Change} />
+        }
+        
+        {this.state.formData.imagen2 !== "" &&
+           <button  onClick={() => this.eliminarEstado('imagen2')}> eliminar </button>
+        }
+        </div>
+        
+  </div>
+
+  <div className='div-derecho'>
+     <br></br>
+     <br></br>
+    <span className="character-count">
+        {formData.descripcion2.length} / 50
+      </span>
+    
+      <textarea
+                 id="descripcion"
+                  name="descripcion"
+                  value={formData.descripcion2}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    if (newValue.length <= 50) {
+                      this.handleDesc("descripcion2", newValue);
+                    }
+                  }}
+                />
+    
+  </div>
+ </div>
+  
+</div>
+ 
+)}
+{currentSlide === 12 && (
+ <div>
+  <div className="property-images">
+      <div id='titulo'>
+          <h3>Ingresa la imagen 3 más su descripción</h3>
+      </div>
+  </div>
+  <div className='imagenes'>
+ 
+  <div className='div-izquierdo'> 
+        <div id='img'>
+             <img src={this.state.formData.imagen3}/>
+        </div>
+        
+        <div id='footerimg'>
+        {this.state.formData.imagen3  === "" &&
+           <Subir onImageChange={this.handleImage3Change} />
+        }
+        
+        {this.state.formData.imagen3  !== "" &&
+           <button  onClick={() => this.eliminarEstado('imagen3')}> eliminar </button>
+        }
+        </div>
+        
+  </div>
+
+  <div className='div-derecho'>
+     <br></br>
+     <br></br>
+    <span className="character-count">
+        {formData.descripcion3.length} / 50
+      </span>
+    
+      <textarea
+                 id="descripcion"
+                  name="descripcion"
+                  value={formData.descripcion3}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    if (newValue.length <= 50) {
+                      this.handleDesc("descripcion3", newValue);
+                    }
+                  }}
+                />
+    
+  </div>
+ </div>
+  
+</div>
+ 
+)}
+{currentSlide === 13 && (
+ <div>
+  <div className="property-images">
+      <div id='titulo'>
+          <h3>Ingresa la imagen 4 más su descripción</h3>
+      </div>
+  </div>
+  <div className='imagenes'>
+ 
+  <div className='div-izquierdo'> 
+        <div id='img'>
+             <img src={this.state.formData.imagen4}/>
+        </div>
+        
+        <div id='footerimg'>
+        {this.state.formData.imagen4  === "" &&
+           <Subir onImageChange={this.handleImage4Change} />
+        }
+        
+        {this.state.formData.imagen4  !== "" &&
+           <button  onClick={() => this.eliminarEstado('imagen4')}> eliminar </button>
+        }
+        </div>
+        
+  </div>
+
+  <div className='div-derecho'>
+     <br></br>
+     <br></br>
+    <span className="character-count">
+        {formData.descripcion4.length} / 50
+      </span>
+    
+      <textarea
+                 id="descripcion"
+                  name="descripcion"
+                  value={formData.descripcion4}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    if (newValue.length <= 50) {
+                      this.handleDesc("descripcion4", newValue);
+                    }
+                  }}
+                />
+    
+  </div>
+ </div>
+  
+</div>
+ 
+)}
+{currentSlide === 14 && (
+  <div>
+  <div className="property-images">
+      <div id='titulo'>
+          <h3>Ingresa la imagen 5 más su descripción</h3>
+      </div>
+  </div>
+  <div className='imagenes'>
+ 
+  <div className='div-izquierdo'> 
+        <div id='img'>
+             <img src={this.state.formData.imagen5}/>
+        </div>
+        
+        <div id='footerimg'>
+        {this.state.formData.imagen5  === "" &&
+           <Subir onImageChange={this.handleImage5Change} />
+        }
+        
+        {this.state.formData.imagen5  !== "" &&
+           <button  onClick={() => this.eliminarEstado('imagen5')}> eliminar </button>
+        }
+        </div>
+        
+  </div>
+
+  <div className='div-derecho'>
+     <br></br>
+     <br></br>
+    <span className="character-count">
+        {formData.descripcion5.length} / 50
+      </span>
+    
+      <textarea
+                 id="descripcion"
+                  name="descripcion"
+                  value={formData.descripcion5}
+                  onChange={(e) => {
+                    const newValue = e.target.value;
+                    if (newValue.length <= 50) {
+                      this.handleDesc("descripcion5", newValue);
+                    }
+                  }}
+                />
+    
+  </div>
+ </div>
+  
+</div>
+ 
+)}
+
+
+
+
+{currentSlide === 0 && (
+  <div className="property-ubi">
+    <div id='titulo'>
+      <h3>Ingresa la ubicación 1</h3>
+      <div className='MapaRegisInm'>
+                <MapaRegistro 
+                  googleMapURL={mapURL}
+                  containerElement={<div style={{ height: '150%' }}></div>}
+                  mapElement={<div style={{ height: '100%' }}></div>}
+                  loadingElement={<p>Cargando..</p>}
+                  lat="-17.3852993"
+                  lng="-66.2010302"
+                  radio={0}
+                />
+
+              </div>
+    </div>
+  </div>
+)}
+{currentSlide === 16 && (
+  <div className="property-images">
+    <div id='titulo'>
+    <h3>Ingresa la ubicaion 2</h3>
+    </div>
+  </div>
+)}
+
+            {currentSlide === 17 && (
               <div className="property-done">
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
                 <h3>
                   Eso es todo por ahora, tu inmueble ya es visible para los
                   posibles huéspedes!
@@ -610,24 +1066,153 @@ class RegisterInmue extends Component {
           </div>
         </div>
         <div className="button-container">
-          {currentSlide > 0 && (
+          {currentSlide > 0 && currentSlide < 17 &&(
             <button className="prev" onClick={this.handlePrevSlide}>
               <IoIosArrowDropleftCircle/>
             </button>
           )}
-          {currentSlide < 9 && (
+          {currentSlide === 15 && this.state.formData.tipopropiedad !== "" && (
             <button className="next" onClick={this.handleNextSlide}>
               < IoIosArrowDroprightCircle />
             </button>
           )}
-           {currentSlide === 9 && (
-             <button className="fin" type="submit" onClick={console.log(this.state.formData)}>
+          {currentSlide === 1
+           && (
+            <button className="next" onClick={this.handleNextSlide}>
+              < IoIosArrowDroprightCircle />
+            </button>
+          )}
+          {currentSlide === 2 &&
+          (this.state.formData.banos >0) &&
+          (this.state.formData.habitaciones >0) &&
+          (this.state.formData.camas >0) &&
+          (this.state.formData.capacidad  >0)&&
+            (
+            <button className="next" onClick={this.handleNextSlide}>
+              < IoIosArrowDroprightCircle />
+            </button>
+          )}
+
+{currentSlide === 3 &&
+this.state.formData.tituloanuncio !== "" &&
+this.state.formData.descripcion !== "" &&
+(
+            <button className="next" onClick={this.handleNextSlide}>
+              < IoIosArrowDroprightCircle />
+            </button>
+          )} 
+          {currentSlide === 4 && 
+          this.state.formData.normas !== "" &&
+          (
+            <button className="next" onClick={this.handleNextSlide}>
+              < IoIosArrowDroprightCircle />
+            </button>
+          )}
+          {currentSlide === 5 &&
+          (this.state.formData.privado !== 0 || this.state.formData.compartido !== 0) &&
+          (
+            <button className="next" onClick={this.handleNextSlide}>
+              < IoIosArrowDroprightCircle />
+            </button>
+          )}
+          {currentSlide === 6 &&
+          this.state.formData.ciudad !== "" &&
+          (
+            <button className="next" onClick={this.handleNextSlide}>
+              < IoIosArrowDroprightCircle />
+            </button>
+          )}
+          {currentSlide ===  7 &&
+         
+          (
+            <button className="next" onClick={this.handleNextSlide}>
+              < IoIosArrowDroprightCircle />
+            </button>
+          )}
+          {currentSlide ===  8 &&
+          this.state.formData.precio > 0 && 
+         
+         (
+           <button className="next" onClick={this.handleNextSlide}>
+             < IoIosArrowDroprightCircle />
+           </button>
+         )}
+         {currentSlide ===  9 &&
+         
+         (
+           <button className="next" onClick={this.handleNextSlide}>
+             < IoIosArrowDroprightCircle />
+           </button>
+         )}
+         {currentSlide ===  10 &&
+         this.state.formData.imagen1 !== "" &&
+         this.state.formData.descripcion1 !== "" &&
+         (
+           <button className="next" onClick={this.handleNextSlide}>
+             < IoIosArrowDroprightCircle />
+           </button>
+         )}
+         {currentSlide ===  11 &&
+         this.state.formData.imagen2 !== "" &&
+         this.state.formData.descripcion2 !== "" &&
+         (
+           <button className="next" onClick={this.handleNextSlide}>
+             < IoIosArrowDroprightCircle />
+           </button>
+         )}
+         
+         {currentSlide ===  12 &&
+         this.state.formData.imagen3 !== "" &&
+         this.state.formData.descripcion3 !== "" &&
+         (
+           <button className="next" onClick={this.handleNextSlide}>
+             < IoIosArrowDroprightCircle />
+           </button>
+         )}
+         {currentSlide ===  13 &&
+         this.state.formData.imagen4 !== "" &&
+         this.state.formData.descripcion4 !== "" &&
+         (
+           <button className="next" onClick={this.handleNextSlide}>
+             < IoIosArrowDroprightCircle />
+           </button>
+         )}
+         {currentSlide ===  14 &&
+         this.state.formData.imagen5 !== "" &&
+         this.state.formData.descripcion5 !== "" &&
+         (
+           <button className="next" onClick={this.handleNextSlide}>
+             < IoIosArrowDroprightCircle />
+           </button>
+         )}
+         {currentSlide ===  15 &&
+         this.state.formData.imagen1 !== "" &&
+         this.state.formData.descripcion1 !== "" &&
+         (
+           <button className="next" onClick={this.handleNextSlide}>
+             < IoIosArrowDroprightCircle />
+           </button>
+         )}
+         
+         {currentSlide ===  16 &&
+         this.state.formData.imagen1 !== "" &&
+         this.state.formData.descripcion1 !== "" &&
+         (
+          <button className="fin" type="submit" onClick={this.onSubmit}>
+          Registrar
+        </button>
+         )}
+         
+          
+           {currentSlide === 17 && (
+             <button className="fin" type="submit" onClick={this.onSubmit}>
               Finalizar
             </button>
           )}
           
         </div>
       </div>
+      </>
     );
   }
 }

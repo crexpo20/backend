@@ -55,7 +55,7 @@ const ModalMenuHeader = ({ children }) => {
     useEffect(() => {
       const idusuario = localStorage.getItem('userID');
   
-      axios.get(`https://telossuite.amicornios.com/api/getusuario/${idusuario}`)
+      axios.get(`http://127.0.0.1:8000/api/getusuario/${idusuario}`)
         .then((response) => {
           setUserData(response.data);
         })
@@ -89,7 +89,8 @@ const ModalMenuBody = ({props}) => {
     function cerrarSesion() {
         // Establecer la variable localStorage
         localStorage.setItem("init", "0");
-        localStorage.setItem("anfitrion",0)
+        localStorage.setItem("anfitrion",0);
+        localStorage.setItem("userID",0)
         // Recargar la página
         window.location.reload();
     }

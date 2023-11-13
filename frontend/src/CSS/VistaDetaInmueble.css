@@ -4,7 +4,7 @@
     top:0;
     left: 5%;
     padding-right: 5%;
-    margin-top: 12%;
+    margin-top: 0;
     margin-left: 30px;
     padding: 1px 0;
     border-radius: 10px;
@@ -15,7 +15,7 @@
     z-index: 0;
 
   }
-
+ 
   .GridImagenes {
     display: grid;
     grid-template-columns: 2fr 1fr 1fr;
@@ -284,4 +284,65 @@
     font-size: 20px;
     border: none;
     cursor: pointer;
+  }
+
+  .comentario1, .comentario2 {
+    display: flex;
+    flex-direction: column; 
+    align-items: flex-start; 
+    margin-bottom: 20px;
+    padding: 10px; 
+    margin-right: 10%;
+  }
+  
+  .usuario-info1, .usuario-info2 {
+    display: flex; 
+    align-items: center; 
+  }
+  
+  .foto-usuario1, .foto-usuario2 {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%; 
+    margin-right: 20px;
+    margin-bottom: 20px;
+  }
+  
+
+  h3 {
+    font-family: 'JejuMyeongjo';
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0;
+    margin-bottom: 20px;
+  }
+
+  p {
+    margin: 0;
+    font-family: 'JejuMyeongjo';
+    font-size: 25px;
+    text-align: justify;
+  }
+
+  .GridReseñas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+
+  .GridMapa{
+    display: grid;
+    grid-template-columns: 1fr;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 100px;
+    margin-right: 100px;
+  }
+
+  .MapaGoogle {
+    width: 100%; /* Ajusta el ancho según tus necesidades */
+    height: 400px; /* Ajusta la altura según tus necesidades */
   }
