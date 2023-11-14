@@ -1,1 +1,1 @@
-export const URL_API = "http://synergisoft.tis.cs.umss.edu.bo/api";
+export const URL_API = "https://telossuite.amicornios.com/api";

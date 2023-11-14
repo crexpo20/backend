@@ -102,7 +102,7 @@ handlePriceFilterChange = (event) => {
 
 
 /*getProductos=async()=>{
-  await axios.get('http://127.0.0.1:8000/api/getinmuebles')
+  await axios.get('https://telossuite.amicornios.com/api/getinmuebles')
   .then(res=>{
       this.setState({inmueble: res.data});
       console.log(this.state.inmueble)
@@ -113,7 +113,7 @@ handlePriceFilterChange = (event) => {
 // Dentro de la clase HomePage
 getProductos = async () => {
   try {
-    const response = await axios.get('http://127.0.0.1:8000/api/getinmuebles');
+    const response = await axios.get('https://telossuite.amicornios.com/api/getinmuebles');
     this.setState({
       allInmuebles: response.data, // Guarda la lista completa de inmuebles
       inmueble: response.data,     // Inicializa la lista filtrada igual a la completa
