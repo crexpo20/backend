@@ -14,11 +14,7 @@
 
  
 
-  body .verinm .InmueblesHost .slick-prev,
-  body .verinm .InmueblesHost .slick-next {
-  color: #ff00b3 !important;
-  width: 50px;
-}
+ 
   
   .InmueblesHost {
     
@@ -82,4 +78,9 @@
   .favorite-button:hover {
     background: transparent;
     color: inherit;
+  }
+
+  .BotonMasDetalles{
+    text-align: right;
+    margin-bottom: 10px; 
   }

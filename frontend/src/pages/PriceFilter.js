@@ -1,123 +1,143 @@
-// Importando el icono de cerrar de la librería React Icons y los hooks necesarios de React
 import { AiOutlineCloseCircle } from 'react-icons/ai';
 import React, { useState, useEffect } from 'react';
-// Importando el archivo de estilos CSS
+import { useNavigate } from 'react-router-dom';
 import '../CSS/PriceFilters.css';
 
 
+
 function PriceFilter(props) {
-  // Estados para manejar los precios mínimo y máximo, y para controlar la visibilidad del filtro
   const [minPrice, setMinPrice] = useState(localStorage.getItem('precioMinimo') || '');
   const [maxPrice, setMaxPrice] = useState(localStorage.getItem('precioMaximo') || '');
-  const [showFilter, setShowFilter] = useState(true);
-  // Estados para manejar las selecciones de habitaciones, camas y baños
   const [selectedRoom, setSelectedRoom] = useState(localStorage.getItem('habitaciones') || 'Cualquiera');
   const [selectedBed, setSelectedBed] = useState(localStorage.getItem('camas') || 'Cualquiera');
   const [selectedBath, setSelectedBath] = useState(localStorage.getItem('baños') || 'Cualquiera');
-  const [rating, setRating] = useState(0);
-  const [hoverAt, setHoverAt] = useState(null);
-  // Agrega un nuevo estado para los servicios con un objeto que contenga cada servicio
+  const [showFilter, setShowFilter] = useState(true);
   const [services, setServices] = useState({
-    wifi: 0,
-    parqueo: 0,
-    cocina: 0,
-    refrigerador: 0,
-   lavadora: 0,
-    piscina: 0,
+    wifi: parseInt(localStorage.getItem('wifi') || 0),
+    parqueo: parseInt(localStorage.getItem('parqueo') || 0),
+    cocina: parseInt(localStorage.getItem('cocina') || 0),
+    refrigerador: parseInt(localStorage.getItem('refrigerador') || 0),
+    lavadora: parseInt(localStorage.getItem('lavadora') || 0),
+    piscina: parseInt(localStorage.getItem('piscina') || 0),
+    
   });
-  //Estado para privado o compartido
+  const [rating, setRating] = useState(parseInt(localStorage.getItem('rating') || 0));
+  const [hoverAt, setHoverAt] = useState(null);
+  const navigate = useNavigate();
   const [tipoInmueble, setTipoInmueble] = useState({
-    privado: 0,
-    compartido: 0
+    privado: localStorage.getItem('privado') === '1',
+    compartido: localStorage.getItem('compartido') === '1',
   });
-  
 
-  useEffect(() => {
-    resetFilterValues();
-  }, []);
-  const resetFilterValues = () => {
-    setMinPrice('');
-    setMaxPrice('');
-    setSelectedRoom('Cualquiera');
-    setSelectedBed('Cualquiera');
-    setSelectedBath('Cualquiera');
-    // ... restablece otros estados si es necesario ...
-  };
+ 
 
-  // Funciones para manejar los cambios en los inputs de precios mínimo y máximo
-  const handleMinPriceChange = (e) => {
-    const value = e.target.value;
-    setMinPrice(value);
-    localStorage.setItem('precioMinimo', value);
-  };
+ // ...
 
-  const handleMaxPriceChange = (e) => {
-    const value = e.target.value;
-    setMaxPrice(value);
-    localStorage.setItem('precioMaximo', value);
-  };
+const handleMinPriceChange = (event) => {
+  const newMinPrice = event.target.value;
+  setMinPrice(newMinPrice); 
+  localStorage.setItem('precioMinimo', newMinPrice);
+};
 
-  // Función para cerrar el filtro de precios
+const handleMaxPriceChange = (event) => {
+  const newMaxPrice = event.target.value;
+  setMaxPrice(newMaxPrice); 
+  localStorage.setItem('precioMaximo', newMaxPrice);
+};
+
+const handleSelectionChange = (key, value) => {
+  localStorage.setItem(key, value);
+
+  if (key === 'habitaciones') {
+    setSelectedRoom(value);
+  } else if (key === 'camas') {
+    setSelectedBed(value);
+  } else if (key === 'baños') {
+    setSelectedBath(value);
+  }
+};
+
+const handleServiceChange = (serviceKey, newValue) => {
+  const newServiceValue = newValue ? '1' : '0';
+  localStorage.setItem(serviceKey, newServiceValue);
+  setServices(prevServices => ({
+    ...prevServices,
+    [serviceKey]: parseInt(newServiceValue),
+  }));
+};
+
+const handleTipoInmuebleChange = (tipo) => {
+  // Actualiza el estado y el localStorage
+  setTipoInmueble(prevState => {
+    const newValue = !prevState[tipo];
+    localStorage.setItem(tipo, newValue ? '1' : '0');
+    return { ...prevState, [tipo]: newValue };
+  });
+};
+
+// ...
+
+
   const handleCloseClick = () => {
     setShowFilter(false);
   };
 
-  // Función para manejar la submit del formulario
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem('precioMinimo', minPrice);
-    localStorage.setItem('precioMaximo', maxPrice);
-    
-    // Dispara un evento personalizado para notificar que los precios han cambiado
-    window.dispatchEvent(new CustomEvent('priceFilterChanged', {
-      detail: {
-        minPrice: minPrice,
-        maxPrice: maxPrice,
-        rooms: selectedRoom,
-        beds: selectedBed,
-        baths: selectedBath
-      }
-    }));
   
-    setShowFilter(false); // Suponiendo que esto cierra tu modal de filtro
+    // Asegurarse de que los filtros no seleccionados se establezcan en "Cualquiera"
+    localStorage.setItem('habitaciones', selectedRoom || 'Cualquiera');
+    localStorage.setItem('camas', selectedBed || 'Cualquiera');
+    localStorage.setItem('baños', selectedBath || 'Cualquiera');
+    // ... y así para los demás filtros
+  
+    navigate('/Busqueda'); // Navega a la página de búsqueda
+    setShowFilter(false);
   };
   
-   // Funciones para manejar las selecciones de habitaciones, camas y baños y guardar en localStorage
-   const handleRoomSelection = (room) => {
-    setSelectedRoom(room);
-    localStorage.setItem('habitaciones', room);
-  };
+  
+  useEffect(() => {
+    const handleStorageChange = () => {
+      // Actualizar los estados basados en los valores actuales de localStorage.
+      setMinPrice(localStorage.getItem('precioMinimo') || '');
+      setMaxPrice(localStorage.getItem('precioMaximo') || '');
+      setSelectedRoom(localStorage.getItem('habitaciones') || 'Cualquiera');
+      setSelectedBed(localStorage.getItem('camas') || 'Cualquiera');
+      setSelectedBath(localStorage.getItem('baños') || 'Cualquiera');
+      // ... y así sucesivamente para los demás estados que dependan de localStorage.
+    };
 
-  const handleBedSelection = (bed) => {
-    setSelectedBed(bed);
-    localStorage.setItem('camas', bed);
-  };
+    window.addEventListener('storage', handleStorageChange);
 
-  const handleBathSelection = (bath) => {
-    setSelectedBath(bath);
-    localStorage.setItem('baños', bath);
-  }; 
+    // Limpiar el listener cuando el componente se desmonte.
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
 
- // Función para manejar los cambios en las casillas de verificación de los servicios
- const handleServiceChange = (service) => {
-    // Actualiza el estado del servicio conmutando entre 0 y 1
-    setServices((prevServices) => ({
-      ...prevServices,
-      [service]: prevServices[service] === 0 ? 1 : 0,
-    }));
-  };
-
-  const handleTipoInmuebleChange = (tipo) => {
-    // Actualiza el estado de tipoInmueble dependiendo del tipo seleccionado
-    setTipoInmueble({
-      privado: tipo === 'privado' ? 1 : 0,
-      compartido: tipo === 'compartido' ? 1 : 0,
-    });
-  };
+  
+  // ... el resto de tu componente ...
+ 
+  useEffect(() => {
+    // Establecer valores por defecto en localStorage si no existen
+    if (!localStorage.getItem('precioMinimo')) {
+      localStorage.setItem('precioMinimo', '');
+    }
+    if (!localStorage.getItem('precioMaximo')) {
+      localStorage.setItem('precioMaximo', '');
+    }
+    if (!localStorage.getItem('habitaciones')) {
+      localStorage.setItem('habitaciones', 'Cualquiera');
+    }
+    // ... y así para los demás filtros
+  
+    // Actualizar los estados basados en los valores actuales de localStorage.
+    // Esta parte ya está en tu código
+    // ...
+  
+  }, []);
   
 
-;
-  // Renderizado condicional: Si showFilter es true, muestra el filtro de precios
   return (
     showFilter && (
       <div className="price-filter-container">
@@ -138,45 +158,46 @@ function PriceFilter(props) {
               <label htmlFor="minPrice">Mínimo:</label>
               <input
                 type="number"
-                id="minPrice"
-                value={minPrice}
+                id="precioMinimo"
+                value={minPrice} 
                 onChange={handleMinPriceChange}
-                placeholder="Precio mínimo"
-              />
+                 placeholder="Precio mínimo"
+                  />
             </div>
+
             <div className="input-group">
               <label htmlFor="maxPrice">Máximo:</label>
               <input
-                type="number"
-                id="maxPrice"
-                value={maxPrice}
-                onChange={handleMaxPriceChange}
-                placeholder="Precio máximo"
-              />
+               type="number"
+              id="precioMaximo"
+              value={maxPrice} 
+             onChange={handleMaxPriceChange}
+             placeholder="Precio máximo"
+            />
             </div>
           </div>
           
           <h2>Habitaciones y camas</h2>
           <label>Habitaciones</label>
           <div className="selector-group">
-            {['Cualquiera', '1', '2', '3', '4', '5', '6', '7', '8+'].map((room) => (
-              <button
-                key={room}
-                className={`selector-button ${selectedRoom === room ? 'selected' : ''}`}
-                onClick={() => handleRoomSelection(room)}
-              >
-                {room}
-              </button>
+            {['Cualquiera', '1', '2', '3', '4', '5', '6', '7', '8'].map((room) => (
+                 <button
+                 key={room}
+                 className={`selector-button ${selectedRoom === room ? 'selected' : ''}`}
+                 onClick={() => handleSelectionChange('habitaciones', room)}
+               >
+                 {room}
+               </button>
             ))}
           </div>
           
           <label>Camas</label>
           <div className="selector-group">
-            {['Cualquiera', '1', '2', '3', '4', '5', '6', '7', '8+'].map((bed) => (
+            {['Cualquiera', '1', '2', '3', '4', '5', '6', '7', '8'].map((bed) => (
               <button
                 key={bed}
                 className={`selector-button ${selectedBed === bed ? 'selected' : ''}`}
-                onClick={() => handleBedSelection(bed)}
+                onClick={() => handleSelectionChange('camas', bed)}
               >
                 {bed}
               </button>
@@ -185,11 +206,11 @@ function PriceFilter(props) {
   
           <label>Baños</label>
           <div className="selector-group">
-            {['Cualquiera', '1', '2', '3', '4', '5', '6', '7', '8+'].map((bath) => (
+            {['Cualquiera', '1', '2', '3', '4', '5', '6', '7', '8'].map((bath) => (
               <button
                 key={bath}
                 className={`selector-button ${selectedBath === bath ? 'selected' : ''}`}
-                onClick={() => handleBathSelection(bath)}
+                onClick={() => handleSelectionChange('baños', bath)}
               >
                 {bath}
               </button>
@@ -197,38 +218,43 @@ function PriceFilter(props) {
           </div>
           
           <h2>Servicios</h2>
-          <div className="service-inputs">
-            {Object.keys(services).map((serviceKey) => (
-              <label key={serviceKey} className="service-label">
-                <input
-                  type="checkbox"
-                  checked={services[serviceKey] === 1}
-                  onChange={() => handleServiceChange(serviceKey)}
-                />
-                {serviceKey.charAt(0).toUpperCase() + serviceKey.slice(1)}
-              </label>
-            ))}
-          </div>
+        <div className="service-inputs">
+             {Object.keys(services).map((serviceKey) => {
+    // Suponiendo que services[serviceKey] es 1 si está seleccionado, 0 si no lo está
+             const isChecked = localStorage.getItem(serviceKey) === '1';
+            return (
+      <label key={serviceKey} className="service-label">
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={() => handleServiceChange(serviceKey, !isChecked)}
+        />
+        {serviceKey.charAt(0).toUpperCase() + serviceKey.slice(1)}
+      </label>
+    );
+  })}
+</div>
               
-          <h2>Tipo de inmueble</h2>
-        <div className="tipo-inmueble-inputs">
-          <label className="tipo-inmueble-label">
-            <input
-              type="checkbox"
-              checked={tipoInmueble.privado === 1}
-              onChange={() => handleTipoInmuebleChange('privado')}
-            />
-            Privado
-          </label>
-          <label className="tipo-inmueble-label">
-            <input
-              type="checkbox"
-              checked={tipoInmueble.compartido === 1}
-              onChange={() => handleTipoInmuebleChange('compartido')}
-            />
-            Compartido
-          </label>
-        </div>
+<h2>Tipo de inmueble</h2>
+<div className="tipo-inmueble-inputs">
+  <label className="tipo-inmueble-label">
+    <input
+      type="checkbox"
+        checked={tipoInmueble.privado}
+        onChange={() => handleTipoInmuebleChange('privado')}
+      />
+    Privado
+  </label>
+  <label className="tipo-inmueble-label">
+    <input
+      type="checkbox"
+      checked={localStorage.getItem('compartido') === '1'} // Comprueba si el tipo de inmueble compartido está seleccionado
+      onChange={() => handleTipoInmuebleChange('compartido')}
+    />
+    Compartido
+  </label>
+</div>
+
 
         <div className="rating-container">
         <h2 className="calificacion-title">Calificación:</h2>
@@ -255,9 +281,6 @@ function PriceFilter(props) {
     </div>
   )
 );
-  
-
-
    }
 // Exportando el componente para poder usarlo en otros archivos
 export default PriceFilter;

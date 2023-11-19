@@ -12,6 +12,20 @@ import { withRouter } from 'react-router-dom';
 import MapaRegistro from '../pages/MapaRegistro.js';
 import credentials from '../pages/credentials.js';
 
+const coordenadasDepartamentos = {
+  'Santa Cruz': { lat: '-17.7892', lng: '-63.1807' },
+  'La Paz': { lat: '-16.5000', lng: '-68.1500' },
+  Cochabamba: { lat: '-17.3841', lng: '-66.1667' },
+  Oruro: { lat: '-17.9833', lng: '-67.1500' },
+  Potosí: { lat: '-19.5833', lng: '-65.7500' },
+  Tarija: { lat: '-21.5355', lng: '-64.7296' },
+  Sucre: { lat: '-19.0333', lng: '-65.2627' },
+  Beni: { lat: '-14.8347', lng: '-64.9043' },
+  Pando: { lat: '-11.0196', lng: '-68.7778' },
+};
+
+//let marker = {};
+
 class RegisterInmue extends Component {
   constructor(props) {
     super(props);
@@ -54,6 +68,13 @@ class RegisterInmue extends Component {
         descripcion4:"",
         imagen5:"",
         descripcion5:"",
+        latitud:"",
+        longitud:"",
+        pausado:0
+      },
+      markerLocation: {
+        latitud: "",
+        longitud: ""
       },
       
       propertyTypes: [
@@ -94,6 +115,37 @@ class RegisterInmue extends Component {
       );
     }
   };
+
+  //updateMarker = (newMarker) => this.marker = newMarker
+  updateMarker = (newMarker) => {
+    console.log("Nuevo Marcador:", newMarker);
+    const { formData, markerLocation } = this.state;
+
+    // Si no hay latitud y longitud asociadas con el departamento, usa la ubicación del marcador
+    if (formData.latitud === "" && formData.longitud === "") {
+      this.setState({
+        formData: {
+          ...formData,
+          latitud: newMarker.lat.toString(),
+          longitud: newMarker.lng.toString(),
+        },
+        markerLocation: {
+          latitud: newMarker.lat.toString(),
+          longitud: newMarker.lng.toString(),
+        },
+      });
+    } else {
+      // Latitud y longitud ya establecidas, no actualizamos con la ubicación del marcador
+      this.setState({
+        markerLocation: {
+          latitud: newMarker.lat.toString(),
+          longitud: newMarker.lng.toString(),
+        },
+      });
+    }
+  };
+  
+
 
   handleTitulo = (field, value) => {
     this.setState((prevState) => {
@@ -273,7 +325,10 @@ class RegisterInmue extends Component {
        imagen4:this.state.formData.imagen4,
        descripcion4:this.state.formData.descripcion4,
        imagen5:this.state.formData.imagen5,
-       descripcion5:this.state.formData.descripcion5
+       descripcion5:this.state.formData.descripcion5,
+       latitud: this.state.formData.latitud.toString(), 
+       longitud: this.state.formData.longitud.toString(), 
+       pausado:0,
      };
       const postProducto = async (url, lugar) => {
         const response = await fetch(url, {
@@ -289,7 +344,7 @@ class RegisterInmue extends Component {
         return response;
       }
       
-      const respuestaJson = await postProducto( "https://telossuite.amicornios.com/api/postinmuebles", lugar);
+      const respuestaJson = await postProducto( "http://127.0.0.1:8000/api/postinmuebles", lugar);
 
       console.log("Response:------> " + respuestaJson.status);
       console.log('Datos de registro:', lugar);
@@ -302,6 +357,10 @@ class RegisterInmue extends Component {
       }
     
   };
+  terminar = () =>{
+    console.log('context:: ', this.marker);
+    window.location.href = '/cliente';
+  }
 
   abrirModalSweetAlert = () => {
     const { history } = this.props;
@@ -330,6 +389,15 @@ class RegisterInmue extends Component {
     });
   };
   
+  getInitialLatForCity = (city) => {
+    console.log("Ciudad seleccionada (Lat):", city);
+    return coordenadasDepartamentos[city] ? coordenadasDepartamentos[city].lat : 0;
+  };
+  
+  getInitialLngForCity = (city) => {
+    console.log("Ciudad seleccionada (Lng):", city);
+    return coordenadasDepartamentos[city] ? coordenadasDepartamentos[city].lng : 0;
+  };
 
   render() {
     const currentSlide = this.state.currentSlide;
@@ -1021,33 +1089,27 @@ class RegisterInmue extends Component {
 
 
 
-
-{currentSlide === 0 && (
+{currentSlide === 15 && (
   <div className="property-ubi">
     <div id='titulo'>
-      <h3>Ingresa la ubicación 1</h3>
+      <h3>Ingresa la ubicación en {this.state.formData.ciudad}</h3>
       <div className='MapaRegisInm'>
-                <MapaRegistro 
-                  googleMapURL={mapURL}
-                  containerElement={<div style={{ height: '150%' }}></div>}
-                  mapElement={<div style={{ height: '100%' }}></div>}
-                  loadingElement={<p>Cargando..</p>}
-                  lat="-17.3852993"
-                  lng="-66.2010302"
-                  radio={0}
-                />
+        <MapaRegistro 
+          googleMapURL={mapURL}
+          containerElement={<div style={{ height: '150%' }}></div>}
+          mapElement={<div style={{ height: '100%' }}></div>}
+          loadingElement={<p>Cargando..</p>}
+          lat={this.state.formData.latitud ? this.state.formData.latitud :this.getInitialLatForCity(this.state.formData.ciudad)}
+          lng={this.state.formData.longitud ? this.state.formData.longitud :this.getInitialLngForCity(this.state.formData.ciudad)}
+          radio={0}
+          updateMarker={this.updateMarker}
+        />
+      </div>
+      
+    </div>
+  </div>
+)}
 
-              </div>
-    </div>
-  </div>
-)}
-{currentSlide === 16 && (
-  <div className="property-images">
-    <div id='titulo'>
-    <h3>Ingresa la ubicaion 2</h3>
-    </div>
-  </div>
-)}
 
             {currentSlide === 17 && (
               <div className="property-done">
@@ -1066,12 +1128,12 @@ class RegisterInmue extends Component {
           </div>
         </div>
         <div className="button-container">
-          {currentSlide > 0 && currentSlide < 17 &&(
+          {currentSlide > 0 && currentSlide < 16 &&(
             <button className="prev" onClick={this.handlePrevSlide}>
               <IoIosArrowDropleftCircle/>
             </button>
           )}
-          {currentSlide === 15 && this.state.formData.tipopropiedad !== "" && (
+          {currentSlide === 0 && this.state.formData.tipopropiedad !== "" && (
             <button className="next" onClick={this.handleNextSlide}>
               < IoIosArrowDroprightCircle />
             </button>
@@ -1185,14 +1247,14 @@ this.state.formData.descripcion !== "" &&
              < IoIosArrowDroprightCircle />
            </button>
          )}
-         {currentSlide ===  15 &&
-         this.state.formData.imagen1 !== "" &&
-         this.state.formData.descripcion1 !== "" &&
+         {currentSlide === 15 && 
+         this.state.formData.latitud !== "" && this.state.formData.longitud !== "" && 
          (
-           <button className="next" onClick={this.handleNextSlide}>
-             < IoIosArrowDroprightCircle />
-           </button>
-         )}
+          <button className="next" onClick={this.handleNextSlide}>
+            <IoIosArrowDroprightCircle />
+          </button>
+          
+          )}
          
          {currentSlide ===  16 &&
          this.state.formData.imagen1 !== "" &&
@@ -1205,7 +1267,7 @@ this.state.formData.descripcion !== "" &&
          
           
            {currentSlide === 17 && (
-             <button className="fin" type="submit" onClick={this.onSubmit}>
+             <button className="fin" type="submit" onClick={this.terminar}>
               Finalizar
             </button>
           )}
@@ -1218,3 +1280,4 @@ this.state.formData.descripcion !== "" &&
 }
 
 export default RegisterInmue;
+

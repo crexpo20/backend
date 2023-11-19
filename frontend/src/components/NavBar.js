@@ -55,8 +55,13 @@ function Navbar() {
   };
 
   const handleReloadTarija = () => {
-    navigate(`/busqueda`);
-    console.log(localStorage.getItem("camas"))
+
+    if (window.location.pathname === '/busqueda') {
+      window.location.href = '/busqueda';
+    } else {
+      navigate(`/busqueda`);
+    }
+ 
   };
 
   const toggleModoAnfPopup = () => {
@@ -144,27 +149,27 @@ function Navbar() {
         <div id="navAbajo">
           <div id="nav">
             <ul id="listaCat">
-            <li id="cat">
-                  <Link to="/home">
-                    <div className="icon">
-                      <i id="logo-nav">
-                        <PiHouseLine />
-                      </i>
-                    </div>
-                    Inicio
-                  </Link>
-                </li>
-                <li id="cat">
+                                  <li id="cat">
+                                <Link to="/home">
+                                  <div className="icon">
+                                    <i id="logo-nav">
+                                      <PiHouseLine />
+                                    </i>
+                                  </div>
+                                  Inicio
+                                </Link>
+                                    </li>
+                               <li id="cat">
 
-                <NavLink to="/busqueda"  activeClassName="active">
-                <div class="icon">
-                      <i id="logo-nav">
-                        <PiHouseLine />
-                      </i>
-                    </div>
-                    Tu busqueda
-                </NavLink>
-                </li>
+                              <NavLink to="/busqueda"  activeClassName="active">
+                              <div class="icon">
+                                    <i id="logo-nav">
+                                      <PiHouseLine />
+                                    </i>
+                                  </div>
+                                  Tu busqueda
+                              </NavLink>
+                               </li>
                 <li id="cat">
                   <NavLink to="/Casa"  activeClassName="active">
                     <div class="icon">

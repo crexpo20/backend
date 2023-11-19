@@ -4,14 +4,14 @@
     top:0;
     left: 5%;
     padding-right: 5%;
-    margin-top: 0;
+    margin-top: 12%;
     margin-left: 30px;
     padding: 1px 0;
     border-radius: 10px;
     display: flex;
     color: black;
     font-family: 'JejuMyeongjo';
-    font-size: 35px;
+    font-size: 40px;
     z-index: 0;
 
   }
@@ -263,7 +263,7 @@
     padding: 20px;
     margin-left: 10px;
     width: 95%;
-    height: 55%;
+    height: 350px;
     text-align: center;
     justify-content: center;
     border-radius: 10px;

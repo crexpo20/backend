@@ -4,8 +4,8 @@ import iconoEliminar from '../iconos/iconoEliminar.png';
 import axios from 'axios';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
-
 import '../CSS/slick.css'
+
 class EspaciosModAnf extends Component {
   constructor(props) {
     super(props);
@@ -23,7 +23,7 @@ class EspaciosModAnf extends Component {
 
   getProductos = async () => {
     try {
-      const response = await axios.get('https://telossuite.amicornios.com/api/getinmuebles');
+      const response = await axios.get('http://127.0.0.1:8000/api/getinmuebles');
       this.setState({ inmueble: response.data });
     } catch (error) {
       console.log(error);
@@ -61,7 +61,8 @@ class EspaciosModAnf extends Component {
       speed: 500,
       slidesToShow: 1,
       slidesToScroll: 1,
-      arrows:true
+      arrows:true,
+      
       
     };
 
@@ -70,7 +71,7 @@ class EspaciosModAnf extends Component {
         <body>
           <div className="verinm">
             {this.state.inmueble.map((sitio) => {
-              if (sitio.idusuario === parseInt(localStorage.getItem('userID'))) {
+               if (sitio.idusuario === parseInt(localStorage.getItem('userID'))) {
                 return (
                   <div className="InmueblesHost" key={sitio.id}>
                     <Slider {...carouselSettings}>
@@ -93,25 +94,21 @@ class EspaciosModAnf extends Component {
                      
                     <h3 className="inmueble_name">{sitio.tipopropiedad}</h3>
                     <div className="inmueble_info">
-                      <p className="inmDet">{sitio.idinmueble}</p>
-                      <p className="inmCamas">{sitio.camas}</p>
-                      <p className="inmPrecio">{sitio.precio}</p>
+                      <p className="inmDet">{sitio.titulo}</p>
+                      <p className="inmCamas"> <b>Precio por noche:</b> bs. {sitio.precio}</p>
+                      <p className="inmPrecio"><b>Capacidad:</b>  {sitio.capacidad} persona(s)</p>
+                      <p className="inmPrecio"><b>Normas:</b> {sitio.normas}</p>
                     </div>
-
+                     
                     <div class='BotonesEditEli'>
                                 <div class='BotonEditar'>
                                     <Link to={`/cliente/${sitio.idinmueble}`}>editar</Link>
+                                    
                                 </div>
-                                <button className="eliminar-btn" onClick={() => this.handleEliminarClick(sitio)}>
-                                  <img src={iconoEliminar} alt="Eliminar" />
-                                </button>
+                                
                             </div>
 
-                    <div className="BotonesEditEli">
-                      <button className="eliminar-btn" onClick={() => this.handleEliminarClick(sitio)}>
-                        <img src={iconoEliminar} alt="Eliminar" />
-                      </button>
-                    </div>
+                    
                   </div>
                 );
               }

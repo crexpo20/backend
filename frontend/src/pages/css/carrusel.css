@@ -150,16 +150,9 @@
   .slick-prev,
 .slick-next {
   font-size: 24px;
-  color: #000; /* Cambia el color según tus preferencias */
+  color:transparent; /* Cambia el color según tus preferencias */
 }
 
-.slick-prev {
-  left: 10px;
-}
-
-.slick-next {
-  right: 10px;
-}
 
   #titulo h3,
   .property-images h3,

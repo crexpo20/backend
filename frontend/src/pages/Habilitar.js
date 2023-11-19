@@ -21,7 +21,7 @@ class Habilitar extends Component {
   async actualizarUsuario(userData) {
     try {
       const idusuario = localStorage.getItem('userID'); // ID del usuario que deseas actualizar
-      const response = await axios.put(`https://telossuite.amicornios.com/api/putusuario/${idusuario}`, userData);
+      const response = await axios.put(`http://127.0.0.1:8000/api/putusuario/${idusuario}`, userData);
 
       if (response.status === 200) {
         console.log('Usuario actualizado con éxito.');
@@ -44,7 +44,7 @@ class Habilitar extends Component {
     
     // Actualiza el usuario en la API
     const idusuario = localStorage.getItem('userID'); // ID del usuario que deseas actualizar
-    axios.put(`https://telossuite.amicornios.com/api/putusuario/${idusuario}`, userUp)
+    axios.put(`http://127.0.0.1:8000/api/putusuario/${idusuario}`, userUp)
       .then((response) => {
         if (response.status === 200) {
           console.log('Usuario actualizado con éxito.');
@@ -63,7 +63,7 @@ class Habilitar extends Component {
   componentDidMount() {
     const idusuario = localStorage.getItem('userID');
 
-    axios.get(`https://telossuite.amicornios.com/api/getusuario/${idusuario}`)
+    axios.get(`http://127.0.0.1:8000/api/getusuario/${idusuario}`)
       .then((response) => {
         this.setState({ userData: response.data });
       })

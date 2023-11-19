@@ -8,7 +8,7 @@ const Mapa = ({ lat, lng}) => {
     
     const onLoad = React.useCallback(function callback(map) {
         // Ajusta el nivel de zoom directamente con la posición central
-        map.setZoom(15); 
+        map.setZoom(17); 
         setMap(map);
       }, []);
 
@@ -32,7 +32,7 @@ const Mapa = ({ lat, lng}) => {
   return  isLoaded ? (
     <GoogleMap
       mapContainerStyle={containerStyle}
-      center={{lat: -17.3852993, lng: -66.2010302}}
+      center={center}
       defaultZoom={1} // Puedes ajustar el nivel de zoom según tus necesidades
       onLoad={onLoad}
       onUnmount={onUnmount}
@@ -40,7 +40,7 @@ const Mapa = ({ lat, lng}) => {
       {/* Componente CircleGoogleMap que representa un círculo en el mapa. */}
       <CircleGoogleMap
         center={center}
-        radius={600}
+        radius={200}
         options={{
             fillColor: '#0088FF',
             fillOpacity: 0.35,
