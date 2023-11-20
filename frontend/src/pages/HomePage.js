@@ -29,7 +29,7 @@ class HomePage extends Component {
 
   getProductos = async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/getinmuebles');
+      const response = await axios.get('https://telossuite.amicornios.com/api/getinmuebles');
       this.setState({ inmueble: response.data });
     } catch (error) {
       console.error(error);
@@ -38,7 +38,7 @@ class HomePage extends Component {
 
   getFavorites = async (userID) => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/getfavoritos/${userID}`);
+      const response = await axios.get(`https://telossuite.amicornios.com/api/getfavoritos/${userID}`);
       this.setState({ favorites: response.data });
     } catch (error) {
       console.error('Error al obtener favoritos:', error);
@@ -55,7 +55,7 @@ class HomePage extends Component {
         if (sitioId) {
           const isFavorite = this.state.favorites.find(fav => fav.idinmueble === sitioId);
           if (isFavorite) {
-            response = await axios.delete(`http://127.0.0.1:8000/api/delfavoritos/${userID}/${sitioId}`);
+            response = await axios.delete(`https://telossuite.amicornios.com/api/delfavoritos/${userID}/${sitioId}`);
             if (response.status === 200) {
               const updatedFavorites = this.state.favorites.filter(fav => fav.idinmueble !== sitioId);
               this.setState({ favorites: updatedFavorites });
@@ -63,7 +63,7 @@ class HomePage extends Component {
               console.error('Error al eliminar favorito en el servidor');
             }
           } else {
-            response = await axios.post('http://127.0.0.1:8000/api/postfavorito', {
+            response = await axios.post('https://telossuite.amicornios.com/api/postfavorito', {
               idinmueble: sitioId,
               idusuario: userID,
             });

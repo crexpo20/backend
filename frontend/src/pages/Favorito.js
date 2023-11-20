@@ -18,13 +18,13 @@ class Favorito extends Component {
   componentDidMount() {
     const userID = localStorage.getItem('userID');
 
-    axios.get(`http://127.0.0.1:8000/api/getfavoritos/${userID}`)
+    axios.get(`https://telossuite.amicornios.com/api/getfavoritos/${userID}`)
       .then(response => {
         this.setState({ favorites: response.data });
 
         // Obtener detalles de cada inmueble favorito
         response.data.forEach(favorite => {
-          axios.get(`http://127.0.0.1:8000/api/getinmueble/${favorite.idinmueble}`)
+          axios.get(`https://telossuite.amicornios.com/api/getinmueble/${favorite.idinmueble}`)
             .then(res => {
               const { inmuebleDetails } = this.state;
               const updatedDetails = {

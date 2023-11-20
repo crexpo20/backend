@@ -25,8 +25,8 @@ class PagoBanco extends Component {
 
   getInmuebles = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/getinmuebles/${this.props.params.espaciosID}`);
-      const anfitriondata = await axios.get(`http://127.0.0.1:8000/api/getusuario/${response.data.idusuario}`);
+      const response = await axios.get(`https://telossuite.amicornios.com/api/getinmuebles/${this.props.params.espaciosID}`);
+      const anfitriondata = await axios.get(`https://telossuite.amicornios.com/api/getusuario/${response.data.idusuario}`);
       this.setState({ inmueble: response.data, anfitrion: anfitriondata.data });
     } catch (error) {
       console.log(error);

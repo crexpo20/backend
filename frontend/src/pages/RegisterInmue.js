@@ -346,7 +346,7 @@ class RegisterInmue extends Component {
         return response;
       }
       
-      const respuestaJson = await postProducto( "http://127.0.0.1:8000/api/postinmuebles", lugar);
+      const respuestaJson = await postProducto( "https://telossuite.amicornios.com/api/postinmuebles", lugar);
 
       console.log("Response:------> " + respuestaJson.status);
       console.log('Datos de registro:', lugar);

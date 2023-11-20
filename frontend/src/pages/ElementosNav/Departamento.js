@@ -29,7 +29,7 @@ componentDidMount() {
 }
 getFavorites = async (userID) => {
   try {
-    const response = await axios.get(`http://127.0.0.1:8000/api/getfavoritos/${userID}`);
+    const response = await axios.get(`https://telossuite.amicornios.com/api/getfavoritos/${userID}`);
     this.setState({ favorites: response.data });
   } catch (error) {
     console.error('Error al obtener favoritos:', error);
@@ -45,7 +45,7 @@ toggleFavorite = async (sitio) => {
       if (sitioId) {
         const isFavorite = this.state.favorites.find(fav => fav.idinmueble === sitioId);
         if (isFavorite) {
-          response = await axios.delete(`http://127.0.0.1:8000/api/delfavoritos/${userID}/${sitioId}`);
+          response = await axios.delete(`https://telossuite.amicornios.com/api/delfavoritos/${userID}/${sitioId}`);
           if (response.status === 200) {
             const updatedFavorites = this.state.favorites.filter(fav => fav.idinmueble !== sitioId);
             this.setState({ favorites: updatedFavorites });
@@ -53,7 +53,7 @@ toggleFavorite = async (sitio) => {
             console.error('Error al eliminar favorito en el servidor');
           }
         } else {
-          response = await axios.post('http://127.0.0.1:8000/api/postfavorito', {
+          response = await axios.post('https://telossuite.amicornios.com/api/postfavorito', {
             idinmueble: sitioId,
             idusuario: userID,
           });
@@ -81,7 +81,7 @@ toggleFavorite = async (sitio) => {
 
 
 getProductos=async()=>{
-  await axios.get('http://127.0.0.1:8000/api/getinmuebles')
+  await axios.get('https://telossuite.amicornios.com/api/getinmuebles')
   .then(res=>{
       this.setState({inmueble: res.data});
       console.log(this.state.inmueble)

@@ -46,13 +46,13 @@ class VistaDetalladaInm extends Component {
 
   getInmuebles = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/getinmuebles/${this.props.params.espaciosID}`);
-      const anfitriondata = await axios.get(`http://127.0.0.1:8000/api/getusuario/${response.data.idusuario}`);
-      const comentariosData = await axios.get(`http://127.0.0.1:8000/api/getcomentario/`);
+      const response = await axios.get(`https://telossuite.amicornios.com/api/getinmuebles/${this.props.params.espaciosID}`);
+      const anfitriondata = await axios.get(`https://telossuite.amicornios.com/api/getusuario/${response.data.idusuario}`);
+      const comentariosData = await axios.get(`https://telossuite.amicornios.com/api/getcomentario/`);
       const comentariosFilrados = comentariosData.data.filter(comentario => comentario.idinmueble == this.props.params.espaciosID)
       const comentarios = [];
       for (let i = 0; i < comentariosFilrados.length; i++) {
-        const userComment = await axios.get(`http://127.0.0.1:8000/api/getusuario/${comentariosFilrados[i].idusuario}`);
+        const userComment = await axios.get(`https://telossuite.amicornios.com/api/getusuario/${comentariosFilrados[i].idusuario}`);
         comentarios.push({
           descripcion: comentariosFilrados[i].descripcion,
           nombre: userComment.data.nombre,
