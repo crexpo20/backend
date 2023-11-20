@@ -57,7 +57,7 @@ class ReservaInm extends Component{
       return(
         <>
             <div className='Grid1'>
-                <Link to="/vistaInm" className='BotonAnterior'>
+                <Link to={`/vistaInm/${this.state?.inmueble?.idinmueble}`} className='BotonAnterior'>
                 <IoIosArrowDropleftCircle size={30} />
                 </Link>
                 <h1 className='TituloReserva'>Confirma y paga</h1>
@@ -84,7 +84,7 @@ class ReservaInm extends Component{
                 </div>
                 <div className='Colum2'>
                     <div className="InformacionPrecio">
-                        <h5>INKA PACHA Cabaña con dos camas y baño privado</h5>
+                        <h5>{this.state?.inmueble?.tipopropiedad} en {this.state?.inmueble?.ciudad} - {this.state?.inmueble?.tituloanuncio}</h5>
                         <div className="divisor-plomo"></div>
                         <h2>Información del precio</h2>
                         <div className='total'>
@@ -92,7 +92,7 @@ class ReservaInm extends Component{
                             <h4>Total a pagar Bs. 150</h4>
                         </div>
                         <div>
-                        <Link to='/Pago'>
+                        <Link to={`/Pago/${this.state?.inmueble?.idinmueble}`}>
                             <button className="reserva-button">
                             Pagar ahora
                             </button>

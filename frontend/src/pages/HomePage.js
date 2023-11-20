@@ -132,7 +132,7 @@ class HomePage extends Component {
                       <p className="inmPrecio"><b>Capacidad:</b>  {sitio.capacidad} persona(s)</p>
                       <p className="inmPrecio"><b>Normas:</b> {sitio.normas}</p>
                       <div className='BotonMasDetalles'>
-                      <Link to={`${parseInt(localStorage.getItem("anfitrion")) === 1 ? '/user/' : '/cliente/'}${sitio.idinmueble}`}>Ver más</Link>
+                      <Link to={`/vistaInm/${sitio.idinmueble}`}>Ver más</Link>
                     </div>
                     </div>
                      

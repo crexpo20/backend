@@ -116,6 +116,7 @@ toggleFavorite = async (sitio) => {
     const filtroRefrigerador = parseInt(localStorage.getItem('refrigerador'), 10);
     const filtroLavadora = parseInt(localStorage.getItem('lavadora'), 10);
     const filtroPiscina = parseInt(localStorage.getItem('piscina'), 10);
+    const algunFiltroActivado = filtroWifi || filtroParqueo || filtroCocina || filtroRefrigerador || filtroLavadora || filtroPiscina;
 
     return (
       <>
@@ -129,13 +130,13 @@ toggleFavorite = async (sitio) => {
               const camasSitio = parseInt(sitio.camas, 10);
               const bañosSitio = parseInt(sitio.baños, 10);
               const cumpleCondicionesServicios = 
-                (filtroWifi === 0 || sitio.wifi === filtroWifi) ||
-                (filtroParqueo === 0 || sitio.parqueo === filtroParqueo) ||
-                (filtroCocina === 0 || sitio.cocina === filtroCocina) ||
-                (filtroRefrigerador === 0 || sitio.refrigerador === filtroRefrigerador) ||
-                (filtroLavadora === 0 || sitio.lavadora === filtroLavadora) ||
-                (filtroPiscina === 0 || sitio.piscina === filtroPiscina);
-
+              (!algunFiltroActivado) || 
+              (filtroWifi && sitio.wifi) ||
+              (filtroParqueo && sitio.parqueo) ||
+              (filtroCocina && sitio.cocina) ||
+              (filtroRefrigerador && sitio.refrigerador) ||
+              (filtroLavadora && sitio.lavadora) ||
+              (filtroPiscina && sitio.piscina);
               if(sitio.tipopropiedad === "Habitación" &&
                 
                  sitio.ciudad === localStorage.getItem("destino") &&

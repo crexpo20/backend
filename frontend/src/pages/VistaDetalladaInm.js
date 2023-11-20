@@ -217,7 +217,7 @@ class VistaDetalladaInm extends Component {
                 <li><CuantosBoton /></li>
                 <br></br>
                 <div>
-                  <Link to='/Reserva'>
+                  <Link to={`/Reserva/${this.state?.inmueble?.idinmueble}`}>
                       <button className="reserva-button">
                       Reserva
                       </button>

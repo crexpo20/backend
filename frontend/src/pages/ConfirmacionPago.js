@@ -1,13 +1,46 @@
 import React, {Component} from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Link, Outlet, useParams } from 'react-router-dom';
+import axios from 'axios';
 import '../CSS/ConfirmacionPago.css';
 import iconoWhatsapp from '../iconos/iconoWhatsapp.png';
-
+import MapaConfirmar from '../pages/MapaConfirmar.js';
+import credentials from '../pages/credentials.js';
+function withParams(Component) {
+  return (props) => <Component {...props} params={useParams()} />;
+}
 
 class ConfirmacionPago extends Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      inmueble: {},
+      anfitrion: {},
+      showFechaModal: false,
+      showHuespedModal: false,
+    };
 
+    this.getInmuebles = this.getInmuebles.bind(this);
+  }
+
+  componentDidMount() {
+    const id = this.props.params.espaciosID;
+    this.getInmuebles();
+  }
+
+  getInmuebles = async () => {
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api/getinmuebles/${this.props.params.espaciosID}`);
+      const anfitriondata = await axios.get(`http://127.0.0.1:8000/api/getusuario/${response.data.idusuario}`);
+      this.setState({ inmueble: response.data, anfitrion: anfitriondata.data });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
     render(){
+
+      const mapURL = `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${credentials.mapsKey}`;
+      const whatsappLink = `https://wa.me/${this.state?.anfitrion?.telefono}`;
       return(
         <>
            
@@ -17,10 +50,10 @@ class ConfirmacionPago extends Component{
                     <div className='Inf1'>
                         <label htmlFor='Telefono'>Teléfono del Anfitrión:</label>
                         <button
-                        className="telefono-btn"
-                        onClick={() => window.location.href = 'https://wa.me/59170348378'}
+                          className="telefono-btn"
+                          onClick={() => window.location.href = whatsappLink}
                         >
-                        <img src={iconoWhatsapp} alt="Whatsapp" />
+                          <img src={iconoWhatsapp} alt="Whatsapp" />
                         </button>
                     </div>
                     </div>
@@ -28,6 +61,19 @@ class ConfirmacionPago extends Component{
                     <div className='InfInm'>
                     <h1 className='TituloInfHost'>Informacion del Inmueble</h1>
                         <label htmlFor='Ubi'>Ubicación del inmueble:</label>
+                        <div className='GridMapa'>
+                          <div className='MapaGoogle'>
+                            <MapaConfirmar 
+                              googleMapURL={mapURL}
+                              containerElement={<div style={{ height: '150%' }}></div>}
+                              mapElement={<div style={{ height: '100%' }}></div>}
+                              loadingElement={<p>Cargando..</p>}
+                              lat={this.state?.inmueble?.latitud}
+                              lng={this.state?.inmueble?.longitud}
+                            />
+
+                          </div>
+                        </div>
                     </div>
                 </div>
             
@@ -38,4 +84,4 @@ class ConfirmacionPago extends Component{
       );
     }
   }
-  export default ConfirmacionPago;
+  export default withParams(ConfirmacionPago);

@@ -24,12 +24,14 @@ const coordenadasDepartamentos = {
   Pando: { lat: '-11.0196', lng: '-68.7778' },
 };
 
+
 //let marker = {};
 
 class RegisterInmue extends Component {
   constructor(props) {
     super(props);
     this.state = {
+     
       currentSlide: 0,
       formData: {
         idanfitrion: 0,
@@ -1110,7 +1112,23 @@ class RegisterInmue extends Component {
   </div>
 )}
 
-
+{currentSlide ===  16 && 
+         
+         (
+          <div className="property-done">
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <br></br>
+                <h3>
+                  Eso es todo, asegurate de que la informacion ingresada es correcta, si lo es, presiona en
+                  registrar.
+                </h3>
+              </div>
+          
+          )}
             {currentSlide === 17 && (
               <div className="property-done">
                 <br></br>
@@ -1255,6 +1273,7 @@ this.state.formData.descripcion !== "" &&
           </button>
           
           )}
+         
          
          {currentSlide ===  16 &&
          this.state.formData.imagen1 !== "" &&
