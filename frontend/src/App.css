@@ -435,7 +435,7 @@ h4{
   display: flex;
   color: #d2086d;
   border-radius: 30px;
-  background-color: #ffffff;border: 1px solid #ccc;
+  background-color: #fff;border: 1px solid #ccc;
  
 }
 #reg{
@@ -468,8 +468,15 @@ h4{
 }
 #buscador #prim{
   border-right: 1px solid #000;
-  
-  }
+  padding-top: 5px;
+ }
+ #buscador #prima{
+  padding-top: 5px;
+ }
+#buscador #fecha{
+  border-right: 1px solid #000;
+
+    }
 /*letras logo*/
 #TelosSuite{
   font-family: 'JejuMyeongjo';
@@ -514,9 +521,7 @@ h4{
   padding-bottom:5px;
   
   display: flex;
-  height: 40%;
-  border-bottom: 5px solid rgba(219, 24, 24, 0.09);
-}
+  height: 45%;}
 #head-izq{
   width: 33%;
   padding-left: 5%;
@@ -536,14 +541,31 @@ h4{
     padding-right: 2%;
 
 }
+#btnp{
+  padding-top: 10px;
+}
 #head-der3{
   display: inline-block;
   width: 50%;
 }
+#primabtn{
+  background: #DA1467;
+  font-family: 'JejuMyeongjo';
+  color: #fff;
+  border-radius: 50px;
+  border: 1px solid #ccc;
+}
 #head-der2{
   display: inline-block;
   white-space: nowrap;
+  padding-left: 20%;
+  padding-top: 5px;
   width: 50%;
+  color: #000;
+}
+#head-der2 a{
+  
+  color: #000;
 }
 #hab{
   white-space: normal;
@@ -585,12 +607,37 @@ h4{
   justify-items: left;
 }
 #navAbajo{
-  margin-top: 0.5%;
   display: flex;
 }
 #nav{
-  
-  width: 70%;
+  width: 75%;
+  padding-left: 25%;
+}
+#navs{
+  padding-left: 30%;
+  padding-right: 0;
+  width: 80%;
+}
+
+.containerts {
+  padding-left: 2%;
+  display: flex;
+  width: 100%;
+ /* Ancho total de los tres divs combinados */
+  overflow-x: auto; /* Barra de desplazamiento horizontal si es necesario */
+}
+
+.box {
+  flex: 1;
+  max-width: 31%; 
+  height: 550px;
+  padding: 20px;
+  margin: 10px;
+  border-radius: 15px;
+  background-color: #fff;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  overflow-y: auto; /* Barra de desplazamiento vertical si es necesario */
 }
 #opciones{
   padding-left: 16%;

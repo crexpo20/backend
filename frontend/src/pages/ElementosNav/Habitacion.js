@@ -36,16 +36,42 @@ getFavorites = async (userID) => {
   }
 };
 
-getProductos=async()=>{
-  await axios.get('https://telossuite.amicornios.com/api/getinmuebles')
-  .then(res=>{
-      this.setState({inmueble: res.data});
-      console.log(this.state.inmueble)
-  }).catch((error)=>{
-      console.log(error);
-  });
-}
 
+getProductos = async () => {
+  const { fechaini, fechafin } = localStorage;
+  const startDate = new Date(fechaini);
+  const endDate = new Date(fechafin);
+
+  try {
+    const inmueblesResponse = await axios.get('https://telossuite.amicornios.com/api/getinmuebles');
+    const reservasResponse = await axios.get('https://telossuite.amicornios.com/api/getreserva');
+
+    const inmuebles = inmueblesResponse.data;
+    const reservas = reservasResponse.data;
+
+    const inmueblesDisponibles = inmuebles.filter((inmueble) => {
+      const reservasInmueble = reservas.filter((reserva) => reserva.idinmueble === inmueble.idinmueble);
+
+      const tieneReserva = reservasInmueble.some((reserva) => {
+        const reservaStartDate = new Date(reserva.fechaini);
+        const reservaEndDate = new Date(reserva.fechafin);
+
+        return (
+          (startDate >= reservaStartDate && startDate <= reservaEndDate) ||
+          (endDate >= reservaStartDate && endDate <= reservaEndDate) ||
+          (startDate <= reservaStartDate && endDate >= reservaEndDate)
+        );
+      });
+
+      return !tieneReserva;
+    });
+
+    this.setState({ inmueble: inmueblesDisponibles });
+    console.log(inmueblesDisponibles);
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+};
 
 toggleFavorite = async (sitio) => {
   const userID = localStorage.getItem('userID');
@@ -148,7 +174,7 @@ toggleFavorite = async (sitio) => {
                  ((!tipoInmueblePrivado && !tipoInmuebleCompartido) || // No se seleccionó filtro de tipo
              (tipoInmueblePrivado && esPrivado) ||
              (tipoInmuebleCompartido && esCompartido))&&
-             (habitacionesSeleccionadas === null || habitacionesSitio >= habitacionesSeleccionadas) &&
+             (habitacionesSeleccionadas === null || habitacionesSitio <= habitacionesSeleccionadas) &&
              (camasSeleccionadas === null || camasSitio >= camasSeleccionadas) &&
              (bañosSeleccionados === null || bañosSitio >= bañosSeleccionados)&
                  cumpleCondicionesServicios
@@ -191,7 +217,7 @@ toggleFavorite = async (sitio) => {
                     />
                   </button>
                   <div className='BotonMasDetalles'>
-                      <Link to={`/cliente/${sitio.idinmueble}`}>Ver más</Link>
+                      <Link to={`/vistaInm/${sitio.idinmueble}`}>Ver más</Link>
                     </div>
                      
                         </div>

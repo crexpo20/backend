@@ -90,8 +90,11 @@ const handleTipoInmuebleChange = (tipo) => {
     localStorage.setItem('camas', selectedBed || 'Cualquiera');
     localStorage.setItem('baños', selectedBath || 'Cualquiera');
     // ... y así para los demás filtros
-  
-    navigate('/Busqueda'); // Navega a la página de búsqueda
+    if (window.location.pathname === '/busqueda') {
+      window.location.href = '/busqueda';
+    } else {
+      navigate(`/busqueda`);
+    }
     setShowFilter(false);
   };
   

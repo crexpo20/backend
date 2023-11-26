@@ -7,12 +7,17 @@ import { HiArrowsRightLeft } from 'react-icons/hi2';
 import { PiSwimmingPool } from 'react-icons/pi';
 import { RiHomeLine } from 'react-icons/ri';
 import { MdCabin } from 'react-icons/md';
+import { BiSolidHomeSmile } from "react-icons/bi";
+import { BiBuildingHouse } from "react-icons/bi";
 import { PiHouseLine } from 'react-icons/pi';
 import { FaMountainCity } from 'react-icons/fa6';
+import { TbHome } from "react-icons/tb";
+import { TbHomeSearch } from "react-icons/tb";
 import Donde from '../pages/modalWhere';
 import modalAnf from './modalAnf';
 import ModalPrueba from './modalprueba';
 import { DatePicker } from 'antd';
+import { BiCube } from "react-icons/bi";
 import moment from 'moment';
 import Fechas from './fechas';
 import LugarBoton from './lugares/lugarboton';
@@ -88,16 +93,16 @@ function Navbar() {
             <li id="prim">
               <LugarBoton />
             </li>
-            <li id="prim">
+            <li id='fecha'>
               <Fechas />
             </li>
-            <li>
+            <li id="prima">
               <CuantosBoton />
             </li>
           </div>
           
-          <div className="verinm">
-            <button onClick={handleReloadTarija}>BUSCAR</button>
+          <div id = "btnp">
+            <button id='primabtn' onClick={handleReloadTarija}>BUSCAR</button>
           </div>
 
          
@@ -153,7 +158,7 @@ function Navbar() {
                                 <Link to="/home">
                                   <div className="icon">
                                     <i id="logo-nav">
-                                      <PiHouseLine />
+                                    <BiSolidHomeSmile />
                                     </i>
                                   </div>
                                   Inicio
@@ -164,7 +169,7 @@ function Navbar() {
                               <NavLink to="/busqueda"  activeClassName="active">
                               <div class="icon">
                                     <i id="logo-nav">
-                                      <PiHouseLine />
+                                    <TbHomeSearch />
                                     </i>
                                   </div>
                                   Tu busqueda
@@ -174,7 +179,8 @@ function Navbar() {
                   <NavLink to="/Casa"  activeClassName="active">
                     <div class="icon">
                       <i id="logo-nav">
-                        <RiHomeLine />
+                      <TbHome />
+                                    
                       </i>
                     </div>
                     Casa
@@ -184,7 +190,7 @@ function Navbar() {
                   <NavLink to="/Departamento"  activeClassName="active">
                     <div class="icon">
                       <i id="logo-nav">
-                        <PiSwimmingPool />
+                      <BiBuildingHouse />
                       </i>
                     </div>
                     Departamento
@@ -204,7 +210,7 @@ function Navbar() {
                     <NavLink to="/Habitacion"  activeClassName="active">
                       <div class="icon">
                         <i id="logo-nav">
-                          <FaMountainCity />
+                        <BiCube />
                         </i>
                       </div>
                       Habitación

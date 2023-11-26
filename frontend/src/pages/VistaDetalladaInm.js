@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Swal from 'sweetalert2';
 import { Link, Outlet, useParams } from 'react-router-dom';
 import { sitios } from '../sitios';
 import { inmuebles } from '../components/inmuebles';
@@ -11,10 +12,13 @@ import refrigerador from '../iconos/refrigerador.png';
 import lavadora from '../iconos/lavadora.png';
 import piscina from '../iconos/piscina.png';
 import '../CSS/VistaDetaInmueble.css';
+
 import Fechas from '../components/fechas';
 import CuantosBoton from '../components/cuantos/botoncuantos';
 import Mapa from '../pages/Mapa.js';
 import credentials from '../pages/credentials.js';
+import ComentariosModal from './ComentariosModal';
+
 
 function withParams(Component){
   return props => <Component{...props} params={useParams()} />;
@@ -27,23 +31,70 @@ class VistaDetalladaInm extends Component {
     super(props);
     this.state = {
       inmueble: {},
+      reservas:{},
       anfitrion: {},
       comentarios: [],
       currentImageIndex: 0,
       imageCarouselOpen: false,
       images: [],
       imageDescriptions: [],
+      showModal: false,
     };
-
+    this.getReserva = this.getReserva.bind(this);
     this.getInmuebles = this.getInmuebles.bind(this);
+    this.toggleModal = this.toggleModal.bind(this); 
   }
-
+  toggleModal() {
+    this.setState(prevState => ({ showModal: !prevState.showModal }));
+  }
   componentDidMount() {
     console.log(this.props.params.espaciosID)
     const id = this.props.params.espaciosID
     this.getInmuebles();
   }
+  getReserva = async () => {
+    try {
+      const responses = await axios.get(`https://telossuite.amicornios.com/api/getreinmueble/${this.props.params.espaciosID}`);
+      console.log(responses.data);
+  
+     const fechaini = new Date(localStorage.getItem("fechaini"));
+      const fechafin = new Date(localStorage.getItem("fechafin"));
+      console.log(localStorage.getItem("fechaini"))
+  
+       let fechaEnRango = false;
+  
+       if (responses.data.length > 0) {
+        for (const reserva of responses.data) {
+          const fechaInicioReserva = new Date(reserva.fechaini);
+          const fechaFinReserva = new Date(reserva.fechafin);
+  
+           if (
+            (fechaini >= fechaInicioReserva && fechafin <= fechaFinReserva) ||
+            (fechaini <= fechaInicioReserva && fechafin >= fechaFinReserva)
+          ) {
+             await Swal.fire({
+              icon: 'warning',
+              title: '¡Atención!',
+              text: 'Este inmueble tiene una reserva entre las fechas que seleccionaste, porfavor elige otro rango de fechas.',
+            });
+  
+            fechaEnRango = true;
+  
+             break;
+          }
+        }
+      }
+  
+       if (!fechaEnRango) {
+        window.location.href = `/Reserva/${this.state?.inmueble?.idinmueble}`;
+      } 
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  
 
+  
   getInmuebles = async () => {
     try {
       const response = await axios.get(`https://telossuite.amicornios.com/api/getinmuebles/${this.props.params.espaciosID}`);
@@ -138,11 +189,19 @@ class VistaDetalladaInm extends Component {
     //url de la API para mostrar la ubicacion que registro el host
     const mapURL = `https://maps.googleapis.com/maps/api/js?v=3.exp&key=${credentials.mapsKey}`;
 
+    
+
     return (
       <>
         <body id='vista'>
           <h1 className='tituloVista'>{this.state?.inmueble?.tituloanuncio}</h1>
           {/* GRID de las imagenes */}
+          <button onClick={this.toggleModal} className="boton-ver-resenas">Ver Reseñas</button>
+      <ComentariosModal 
+        comentarios={this.state.comentarios}
+        showModal={this.state.showModal}
+        toggleModal={this.toggleModal}
+      />
           <div className='GridImagenes'>
             <div className='Columna1'>
                 <img src={this.state?.inmueble?.imagen1} alt='Imagen 1' style={{ width: '100%', height: '96%' }}/>
@@ -214,14 +273,24 @@ class VistaDetalladaInm extends Component {
                 <br></br>
                 <li id="prim" className='FechaReserva'><Fechas /></li>
                 <br></br>
-                <li><CuantosBoton /></li>
+                <div id="huesped-lista">
+          <a id="huesped-a"> Cantidad de personas: </a>
+          <input
+            type="number"
+            placeholder={localStorage.getItem("huespedes")}
+            id="tentacles"
+            name="tentacles"
+            min="1"
+            max="100"
+           
+          />
+        </div>
                 <br></br>
                 <div>
-                  <Link to={`/Reserva/${this.state?.inmueble?.idinmueble}`}>
-                      <button className="reserva-button">
-                      Reserva
-                      </button>
-                  </Link>
+                <button onClick={this.getReserva} className="reserva-button">
+                      Continua
+                </button>
+                <a id="huesped-a"></a>
                 </div>
               </div>
 

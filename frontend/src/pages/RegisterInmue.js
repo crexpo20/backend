@@ -665,7 +665,7 @@ class RegisterInmue extends Component {
              
             </div>
           )}
-            {currentSlide === 6 && (
+            {currentSlide === 14 && (
               <div className="property-locations">
                 <div id='titulo'>
                 <h3>En qué ciudad se encuentra tu inmueble:</h3>
@@ -691,7 +691,7 @@ class RegisterInmue extends Component {
                 ))}
               </div>
             )}
-            {currentSlide === 7 && (
+            {currentSlide === 6 && (
               <div className="property-services">
                 <div id='titulo'>
                      <h3>Servicios adicionales:</h3>
@@ -791,7 +791,7 @@ class RegisterInmue extends Component {
                
               </div>
             )}
-            {currentSlide === 8 && (
+            {currentSlide === 7 && (
               <div className="property-price">
                 <div id='titulo'>
                     <h3>Ingresa el precio por noche:</h3>
@@ -820,7 +820,7 @@ class RegisterInmue extends Component {
               </div>
             )}
 
-{currentSlide === 9 && (
+{currentSlide === 8 && (
   <div className="property-images">
       <br>
       </br>
@@ -833,7 +833,7 @@ class RegisterInmue extends Component {
  
   </div>
 )}
-{currentSlide === 10 && (
+{currentSlide === 9 && (
 <div>
   <div className="property-images">
       <div id='titulo'>
@@ -884,7 +884,7 @@ class RegisterInmue extends Component {
 </div>
  
 )}
-{currentSlide === 11 && (
+{currentSlide === 10 && (
  <div>
   <div className="property-images">
       <div id='titulo'>
@@ -935,7 +935,7 @@ class RegisterInmue extends Component {
 </div>
  
 )}
-{currentSlide === 12 && (
+{currentSlide === 11 && (
  <div>
   <div className="property-images">
       <div id='titulo'>
@@ -986,7 +986,7 @@ class RegisterInmue extends Component {
 </div>
  
 )}
-{currentSlide === 13 && (
+{currentSlide === 12 && (
  <div>
   <div className="property-images">
       <div id='titulo'>
@@ -1037,7 +1037,7 @@ class RegisterInmue extends Component {
 </div>
  
 )}
-{currentSlide === 14 && (
+{currentSlide === 13 && (
   <div>
   <div className="property-images">
       <div id='titulo'>
@@ -1195,21 +1195,21 @@ this.state.formData.descripcion !== "" &&
               < IoIosArrowDroprightCircle />
             </button>
           )}
-          {currentSlide === 6 &&
+          {currentSlide === 14 &&
           this.state.formData.ciudad !== "" &&
           (
             <button className="next" onClick={this.handleNextSlide}>
               < IoIosArrowDroprightCircle />
             </button>
           )}
-          {currentSlide ===  7 &&
+          {currentSlide ===  6 &&
          
           (
             <button className="next" onClick={this.handleNextSlide}>
               < IoIosArrowDroprightCircle />
             </button>
           )}
-          {currentSlide ===  8 &&
+          {currentSlide ===  7 &&
           this.state.formData.precio > 0 && 
          
          (
@@ -1217,14 +1217,14 @@ this.state.formData.descripcion !== "" &&
              < IoIosArrowDroprightCircle />
            </button>
          )}
-         {currentSlide ===  9 &&
+         {currentSlide ===  8 &&
          
          (
            <button className="next" onClick={this.handleNextSlide}>
              < IoIosArrowDroprightCircle />
            </button>
          )}
-         {currentSlide ===  10 &&
+         {currentSlide ===  9 &&
          this.state.formData.imagen1 !== "" &&
          this.state.formData.descripcion1 !== "" &&
          (
@@ -1232,7 +1232,7 @@ this.state.formData.descripcion !== "" &&
              < IoIosArrowDroprightCircle />
            </button>
          )}
-         {currentSlide ===  11 &&
+         {currentSlide ===  10 &&
          this.state.formData.imagen2 !== "" &&
          this.state.formData.descripcion2 !== "" &&
          (
@@ -1241,7 +1241,7 @@ this.state.formData.descripcion !== "" &&
            </button>
          )}
          
-         {currentSlide ===  12 &&
+         {currentSlide ===  11 &&
          this.state.formData.imagen3 !== "" &&
          this.state.formData.descripcion3 !== "" &&
          (
@@ -1249,7 +1249,7 @@ this.state.formData.descripcion !== "" &&
              < IoIosArrowDroprightCircle />
            </button>
          )}
-         {currentSlide ===  13 &&
+         {currentSlide ===  12 &&
          this.state.formData.imagen4 !== "" &&
          this.state.formData.descripcion4 !== "" &&
          (
@@ -1257,7 +1257,7 @@ this.state.formData.descripcion !== "" &&
              < IoIosArrowDroprightCircle />
            </button>
          )}
-         {currentSlide ===  14 &&
+         {currentSlide ===  13 &&
          this.state.formData.imagen5 !== "" &&
          this.state.formData.descripcion5 !== "" &&
          (

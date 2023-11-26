@@ -30,3 +30,9 @@
     border-radius: 10px;
     
   }
+  .actives {
+    background-color: rgb(255, 0, 144);
+    color: white; /* Cambia este valor al color que desees */
+    border-radius: 10px;
+    
+  }

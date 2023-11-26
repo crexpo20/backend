@@ -33,6 +33,9 @@ import ReservaInm from '../pages/ReservaInm';
 import PagoBanco from '../pages/PagoBanco';
 import ConfirmacionPago from '../pages/ConfirmacionPago';
 import Favorito from '../pages/Favorito';
+import Reservas from '../pages/ModoAnf/reservas';
+import Solicitudes from '../pages/ModoAnf/solicitudes';
+import ListaReserva from '../pages/ModoHuesped/ListaReserva';
 
 
 class AppRouter extends Component{
@@ -65,24 +68,21 @@ class AppRouter extends Component{
           <Route path='Habitacion' element={<Habitacion />} />
           <Route path='*' element={<Navigate TO ="/"/>}/> 
           <Route path='favorito' element={<Favorito />} />
+          <Route path='/mis-reservas' element={<ListaReserva />} />
           <Route path='Reserva' element={<ReservaInm />} />
           <Route path='Pago' element={<PagoBanco />} />
           <Route path='Confirmar' element={<ConfirmacionPago />} />
-
           
+
       </Route>
 
       <Route path= "/vistaInm" element={<NavbarReg/>}>
       <Route index element={<VistaDetalladaInm />} />
-       </Route>
+      </Route>
       <Route path= "/cliente" element={<NavbarCli />}>
             <Route index element={<EspaciosModAnf />} />
-            <Route path= "/cliente/:espaciosID" element ={<VistaDetalladaInm  />}/>
-            
-            <Route path='inm' element={<ActualizarInm />} />
-            <Route path="/cliente/registerinmue" element={<RegisterInmue />} />
-            <Route path='dashboard' element={<DashboardPage />} />
-            <Route path='hh' element={<Habilitar />} />
+            <Route path='/cliente/Reservas' element={<Reservas/>} />
+            <Route path='/cliente/Solicitudes' element={<Solicitudes/>} />
             
             <Route path='*' element={<Navigate TO ="/"/>}/> 
       </Route>

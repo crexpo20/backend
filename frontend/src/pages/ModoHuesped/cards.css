@@ -1,0 +1,29 @@
+
+  
+  .cont {
+    padding-top: 10px;
+    /* Si .cont es el contenedor directo de .reserva, asegúrate de que también tenga una altura definida si es necesario */
+  }
+  
+  .reserva {
+    display: flex; /* Establece el contenedor como un flexbox */
+    flex-direction: column; /* Apila los hijos verticalmente */
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+    border-radius: 5px;
+    border: 1px solid #000;
+    position: relative;
+    padding: 10px; /* Ajusta el padding según sea necesario */
+    min-height: 100px; /* Asegúrate de que el contenedor tenga suficiente altura */
+  }
+  
+  .calificar-text {
+    align-self: flex-end; /* Alinea el texto "Calificar" al final (derecha) del contenedor */
+    color: #007bff;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-top: auto; /* Esto empujará el texto "Calificar" hacia abajo */
+  }
+  
+  
+  
+  

@@ -71,7 +71,7 @@ class ReservaInm extends Component{
                                 <h3>Fechas</h3>
                                 <button onClick={this.openFechaModal}>Edita</button>
                             </div>
-                            <h4>18 - 23 de nov</h4>
+                            <h4>{localStorage.getItem("fechaini") } al {localStorage.getItem("fechafin") } </h4>
                         </div>
                     </div>
                     <div className='Huespedes'>
