@@ -97,6 +97,20 @@ const ModalMenuBody = ({props}) => {
         // Recargar la página
         window.location.reload();
     }
+    const [userData, setUserData] = useState({});
+
+    useEffect(() => {
+      const idusuario = localStorage.getItem('userID');
+  
+      axios.get(`https://telossuite.amicornios.com/api/getusuario/${idusuario}`)
+        .then((response) => {
+          setUserData(response.data);
+        })
+        .catch((error) => {
+          console.error('Error al obtener datos de usuario:', error);
+        });
+    }, []);
+
     return (
       <div className="react-modalMenu-body">
         <div id="body-huespedes">
@@ -153,11 +167,17 @@ const ModalMenuBody = ({props}) => {
         (
                        <ul id="lista-menu">
                             <li id="menu-item" >
-                                 Lista de Favoritos
+                            <Link to={`/perfilU/${userData.idusuario}`}>
+                              <button  onClick={redirige1}id='close-button' >
+                              Mi perfil </button>
+                              </Link>
                             </li>
                             <br></br>
                             <li id="menu-item" >
-                                 Mis reservas
+                            <Link to={`/modUsuario/${userData.idusuario}`}>
+                              <button  onClick={redirige1}id='close-button' >
+                              Mis reservas </button>
+                              </Link>
                             </li>
                             <li id="menu-item">
                             <HabilitarBoton></HabilitarBoton>

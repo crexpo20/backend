@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import './Comentarios.css';
+import axios from 'axios';
 
-function Comentarios({ isOpen, onClose }) {
+
+function Comentarios({ isOpen, onClose, idInmueble, idUsuario, reservaId }) {
   const [comentario, setComentario] = useState('');
   const [rating, setRating] = useState({
     limpieza: 0,
@@ -22,10 +24,33 @@ function Comentarios({ isOpen, onClose }) {
     setRating({ ...rating, [category]: index + 1 });
   };
 
-  const handleSubmit = () => {
-    console.log(comentario, rating);
-    onClose(); // Cierra el modal
-  };
+  const handleSubmit = async () => {
+    // Calculate the average rating
+    const promedio = Math.round((rating.limpieza + rating.exactitud + rating.comunicacion) / 3);
+  
+    const comentarioData = {
+      idinmueble: idInmueble,
+      idusuario: idUsuario,
+      descripcion: comentario,
+      limpieza: rating.limpieza,
+      exactitud: rating.exactitud,
+      comunicacion: rating.comunicacion,
+      puntuacion: promedio,
+    };
+
+    // Log the data to be sent
+  console.log('Data to be sent:', comentarioData);
+
+  try {
+    const response = await axios.post('/api/postcomentario', comentarioData);
+    console.log('Comment successfully sent:', response.data);
+  } catch (error) {
+    // Log detailed error information
+    console.error('Error sending the comment:', error.response ? error.response.data : error);
+  }
+
+  onClose(); // Close the modal
+};
 
   if (!isOpen) return null;
 
@@ -65,10 +90,10 @@ function Comentarios({ isOpen, onClose }) {
               onChange={(e) => setComentario(e.target.value)}
             />
           </div>
-        </div>
+          </div>
         <div className="modal-footer">
-  <button className="accept-button" onClick={handleSubmit}>Aceptar</button>
-</div>
+          <button className="accept-button" onClick={handleSubmit}>Aceptar</button>
+        </div>
       </div>
     </div>
   );

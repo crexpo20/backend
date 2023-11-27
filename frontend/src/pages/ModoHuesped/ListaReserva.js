@@ -37,10 +37,9 @@ class ListaReserva extends Component {
     this.props.navigate(`/vistaInm/${idInmueble}`);
   };
 
-  handleCalificarClick(reservaId, event) {
+  handleCalificarClick = (reservaId, idInmueble, event) => {
     event.stopPropagation();
-    console.log("Calificar clicked for reservaId:", reservaId); // Para depuración
-    this.setState({ isModalOpen: true, selectedReservaId: reservaId });
+    this.setState({ isModalOpen: true, selectedReservaId: reservaId, idInmueble: idInmueble });
   }
   
   closeModal() {
@@ -103,12 +102,15 @@ class ListaReserva extends Component {
             <div className='reserva' onClick={() => this.handleReservaClick(reserva.idinmueble)}>
               <p>ID Inmueble: {reserva.idinmueble}, Fecha Fin: {reserva.fechafin}</p>
               {/* Asegúrate de pasar el evento al método handleCalificarClick */}
+
+              
               <span 
-                onClick={(event) => this.handleCalificarClick(reserva.idreserva, event)}
-                className="calificar-text"
-              >
-                Calificar
-              </span>
+  onClick={(event) => this.handleCalificarClick(reserva.idreserva, reserva.idinmueble, event)}
+  className="calificar-text"
+>
+  Calificar
+</span>
+
                 </div>
               </div>
               ))}
@@ -140,6 +142,8 @@ class ListaReserva extends Component {
           <Comentarios
             isOpen={this.state.isModalOpen}
             onClose={this.closeModal}
+            idInmueble={this.state.idInmueble} 
+            idUsuario={this.state.idusuario} 
             reservaId={this.state.selectedReservaId}
           />
         )}

@@ -36,6 +36,8 @@ import Favorito from '../pages/Favorito';
 import Reservas from '../pages/ModoAnf/reservas';
 import Solicitudes from '../pages/ModoAnf/solicitudes';
 import ListaReserva from '../pages/ModoHuesped/ListaReserva';
+import ReservasUsuario from '../pages/ReservasUsuario';
+import PerfilHuesped from '../pages/PerfilHuesped';
 
 
 class AppRouter extends Component{
@@ -72,6 +74,8 @@ class AppRouter extends Component{
           <Route path='Reserva' element={<ReservaInm />} />
           <Route path='Pago' element={<PagoBanco />} />
           <Route path='Confirmar' element={<ConfirmacionPago />} />
+          <Route path='ReservasUsuario' element={<ReservasUsuario />} />
+          <Route path='PerfilU' element={<PerfilHuesped />} />
           
 
       </Route>
@@ -116,6 +120,20 @@ class AppRouter extends Component{
             <Route index element={<EspaciosModAnf />} />
             <Route path= "/Confirmar/:espaciosID" element ={<ConfirmacionPago  />}/>
       </Route>
+
+      <Route path= "/modUsuario" element={<Navbar />}>
+            <Route index element={<EspaciosModAnf />} />
+            <Route path='/modUsuario/:espaciosID' element={<ReservasUsuario/>} /> 
+      </Route>
+      <Route path= "/perfilU" element={<Navbar />}>
+            <Route index element={<EspaciosModAnf />} />
+            <Route path='/perfilU/:espaciosID' element={<PerfilHuesped/>} /> 
+      </Route>
+      <Route path= "/perfilUA" element={<NavbarCli />}>
+            <Route index element={<EspaciosModAnf />} />
+            <Route path='/perfilUA/:espaciosID' element={<PerfilHuesped/>} /> 
+      </Route>
+
       
       <Route path= "/registro" element={<RegisterInmue/>}>
            

@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ModalCuantos from "./cuantos";
+import "./modalhuespedes.css"
  function CuantosBoton(){
 
     const [openModal, setOpenModal] = useState(false)
@@ -33,7 +34,7 @@ import ModalCuantos from "./cuantos";
          <button  id="Lugar" onClick={() => setOpenModal(!openModal)}>
           {cambiar()}
         </button>
-        <ModalCuantos isOpen={openModal} onClose={() => setOpenModal(false)}>
+        <ModalCuantos isOpen={openModal} onClose={() => setOpenModal(false)} style={{ textAlign: "center", display: "flex", alignItems: "center", justifyContent: "center" }}>
         <ModalCuantos.Header> Elije la cantidad de huespedes </ModalCuantos.Header>
         <ModalCuantos.Body onValuesChange={handleValuesChange}>
         </ModalCuantos.Body>

@@ -67,18 +67,20 @@ class VistaDetalladaInm extends Component {
         for (const reserva of responses.data) {
           const fechaInicioReserva = new Date(reserva.fechaini);
           const fechaFinReserva = new Date(reserva.fechafin);
+          const estado = reserva.estado
   
            if (
-            (fechaini >= fechaInicioReserva && fechafin <= fechaFinReserva) ||
-            (fechaini <= fechaInicioReserva && fechafin >= fechaFinReserva)
-          ) {
-             await Swal.fire({
-              icon: 'warning',
-              title: '¡Atención!',
-              text: 'Este inmueble tiene una reserva entre las fechas que seleccionaste, porfavor elige otro rango de fechas.',
-            });
+                  ((fechaini >= fechaInicioReserva && fechafin <= fechaFinReserva) ||
+                  (fechaini <= fechaInicioReserva && fechafin >= fechaFinReserva)) && 
+                  estado === "aceptado"
+                ) {
+                  await Swal.fire({
+                    icon: 'warning',
+                    title: '¡Atención!',
+                    text: 'Este inmueble tiene una reserva entre las fechas que seleccionaste, porfavor elige otro rango de fechas.',
+                  });
   
-            fechaEnRango = true;
+            fechaEnRango = true;    
   
              break;
           }
@@ -88,6 +90,7 @@ class VistaDetalladaInm extends Component {
        if (!fechaEnRango) {
         window.location.href = `/Reserva/${this.state?.inmueble?.idinmueble}`;
       } 
+      
     } catch (error) {
       console.log(error);
     }

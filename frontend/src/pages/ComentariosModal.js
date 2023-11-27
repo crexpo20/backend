@@ -1,63 +1,119 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../CSS/ComentariosModal.css';
 
+const ComentariosModal = ({ showModal, toggleModal, inmuebleId }) => {
+  const [comentariosConNombres, setComentariosConNombres] = useState([]);
 
-const ComentariosModal = ({ comentarios, showModal, toggleModal }) => {
-  const [rating, setRating] = useState({
-    limpieza: 0,
-    comunicacion: 0,
-    exactitud: 0
-  });
-  const [hoverAt, setHoverAt] = useState(null);
-
-  const handleMouseEnter = (category, index) => {
-    setHoverAt({ [category]: index + 1 });
-  };
-
-  const handleMouseLeave = () => {
-    setHoverAt(null);
-  };
-
-  const handleClick = (category, index) => {
-    setRating({ ...rating, [category]: index + 1 });
-  };
+  useEffect(() => {
+    if (showModal && inmuebleId) {
+      fetch(`https://telossuite.amicornios.com/api/getcomentarios/${inmuebleId}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(comentarios => {
+          // Crear un array de promesas para obtener los nombres de los usuarios de los comentarios
+          const promesasDeNombres = comentarios.map(comentario => {
+            return fetch(`https://telossuite.amicornios.com/api/getusuario/${comentario.idusuario}`)
+              .then(respuesta => respuesta.json())
+              .then(usuario => {
+                // Suponiendo que la respuesta de la API incluye un campo 'nombre'
+                // y que el comentario ya tiene las calificaciones de limpieza, comunicacion, y exactitud
+                return {
+                  ...comentario,
+                  nombreUsuario: usuario.nombre, // Agrega el nombre del usuario al objeto comentario
+                  calificaciones: { // Suponiendo que estas propiedades vienen en cada comentario
+                    limpieza: comentario.limpieza,
+                    comunicacion: comentario.comunicacion,
+                    exactitud: comentario.exactitud,
+                  },
+                };
+              });
+          });
+          return Promise.all(promesasDeNombres); // Resolver todas las promesas
+        })
+        .then(comentariosConCalificaciones => {
+          setComentariosConNombres(comentariosConCalificaciones); // Actualizar el estado con los comentarios, nombres de usuarios y calificaciones
+        })
+        .catch(error => {
+          console.error('Error al obtener los comentarios o los usuarios:', error);
+        });
+    }
+  }, [showModal]);
+ 
+  useEffect(() => {
+    if (showModal) {
+      fetch('https://telossuite.amicornios.com/api/getcomentario/')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(comentarios => {
+          // Crear un array de promesas para obtener los nombres de los usuarios de los comentarios
+          const promesasDeNombres = comentarios.map(comentario => {
+            return fetch(`https://telossuite.amicornios.com/api/getusuario/${comentario.idusuario}`)
+              .then(respuesta => respuesta.json())
+              .then(usuario => {
+                // Suponiendo que la respuesta de la API incluye un campo 'nombre'
+                // y que el comentario ya tiene las calificaciones de limpieza, comunicacion, y exactitud
+                return {
+                  ...comentario,
+                  nombreUsuario: usuario.nombre, // Agrega el nombre del usuario al objeto comentario
+                  calificaciones: { // Suponiendo que estas propiedades vienen en cada comentario
+                    limpieza: comentario.limpieza,
+                    comunicacion: comentario.comunicacion,
+                    exactitud: comentario.exactitud,
+                  },
+                };
+              });
+          });
+          return Promise.all(promesasDeNombres); // Resolver todas las promesas
+        })
+        .then(comentariosConCalificaciones => {
+          setComentariosConNombres(comentariosConCalificaciones); // Actualizar el estado con los comentarios, nombres de usuarios y calificaciones
+        })
+        .catch(error => {
+          console.error('Error al obtener los comentarios o los usuarios:', error);
+        });
+    }
+  }, [showModal]);
+  
+  
+ 
 
   if (!showModal) {
     return null;
   }
+  
 
   return (
     <div className="modal">
       <div className="modal-content">
         <span className="close" onClick={toggleModal}>&times;</span>
-        <div className="calificaciones-container">
-          <h2>Calificaciones</h2>
-          {['limpieza', 'comunicacion', 'exactitud'].map(category => (
-            <div key={category} className="calificacion-categoria">
-              <div className="calificacion-titulo">{category}</div>
-              <div className="star-rating">
-                {[...Array(5)].map((_, index) => (
-                  <span
-                    key={index}
-                    className={`star ${index < (hoverAt?.[category] || rating[category]) ? "selected" : ""}`}
-                    onMouseEnter={() => handleMouseEnter(category, index)}
-                    onMouseLeave={handleMouseLeave}
-                    onClick={() => handleClick(category, index)}
-                  >
-                    &#9733;
-                  </span>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
         <div className="comentarios-container">
           <h2>Comentarios</h2>
-          {comentarios.length > 0 ? (
-            comentarios.map((comentario, index) => (
+          {comentariosConNombres.length > 0 ? (
+            comentariosConNombres.map((comentario, index) => (
               <div key={index} className="comentario-item">
-                <p><strong>{comentario.nombre}:</strong> {comentario.descripcion}</p>
+                <p><strong>{comentario.nombreUsuario}:</strong> {comentario.descripcion}</p>
+                <div>
+                  {['limpieza', 'comunicacion', 'exactitud'].map(categoria => (
+                    <div key={categoria} className="calificacion-categoria">
+                      <div className="categoria-titulo">{categoria}</div>
+                      <div className="star-rating">
+                        {[...Array(5)].map((_, i) => (
+                          <span key={i} className={`star ${i < comentario.calificaciones[categoria] ? 'selected' : ''}`}>
+                            &#9733;
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             ))
           ) : (
@@ -67,6 +123,10 @@ const ComentariosModal = ({ comentarios, showModal, toggleModal }) => {
       </div>
     </div>
   );
+  
+  
+  
+  
 };
 
 export default ComentariosModal;

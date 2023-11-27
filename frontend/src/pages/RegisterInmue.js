@@ -72,7 +72,9 @@ class RegisterInmue extends Component {
         descripcion5:"",
         latitud:"",
         longitud:"",
-        pausado:0
+        pausado:0,
+        fechainicio: "2023-10-10",
+        fechafin:"2023-10-10"
       },
       markerLocation: {
         latitud: "",
@@ -331,6 +333,9 @@ class RegisterInmue extends Component {
        latitud: this.state.formData.latitud.toString(), 
        longitud: this.state.formData.longitud.toString(), 
        pausado:0,
+       fechainicio: "2023-10-10",
+       fechafin:"2023-10-10",
+
      };
       const postProducto = async (url, lugar) => {
         const response = await fetch(url, {

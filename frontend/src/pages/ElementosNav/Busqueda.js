@@ -43,10 +43,8 @@ class Busqueda extends Component {
         const reservas = reservasResponse.data;
     
         const inmueblesDisponibles = inmuebles.filter((inmueble) => {
-          // Comprobar si hay reservas para el inmueble
           const reservasInmueble = reservas.filter((reserva) => reserva.idinmueble === inmueble.idinmueble);
     
-          // Comprobar si alguna reserva coincide con las fechas seleccionadas
           const tieneReserva = reservasInmueble.some((reserva) => {
             const reservaStartDate = new Date(reserva.fechaini);
             const reservaEndDate = new Date(reserva.fechafin);
@@ -212,9 +210,40 @@ toggleFavorite = async (sitio) => {
                   <h3 className="inmueble_name">{sitio.tipopropiedad} en {sitio.ciudad}</h3>
                     <div className="inmueble_info">
                       <p className="inmDet">{sitio.titulo}</p>
+                      {
+                        sitio.compartido === 1 &&
+                        <p className="inmPrecio"><b>Compartido</b></p>
+                   
+                      }
+                       {
+                        sitio.privado === 1 &&
+                        <p className="inmPrecio"><b>Privado</b></p>
+                   
+                      }
                       <p className="inmCamas"> <b>Precio por noche:</b> bs. {sitio.precio}</p>
                       <p className="inmPrecio"><b>Capacidad:</b>  {sitio.capacidad} persona(s)</p>
                       <p className="inmPrecio"><b>Normas:</b> {sitio.normas}</p>
+                      {
+                        sitio.niños === 1 &&
+                        <p className="inmPrecio"><b>Se permiten niños</b></p>
+                   
+                      }
+                       {
+                        sitio.mascotas === 1 &&
+                        <p className="inmPrecio"><b>Se permiten mascotas</b></p>
+                   
+                      }
+                       {
+                        sitio.niños === 0 &&
+                        <p className="inmPrecio"><b>NO se permiten niños</b></p>
+                   
+                      }
+                       {
+                        sitio.mascotas === 0 &&
+                        <p className="inmPrecio"><b>NO se permiten mascotas</b></p>
+                   
+                      }
+                   
                     </div>
 
                     <button
