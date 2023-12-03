@@ -40,6 +40,7 @@ class ListaReserva extends Component {
   handleCalificarClick = (reservaId, idInmueble, event) => {
     event.stopPropagation();
     this.setState({ isModalOpen: true, selectedReservaId: reservaId, idInmueble: idInmueble });
+    console.log(idInmueble)
   }
   
   closeModal() {
@@ -105,6 +106,7 @@ class ListaReserva extends Component {
               {this.state.reservasPasadas.map(reserva => (
           <div className='cont' key={reserva.idreserva}>
             <div className='reserva' onClick={() => this.handleReservaClick(reserva.idinmueble)}>
+             <p>{reserva.idreserva}</p>
               <p>ID Inmueble: {reserva.idinmueble}</p><p> Fecha Fin: {reserva.fechafin}</p>
               
               {this.renderCalificarButton(reserva)}
@@ -138,6 +140,7 @@ class ListaReserva extends Component {
           </div>
 
           {this.state.isModalOpen && (
+          
           <Comentarios
             isOpen={this.state.isModalOpen}
             onClose={this.closeModal}
@@ -145,6 +148,7 @@ class ListaReserva extends Component {
             
           
           />
+        
         )}
         </body>
       </>
@@ -162,7 +166,7 @@ class ListaReserva extends Component {
         <div>
           <p>Días restantes para calificar: {diasRestantes}</p>
           <span 
-  onClick={(event) => this.handleCalificarClick(reserva.idreserva, reserva.idusuario, event)}
+  onClick={(event) => this.handleCalificarClick(reserva.idreserva, reserva.idinmueble, event)}
   className="calificar-text"
 >
   Calificar
@@ -179,4 +183,3 @@ class ListaReserva extends Component {
 }
 
 export default ListaReservaWithNavigate;
-

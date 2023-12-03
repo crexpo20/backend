@@ -253,7 +253,7 @@ class VistaDetalladaInm extends Component {
         En la COLUMNA2 se encuentra la informacion del precio y el boton de la reserva*/}
         <div className='GridInformacion'>
             <div className='Colum1'>
-                <h2 className='title1'>{this.state?.inmueble?.tipopropiedad} {' '} {this.state?.inmueble?.privado==1 ? <div> <h2 className='title1'> - Privada </h2></div> :null}  {this.state?.inmueble?.compartido==1 ? <div><h2 className='title1'> - Compartida</h2></div>:null} {"-"} Anfitrión: {this.state?.anfitrion?.nombre} {this.state?.anfitrion?.apellido}</h2>
+                <h2 className='title1'>{this.state?.inmueble?.tipopropiedad} {' '} </h2> <h2 className='title1'>{this.state?.inmueble?.privado==1 ? <div> <h2 className='title1'>  Privada </h2></div> :null}  {this.state?.inmueble?.compartido==1 ? <div><h2 className='title1'> Compartida</h2></div>:null} <h2 className='title1'> - Anfitrión: {this.state?.anfitrion?.nombre} {this.state?.anfitrion?.apellido}</h2></h2>
                 <p className='title2'>{this.state?.inmueble?.capacidad} huéspedes - {this.state?.inmueble?.habitaciones} habitaciones - {this.state?.inmueble?.camas} camas - {this.state?.inmueble?.baños} baños</p>
                 <br></br>
                 <div className="divisor-plomo"></div>

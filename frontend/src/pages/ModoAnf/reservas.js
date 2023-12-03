@@ -42,6 +42,8 @@ class Reservas extends Component {
   handleCalificarClick = (reservaId, idInmueble, event) => {
     event.stopPropagation();
     this.setState({ isModalOpen: true, selectedReservaId: reservaId, idInmueble: idInmueble });
+
+    console.log(idInmueble)
   }
   
   closeModal = () => {
@@ -102,7 +104,8 @@ class Reservas extends Component {
               {this.state.reservasPasadas.map(reserva => (
               <div className='cont'>
               <div className='reserva' key={reserva.idreserva}>
-              <p>ID {reserva.idreserva}</p>
+              <p>ID {reserva.idusuario}</p>
+
                   <p>ID Inmueble: {reserva.idinmueble}</p><p> Fecha Fin: {reserva.fechafin}</p>
                   {this.renderCalificarButton(reserva)}
                 </div>
@@ -132,6 +135,17 @@ class Reservas extends Component {
               ))}
             </div>
           </div>
+          {this.state.isModalOpen && (
+          
+          <Comentarios
+            isOpen={this.state.isModalOpen}
+            onClose={this.closeModal}
+            idInmueble={this.state.idInmueble} 
+            
+          
+          />
+        
+        )}
         </body>
       </>
     );
