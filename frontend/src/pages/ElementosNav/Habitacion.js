@@ -37,7 +37,7 @@ getFavorites = async (userID) => {
 };
 
 
-getProductos = async () => {
+getProductos = async (pausado) => {
   const { fechaini, fechafin } = localStorage;
   const startDate = new Date(fechaini);
   const endDate = new Date(fechafin);
@@ -57,9 +57,11 @@ getProductos = async () => {
         const reservaEndDate = new Date(reserva.fechafin);
 
         return (
-          (startDate >= reservaStartDate && startDate <= reservaEndDate) ||
+         ( (startDate >= reservaStartDate && startDate <= reservaEndDate) ||
           (endDate >= reservaStartDate && endDate <= reservaEndDate) ||
-          (startDate <= reservaStartDate && endDate >= reservaEndDate)
+          (startDate <= reservaStartDate && endDate >= reservaEndDate)) 
+
+         && reserva.estado ==="aceptado" 
         );
       });
 
@@ -72,6 +74,8 @@ getProductos = async () => {
     console.error('Error fetching data:', error);
   }
 };
+
+
 
 toggleFavorite = async (sitio) => {
   const userID = localStorage.getItem('userID');
@@ -149,6 +153,10 @@ toggleFavorite = async (sitio) => {
         <body>
           <div className="verinm">
             {this.state.inmueble.map((sitio, index) => {
+              const fechaIni = new Date(localStorage.getItem("fechaini"));
+              const fechaFin = new Date(localStorage.getItem("fechafin"));
+              const fechainicio = new Date(sitio.fechainicio);
+              const fechafin = new Date(sitio.fechafin)
                const precioSitio = parseInt(sitio.precio, 10);
                const esPrivado = parseInt(sitio.privado, 10) === 1;
               const esCompartido = parseInt(sitio.compartido, 10) === 1; 
@@ -163,6 +171,10 @@ toggleFavorite = async (sitio) => {
               (filtroRefrigerador && sitio.refrigerador) ||
               (filtroLavadora && sitio.lavadora) ||
               (filtroPiscina && sitio.piscina);
+              const estaPausado = (fechaIni>= fechainicio && fechaIni <= fechafin) ||
+              (fechaFin >= fechainicio && fechaFin <= fechafin) ||
+              (fechaIni <= fechainicio && fechaFin >= fechafin)
+              console.log(estaPausado);
               if(sitio.tipopropiedad === "Habitación" &&
                 
                  sitio.ciudad === localStorage.getItem("destino") &&
@@ -176,7 +188,8 @@ toggleFavorite = async (sitio) => {
              (tipoInmuebleCompartido && esCompartido))&&
              (habitacionesSeleccionadas === null || habitacionesSitio <= habitacionesSeleccionadas) &&
              (camasSeleccionadas === null || camasSitio >= camasSeleccionadas) &&
-             (bañosSeleccionados === null || bañosSitio >= bañosSeleccionados)&
+             (bañosSeleccionados === null || bañosSitio >= bañosSeleccionados)&&
+             (!estaPausado) &&
                  cumpleCondicionesServicios
              ) {
               const isFavorite = favorites.some(fav => fav.idinmueble === sitio.idinmueble);
@@ -203,9 +216,40 @@ toggleFavorite = async (sitio) => {
                   <h3 className="inmueble_name">{sitio.tipopropiedad} en {sitio.ciudad}</h3>
                     <div className="inmueble_info">
                       <p className="inmDet">{sitio.titulo}</p>
+                      {
+                        sitio.compartido === 1 &&
+                        <p className="inmPrecio"><b>Compartido</b></p>
+                   
+                      }
+                       {
+                        sitio.privado === 1 &&
+                        <p className="inmPrecio"><b>Privado</b></p>
+                   
+                      }
                       <p className="inmCamas"> <b>Precio por noche:</b> bs. {sitio.precio}</p>
                       <p className="inmPrecio"><b>Capacidad:</b>  {sitio.capacidad} persona(s)</p>
                       <p className="inmPrecio"><b>Normas:</b> {sitio.normas}</p>
+                      {
+                        sitio.niños === 1 &&
+                        <p className="inmPrecio"><b>Se permiten niños</b></p>
+                   
+                      }
+                       {
+                        sitio.mascotas === 1 &&
+                        <p className="inmPrecio"><b>Se permiten mascotas</b></p>
+                   
+                      }
+                       {
+                        sitio.niños === 0 &&
+                        <p className="inmPrecio"><b>NO se permiten niños</b></p>
+                   
+                      }
+                       {
+                        sitio.mascotas === 0 &&
+                        <p className="inmPrecio"><b>NO se permiten mascotas</b></p>
+                   
+                      }
+                   
                     </div>
                     <button
                     onClick={() => this.toggleFavorite(sitio)}

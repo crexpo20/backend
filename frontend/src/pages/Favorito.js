@@ -80,22 +80,23 @@ class Favorito extends Component {
         <td>
           <Link to={`/cliente/${favorite.idinmueble}`} style={{ display: 'block' }}>
             
-            <div style={{ width: '200px', height: '100px' }}>
+            <div style={{ width: '200px', height: '150px' }}>
             <Slider {...carouselSettings}>
-                      <div>
-                        <img style={{ width: '210px', height: '130px' , padding: "17px"}} src={inmuebleDetails[favorite.idinmueble].imagen1} alt="Inmueble 1" />
+    <div >
+      <img style={{ width: '90%', height: '90%',padding: "17px" }} src={inmuebleDetails[favorite.idinmueble].imagen1} alt="Inmueble 1" />
+    </div>
+
+                      <div >
+                       <img style={{ width: '90%', height: '90%', padding: "17px" }} src={inmuebleDetails[favorite.idinmueble].imagen2} alt="Inmueble 2" />
                       </div>
                       <div>
-                       <img style={{ width: '210px', height: '130px', padding: "17px" }} src={inmuebleDetails[favorite.idinmueble].imagen2} alt="Inmueble 2" />
+                        <img style={{ width:'90%', height: '90%', padding: "17px"}} src={inmuebleDetails[favorite.idinmueble].imagen3} alt="Inmueble 1" />
                       </div>
                       <div>
-                        <img style={{ width:'210px', height: '130px', padding: "17px"}} src={inmuebleDetails[favorite.idinmueble].imagen3} alt="Inmueble 1" />
+                        <img style={{ width: '90%', height: '90%', padding: "17px" }} src={inmuebleDetails[favorite.idinmueble].imagen4} alt="Inmueble 1" />
                       </div>
                       <div>
-                        <img style={{ width: '210px', height: '130px', padding: "17px" }} src={inmuebleDetails[favorite.idinmueble].imagen4} alt="Inmueble 1" />
-                      </div>
-                      <div>
-                       <img style={{ width: '210px', height: '130px', padding: "17px" }} src={inmuebleDetails[favorite.idinmueble].imagen5} alt="Inmueble 1" />
+                       <img style={{ width: '90%', height: '90%', padding: "17px" }} src={inmuebleDetails[favorite.idinmueble].imagen5} alt="Inmueble 1" />
                       </div>
                   </Slider> 
             </div>

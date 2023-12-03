@@ -6,7 +6,7 @@ import axios from 'axios';
 function Comentarios({ isOpen, onClose, idInmueble}) {
   const [comentario, setComentario] = useState('');
   const [rating, setRating] = useState({
-    limpieza: 0,
+    calificacion: 0,
     comunicacion: 0,
     exactitud: 0,
   });
@@ -33,22 +33,20 @@ function Comentarios({ isOpen, onClose, idInmueble}) {
   
   const handleSubmit = async () => {
     const promedio = Math.round(
-      (parseInt(rating.limpieza) + parseInt(rating.exactitud) + parseInt(rating.comunicacion)) / 3
+      (parseInt(rating.calificacion) + parseInt(rating.exactitud) + parseInt(rating.comunicacion)) / 3
     );
 
   
     const comentarioData = {
-      idinmueble: idInmueble,
-      idusuario: parseInt(localStorage.getItem("userID")), // Convertido a entero
+      idusuario: idInmueble,
+      idanfitrion: parseInt(localStorage.getItem("userID")), // Convertido a entero
       descripcion: comentario,
-      limpieza: parseInt(rating.limpieza), // Convertido a entero
-      exactitud: parseInt(rating.exactitud), // Convertido a entero
-      comunicacion: parseInt(rating.comunicacion), // Convertido a entero
-      puntuacion: promedio, // Ya es un entero debido al Math.round()
+      puntuacion: parseInt(rating.calificacion), // Convertido a entero
+     
     };
 
     try {
-      const response = await fetch("https://telossuite.amicornios.com/api/postcomentario", {
+      const response = await fetch("https://telossuite.amicornios.com/api/postreseña", {
         method: 'POST',
         body: JSON.stringify(comentarioData),
         headers: {
@@ -80,7 +78,7 @@ function Comentarios({ isOpen, onClose, idInmueble}) {
         </div>
         <div className="modal-body">
           <div className="ratings-container">
-            {['limpieza', 'comunicacion', 'exactitud'].map(category => (
+            {['calificacion'].map(category => (
               <div key={category} className="calificacion-categoria">
                 <div className="calificacion-titulo">{category.charAt(0).toUpperCase() + category.slice(1)}</div> {/* Capitaliza la primera letra */}
                 <div className="rating-container">
@@ -100,7 +98,7 @@ function Comentarios({ isOpen, onClose, idInmueble}) {
             ))}
           </div>
           <div className="comments-container">
-            <h2>Comentarios</h2>
+            <h2>Comentario</h2>
             <textarea 
               placeholder="Escribe tu comentario aquí..."
               value={comentario}

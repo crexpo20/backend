@@ -50,12 +50,14 @@ class ListaReserva extends Component {
   
 
   componentDidMount() {
+    
     this.getProductos();
+
   }
 
   getProductos = async () => {
     try {
-      const response = await axios.get(`https://telossuite.amicornios.com/api/getreanfitrion/${this.state.idusuario}`);
+      const response = await axios.get(`https://telossuite.amicornios.com/api/getreusuario/${this.state.idusuario}`);
      
       this.setState({ inmueble: response.data });
       this.organizarReservas();
@@ -69,18 +71,21 @@ class ListaReserva extends Component {
     
     const reservasPasadas = this.state.inmueble.filter(reserva => {
       const fechaFinReserva = new Date(reserva.fechafin);
-      return fechaFinReserva < fechaHoy;
+      const estado = reserva.estado;
+      return fechaFinReserva < fechaHoy && estado === "aceptado";
     });
 
     const reservasEnCurso = this.state.inmueble.filter(reserva => {
       const fechaFinReserva = new Date(reserva.fechafin);
       const fechaInicioReserva = new Date(reserva.fechaini);
-      return ( fechaHoy <= fechaFinReserva   && fechaHoy >= fechaInicioReserva);
+      const estado = reserva.estado;
+      return ( fechaHoy <= fechaFinReserva   && fechaHoy >= fechaInicioReserva && estado === "aceptado" );
     });
 
     const reservasProximas = this.state.inmueble.filter(reserva => {
       const fechaInicioReserva = new Date(reserva.fechaini);
-      return fechaInicioReserva > fechaHoy;
+      const estado = reserva.estado;
+      return fechaInicioReserva > fechaHoy  && estado === "aceptado";
     });
 
     this.setState({
@@ -100,16 +105,10 @@ class ListaReserva extends Component {
               {this.state.reservasPasadas.map(reserva => (
           <div className='cont' key={reserva.idreserva}>
             <div className='reserva' onClick={() => this.handleReservaClick(reserva.idinmueble)}>
-              <p>ID Inmueble: {reserva.idinmueble}, Fecha Fin: {reserva.fechafin}</p>
-              {/* Asegúrate de pasar el evento al método handleCalificarClick */}
-
+              <p>ID Inmueble: {reserva.idinmueble}</p><p> Fecha Fin: {reserva.fechafin}</p>
               
-              <span 
-  onClick={(event) => this.handleCalificarClick(reserva.idreserva, reserva.idinmueble, event)}
-  className="calificar-text"
->
-  Calificar
-</span>
+              {this.renderCalificarButton(reserva)}
+             
 
                 </div>
               </div>
@@ -121,7 +120,7 @@ class ListaReserva extends Component {
               {this.state.reservasEnCurso.map(reserva => (
                 <div className='cont'>
                 <div className='reserva' key={reserva.idreserva}>
-                     <p>ID Inmueble: {reserva.idinmueble}, Fecha Fin: {reserva.fechafin}</p>
+                     <p>ID Inmueble: {reserva.idinmueble}</p><p> Fecha Fin: {reserva.fechafin}</p>
                 </div>
                 </div>
               ))}
@@ -131,7 +130,7 @@ class ListaReserva extends Component {
               {this.state.reservasProximas.map(reserva => (
                   <div className='cont'>
                 <div className='reserva' key={reserva.idreserva}>
-                  <p>ID Inmueble: {reserva.idinmueble}, Fecha Inicio: {reserva.fechaini}</p>
+                  <p>ID Inmueble: {reserva.idinmueble}</p><p>Fecha Inicio: {reserva.fechaini}</p>
                 </div>
                  </div>
               ))}
@@ -143,14 +142,41 @@ class ListaReserva extends Component {
             isOpen={this.state.isModalOpen}
             onClose={this.closeModal}
             idInmueble={this.state.idInmueble} 
-            idUsuario={this.state.idusuario} 
-            reservaId={this.state.selectedReservaId}
+            
+          
           />
         )}
         </body>
       </>
     );
   }
+
+  renderCalificarButton(reserva) {
+    const fechaFinReserva = new Date(reserva.fechafin);
+    const fechaHoy = new Date();
+    const diasDiferencia = Math.floor((fechaHoy - fechaFinReserva) / (1000 * 60 * 60 * 24)) + 1;
+
+    if (diasDiferencia <= 8 && diasDiferencia >= 0) {
+      const diasRestantes = 8 - diasDiferencia;
+      return (
+        <div>
+          <p>Días restantes para calificar: {diasRestantes}</p>
+          <span 
+  onClick={(event) => this.handleCalificarClick(reserva.idreserva, reserva.idusuario, event)}
+  className="calificar-text"
+>
+  Calificar
+</span>
+         
+        
+        </div>
+      );
+    } else {
+      return <p></p>;
+    }
+  }
+
 }
+
 export default ListaReservaWithNavigate;
 

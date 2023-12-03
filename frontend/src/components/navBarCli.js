@@ -78,7 +78,7 @@ class NavbarCli extends Component{
                       <TbHomeQuestion />
                       </i>
                     </div>
-                    Solicitudes(0)
+                    Solicitudes
                   </NavLink>
                 </li>
                 <li id="cat">

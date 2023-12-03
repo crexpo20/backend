@@ -95,7 +95,7 @@ const ModalMenuBody = ({props}) => {
         localStorage.setItem("anfitrion",0);
         localStorage.setItem("userID",0)
         // Recargar la página
-        window.location.reload();
+        window.location.href = '/home';
     }
     const [userData, setUserData] = useState({});
 
@@ -139,12 +139,12 @@ const ModalMenuBody = ({props}) => {
                             </Link>
                             </li>
 
-                           <li id="menu-item" >
-                            <Link to='favorito'>
-                            <button  onClick={redirige1}id='close-button' >
-                            Solicitudes</button>
-                            </Link> 
-                           </li>
+                            <li id="menu-item" >
+                            <Link to={`/modUsuario/${userData.idusuario}`}>
+                              <button  onClick={redirige1}id='close-button' >
+                              Mis solicitudes </button>
+                              </Link>
+                            </li>
 
                            <li id="menu-item" >
             <Link to='/mis-reservas'>
@@ -176,9 +176,16 @@ const ModalMenuBody = ({props}) => {
                             <li id="menu-item" >
                             <Link to={`/modUsuario/${userData.idusuario}`}>
                               <button  onClick={redirige1}id='close-button' >
-                              Mis reservas </button>
+                              Mis solicitudes </button>
                               </Link>
                             </li>
+                            <li id="menu-item" >
+            <Link to='/mis-reservas'>
+              <button id='close-button'>
+                Mis Reservas
+              </button>
+            </Link>
+          </li>
                             <li id="menu-item">
                             <HabilitarBoton></HabilitarBoton>
                              </li>

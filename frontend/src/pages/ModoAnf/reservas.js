@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import '../../CSS/cards.css';
+import Modal from 'react-modal';
+import StarRating from './StarRating';
+import Comentarios from './Comentarios';
 import axios from "axios";
 import './cards.css'
 class Reservas extends Component {
@@ -13,6 +16,10 @@ class Reservas extends Component {
       reservasEnCurso: [],
       reservasProximas: [],
       inmueblevista:[],
+      showModal: false,
+      descripcion: '',
+      puntuacion: 1, // Valor inicial
+      reservaActual: null,
     };
     this.getProductos = this.getProductos.bind(this);
   }
@@ -20,7 +27,34 @@ class Reservas extends Component {
   componentDidMount() {
     this.getProductos();
   }
+  handleCalificar(reserva) {
+    this.setState({ showModal: true, reservaActual: reserva });
+  }
+  handleCloseModal = () => {
+    this.setState({
+      showModal: false,
+      descripcion: '', // Restaura los valores iniciales
+      puntuacion: 1,
+      reservaActual: null,
+    });
+  }
 
+  handleCalificarClick = (reservaId, idInmueble, event) => {
+    event.stopPropagation();
+    this.setState({ isModalOpen: true, selectedReservaId: reservaId, idInmueble: idInmueble });
+  }
+  
+  closeModal = () => {
+    this.setState({ isModalOpen: false });
+  }
+  
+
+
+  handleInputChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value,
+    });
+  }
   getProductos = async () => {
     try {
       const response = await axios.get(`https://telossuite.amicornios.com/api/getreanfitrion/${this.state.idusuario}`);
@@ -68,7 +102,9 @@ class Reservas extends Component {
               {this.state.reservasPasadas.map(reserva => (
               <div className='cont'>
               <div className='reserva' key={reserva.idreserva}>
-                  <p>ID Inmueble: {reserva.idinmueble}, Fecha Fin: {reserva.fechafin}</p>
+              <p>ID {reserva.idreserva}</p>
+                  <p>ID Inmueble: {reserva.idinmueble}</p><p> Fecha Fin: {reserva.fechafin}</p>
+                  {this.renderCalificarButton(reserva)}
                 </div>
                 </div>
               ))}
@@ -79,7 +115,8 @@ class Reservas extends Component {
               {this.state.reservasEnCurso.map(reserva => (
                 <div className='cont'>
                 <div className='reserva' key={reserva.idreserva}>
-                     <p>ID Inmueble: {reserva.idinmueble}, Fecha Fin: {reserva.fechafin}</p>
+                     <p>ID Inmueble: {reserva.idinmueble}</p><p>Fecha Fin: {reserva.fechafin}</p>
+                  
                 </div>
                 </div>
               ))}
@@ -89,7 +126,7 @@ class Reservas extends Component {
               {this.state.reservasProximas.map(reserva => (
                   <div className='cont'>
                 <div className='reserva' key={reserva.idreserva}>
-                  <p>ID Inmueble: {reserva.idinmueble}, Fecha Inicio: {reserva.fechaini}</p>
+                  <p>ID Inmueble: {reserva.idinmueble}</p><p>Fecha Inicio: {reserva.fechaini}</p>
                 </div>
                  </div>
               ))}
@@ -99,7 +136,34 @@ class Reservas extends Component {
       </>
     );
   }
+  renderCalificarButton(reserva) {
+    const fechaFinReserva = new Date(reserva.fechafin);
+    const fechaHoy = new Date();
+    const diasDiferencia = Math.floor((fechaHoy - fechaFinReserva) / (1000 * 60 * 60 * 24)) + 1;
+
+    if (diasDiferencia <= 8 && diasDiferencia >= 0) {
+      const diasRestantes = 8 - diasDiferencia;
+      return (
+        <div>
+          <p>Días restantes para calificar: {diasRestantes}</p>
+          <span 
+  onClick={(event) => this.handleCalificarClick(reserva.idreserva, reserva.idusuario, event)}
+  className="calificar-text"
+>
+  Calificar
+</span>
+       
+        </div>
+      );
+    } else {
+      return <p></p>;
+    }
+  }
+  // ... (tu código existente)
 }
 
-export default Reservas;
 
+  
+
+
+export default Reservas;

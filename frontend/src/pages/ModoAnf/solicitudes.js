@@ -11,6 +11,59 @@ class Solicitudes extends Component {
       inmuebleDetalles: {},
     };
   }
+
+  handleAceptarRechazar = (idreserva,idinmueble,idusuario,id,idanfitrion,fechaini,fechafin,huespedes,politicacancelacion,montototal, estado) => {
+    const url = `https://telossuite.amicornios.com/api/putreserva/${idreserva}`;
+
+    // Datos que se enviarán en la solicitud
+    const datosReserva = {
+      idreserva: idreserva,
+      idinmueble : idinmueble,
+      idusuario : idusuario,
+      id : id,
+      idanfitrion : idanfitrion,
+      fechaini :  fechaini ,
+      fechafin :  fechafin,
+      huespedes : huespedes,
+      politicacancelacion :  politicacancelacion,
+      montototal : montototal,
+      estado :  estado ,
+      comentado:0,
+      created_at: null,
+      updated_at: null,
+     
+
+      // Puedes agregar más propiedades según tu necesidad
+    };
+
+    
+    const postNegocio = async (url, newNego) => {
+      const response = await fetch(url, {
+        method: 'PUT',
+        body: JSON.stringify(newNego),
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+        },
+      });
+    
+      // Agregar un retraso de 1 segundo entre las solicitudes
+      await new Promise(resolve => setTimeout(resolve, 2000));
+    
+      return response;
+    };
+    
+    const respuestaJson = postNegocio(url, datosReserva);
+
+    console.log("Response:------> " + respuestaJson);
+    console.log(datosReserva)
+
+    
+
+
+
+  };
+
   
 
   componentDidMount() {
@@ -98,23 +151,23 @@ class Solicitudes extends Component {
                   {inmuebleDetalles[reservaU.idinmueble] && (
                     <>
                       <td>
-                        <Link to={`/vistaInm/${reservaU.idinmueble}`} style={{ display: 'block' }}>
+                        <Link to={`/vistaInm/${reservaU.idinmueble}`} style={{ display: 'block', width: '200px'  }}>
                           <p style={{ color: 'black' }}>{inmuebleDetalles[reservaU.idinmueble].tituloanuncio}</p>
                         </Link>
                       </td>
                       <td>
-                          <p style={{ color: 'black' }}>{reservaU.nombreHuesped}</p>
+                          <p style={{ color: 'black' , width: '200px' }}>{reservaU.nombreHuesped}</p>
                           <Link to={`/perfilUA/${reservaU.idusuario}`} style={{ display: 'block' }}>
                             <button>Ver Perfil</button>
                           </Link>
                       </td>
                       <td>
-                        <p style={{ display: 'block' }}>
+                        <p style={{ color: 'black', width: '140px' }}>
                           {reservaU.fechaini}
                         </p>
                       </td>
                       <td>
-                        <p style={{ display: 'block' }}>
+                        <p style={{ color: 'black', width: '140px' }}>
                           {reservaU.fechafin}
                         </p>
                       </td>
@@ -122,8 +175,8 @@ class Solicitudes extends Component {
                             {
                               reservaU.estado === "pendiente" &&
                              <td>
-                              <button onClick={() => this.handleAceptarRechazar(reservaU.idinmueble, "aceptado")}>Aceptar</button>
-                              <button onClick={() => this.handleAceptarRechazar(reservaU.idinmueble, "rechazado")}>Rechazar</button>
+                              <button onClick={() => this.handleAceptarRechazar(reservaU.idreserva, reservaU.idinmueble, reservaU.idusuario,reservaU.id,reservaU.idanfitrion,reservaU.fechaini,reservaU.fechafin,reservaU.huespedes,reservaU.politicacancelacion,reservaU.montototal, "aceptado")}>Aceptar</button>
+                              <button onClick={() => this.handleAceptarRechazar(reservaU.idreserva, reservaU.idinmueble, reservaU.idusuario,reservaU.id,reservaU.idanfitrion,reservaU.fechaini,reservaU.fechafin,reservaU.huespedes,reservaU.politicacancelacion,reservaU.montototal, "rechazado")}>Rechazar</button>
                             
                       </td>
                             }
@@ -150,7 +203,7 @@ class Solicitudes extends Component {
             </tbody>
           </table>
         ) : (
-          <p>No hay solicitudes</p>
+          <p>CARGANDO SOLICITUDES...</p>
         )}
       </div>
     );

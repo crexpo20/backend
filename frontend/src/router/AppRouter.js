@@ -38,6 +38,7 @@ import Solicitudes from '../pages/ModoAnf/solicitudes';
 import ListaReserva from '../pages/ModoHuesped/ListaReserva';
 import ReservasUsuario from '../pages/ReservasUsuario';
 import PerfilHuesped from '../pages/PerfilHuesped';
+import Estados from '../pages/estados';
 
 
 class AppRouter extends Component{
@@ -87,7 +88,7 @@ class AppRouter extends Component{
             <Route index element={<EspaciosModAnf />} />
             <Route path='/cliente/Reservas' element={<Reservas/>} />
             <Route path='/cliente/Solicitudes' element={<Solicitudes/>} />
-            
+            <Route path='/cliente/:inmuebleID' element={<Estados/>} />
             <Route path='*' element={<Navigate TO ="/"/>}/> 
       </Route>
 
@@ -131,7 +132,7 @@ class AppRouter extends Component{
       </Route>
       <Route path= "/perfilUA" element={<NavbarCli />}>
             <Route index element={<EspaciosModAnf />} />
-            <Route path='/perfilUA/:espaciosID' element={<PerfilHuesped/>} /> 
+            <Route path='/perfilUA/:id' element={<PerfilHuesped/>} /> 
       </Route>
 
       

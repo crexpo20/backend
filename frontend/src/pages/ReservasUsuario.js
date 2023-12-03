@@ -86,6 +86,8 @@ class ReservasUsuario extends Component {
                 <th>Nombre</th>
                 <th>Imagen</th>
                 <th>Ciudad</th>
+                <th>Fecha inicio</th>
+                <th>Fecha fin</th>
                 <th>Estado</th>
               </tr>
             </thead>
@@ -128,6 +130,16 @@ class ReservasUsuario extends Component {
                       <td>
                         <Link style={{ display: 'block' }}>
                           <p style={{ color: 'black' }}>{inmuebleDetalles[reservaU.idinmueble].ciudad}</p>
+                        </Link>
+                      </td>
+                      <td>
+                      <Link style={{ display: 'block' }}>
+                          <p style={{ color: 'black',width: '140px' }}>{reservaU.fechaini}</p>
+                        </Link>
+                      </td>
+                      <td>
+                      <Link style={{ display: 'block' }}>
+                          <p style={{ color: 'black',width: '140px'  }}>{reservaU.fechafin}</p>
                         </Link>
                       </td>
                       <td>

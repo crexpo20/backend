@@ -55,13 +55,15 @@ class VistaDetalladaInm extends Component {
   getReserva = async () => {
     try {
       const responses = await axios.get(`https://telossuite.amicornios.com/api/getreinmueble/${this.props.params.espaciosID}`);
+      const responses2 = await axios.get(`https://telossuite.amicornios.com/api/getinmueble/${this.props.params.espaciosID}`);
       console.log(responses.data);
-  
+      console.log(responses2.data);
      const fechaini = new Date(localStorage.getItem("fechaini"));
       const fechafin = new Date(localStorage.getItem("fechafin"));
       console.log(localStorage.getItem("fechaini"))
   
        let fechaEnRango = false;
+       let fechaEnPausa = false;
   
        if (responses.data.length > 0) {
         for (const reserva of responses.data) {
@@ -70,10 +72,15 @@ class VistaDetalladaInm extends Component {
           const estado = reserva.estado
   
            if (
-                  ((fechaini >= fechaInicioReserva && fechafin <= fechaFinReserva) ||
-                  (fechaini <= fechaInicioReserva && fechafin >= fechaFinReserva)) && 
+                  ((fechaini >= fechaInicioReserva && fechaini <= fechaFinReserva) ||
+                  (fechafin <= fechaInicioReserva && fechafin >= fechaFinReserva) ||
+                  (fechaini <= fechaInicioReserva && fechafin >= fechaFinReserva) 
+                  )   && 
                   estado === "aceptado"
-                ) {
+                  ) 
+
+                
+                 {
                   await Swal.fire({
                     icon: 'warning',
                     title: '¡Atención!',
@@ -86,8 +93,26 @@ class VistaDetalladaInm extends Component {
           }
         }
       }
+     
+        if (
+          ((fechaini >= new Date(responses2.data.fechainicio) && fechafin <= new Date(responses2.data.fechafin)) ||
+          (fechaini <= new Date(responses2.data.fechainicio) && fechafin >= new Date(responses2.data.fechafin))) 
+                  
+                ) {
+                  await Swal.fire({
+                    icon: 'warning',
+                    title: '¡Atención!',
+                    text: 'Este inmueble no se encuentra disponible en el rango de fechas que escogiste, porfavor ingresa un nuevo rango.',
+                  });
   
-       if (!fechaEnRango) {
+            fechaEnPausa = true;    
+  
+            
+          }
+        
+      
+  
+       if (!fechaEnRango && !fechaEnPausa) {
         window.location.href = `/Reserva/${this.state?.inmueble?.idinmueble}`;
       } 
       
@@ -200,11 +225,13 @@ class VistaDetalladaInm extends Component {
           <h1 className='tituloVista'>{this.state?.inmueble?.tituloanuncio}</h1>
           {/* GRID de las imagenes */}
           <button onClick={this.toggleModal} className="boton-ver-resenas">Ver Reseñas</button>
-      <ComentariosModal 
-        comentarios={this.state.comentarios}
-        showModal={this.state.showModal}
-        toggleModal={this.toggleModal}
-      />
+          <ComentariosModal 
+  comentarios={this.state.comentarios}
+  showModal={this.state.showModal}
+  toggleModal={this.toggleModal}
+  inmuebleId={this.props.params.espaciosID} // Asegúrate de que este sea el ID correcto
+/>
+
           <div className='GridImagenes'>
             <div className='Columna1'>
                 <img src={this.state?.inmueble?.imagen1} alt='Imagen 1' style={{ width: '100%', height: '96%' }}/>
@@ -277,16 +304,7 @@ class VistaDetalladaInm extends Component {
                 <li id="prim" className='FechaReserva'><Fechas /></li>
                 <br></br>
                 <div id="huesped-lista">
-          <a id="huesped-a"> Cantidad de personas: </a>
-          <input
-            type="number"
-            placeholder={localStorage.getItem("huespedes")}
-            id="tentacles"
-            name="tentacles"
-            min="1"
-            max="100"
-           
-          />
+         
         </div>
                 <br></br>
                 <div>
@@ -303,7 +321,7 @@ class VistaDetalladaInm extends Component {
         <div className='GridComentarios'>
             <div className="divisor-plomo"></div>
             <br></br>
-            <h2 className='title1'>Reseñas </h2>
+            <h2 className='title1'>Comentarios</h2>
         </div>
         <div className='GridReseñas'>
             <div className='ColumCom1'>

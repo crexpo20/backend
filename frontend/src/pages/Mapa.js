@@ -2,8 +2,7 @@ import React from 'react';
 import { GoogleMap, Circle as CircleGoogleMap, useJsApiLoader, Marker} from '@react-google-maps/api';
 
 const Mapa = ({ lat, lng}) => {
-    console.log(lat)
-    console.log(lng)
+   
     const [map, setMap] = React.useState(null)
     
     const onLoad = React.useCallback(function callback(map) {
@@ -19,7 +18,7 @@ const Mapa = ({ lat, lng}) => {
     id:"297878562058-b1kq496r98fnk5ctcgtunjmgt5erbp6o.apps.googleusercontent.com",
     googleMapsApiKey: 'AIzaSyDNevJ_JORRAmI5u-wPZCtznZzHgSbuqrw',
   });
-   console.log(isLoaded)
+  
   const center = {
     lat: parseFloat(lat),
     lng: parseFloat(lng),
@@ -40,7 +39,7 @@ const Mapa = ({ lat, lng}) => {
       {/* Componente CircleGoogleMap que representa un círculo en el mapa. */}
       <CircleGoogleMap
         center={center}
-        radius={200}
+        radius={100}
         options={{
             fillColor: '#0088FF',
             fillOpacity: 0.35,

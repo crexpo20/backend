@@ -3,7 +3,8 @@ import '../CSS/ComentariosModal.css';
 
 const ComentariosModal = ({ showModal, toggleModal, inmuebleId }) => {
   const [comentariosConNombres, setComentariosConNombres] = useState([]);
-
+ 
+ 
   useEffect(() => {
     if (showModal && inmuebleId) {
       fetch(`https://telossuite.amicornios.com/api/getcomentarios/${inmuebleId}`)
@@ -41,46 +42,7 @@ const ComentariosModal = ({ showModal, toggleModal, inmuebleId }) => {
           console.error('Error al obtener los comentarios o los usuarios:', error);
         });
     }
-  }, [showModal]);
- 
-  useEffect(() => {
-    if (showModal) {
-      fetch('https://telossuite.amicornios.com/api/getcomentario/')
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(comentarios => {
-          // Crear un array de promesas para obtener los nombres de los usuarios de los comentarios
-          const promesasDeNombres = comentarios.map(comentario => {
-            return fetch(`https://telossuite.amicornios.com/api/getusuario/${comentario.idusuario}`)
-              .then(respuesta => respuesta.json())
-              .then(usuario => {
-                // Suponiendo que la respuesta de la API incluye un campo 'nombre'
-                // y que el comentario ya tiene las calificaciones de limpieza, comunicacion, y exactitud
-                return {
-                  ...comentario,
-                  nombreUsuario: usuario.nombre, // Agrega el nombre del usuario al objeto comentario
-                  calificaciones: { // Suponiendo que estas propiedades vienen en cada comentario
-                    limpieza: comentario.limpieza,
-                    comunicacion: comentario.comunicacion,
-                    exactitud: comentario.exactitud,
-                  },
-                };
-              });
-          });
-          return Promise.all(promesasDeNombres); // Resolver todas las promesas
-        })
-        .then(comentariosConCalificaciones => {
-          setComentariosConNombres(comentariosConCalificaciones); // Actualizar el estado con los comentarios, nombres de usuarios y calificaciones
-        })
-        .catch(error => {
-          console.error('Error al obtener los comentarios o los usuarios:', error);
-        });
-    }
-  }, [showModal]);
+  }, [showModal, inmuebleId]);
   
   
  

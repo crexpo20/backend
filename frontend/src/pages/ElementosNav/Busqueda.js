@@ -13,6 +13,7 @@ class Busqueda extends Component {
     super(props);
     this.state={
       inmueble:[],
+      fecha : new Date(),
       favorites: [],
       showLoginModal: false
     };
@@ -30,7 +31,7 @@ class Busqueda extends Component {
     
     }
 
-    getProductos = async () => {
+    getProductos = async (pausado) => {
       const { fechaini, fechafin } = localStorage;
       const startDate = new Date(fechaini);
       const endDate = new Date(fechafin);
@@ -50,9 +51,11 @@ class Busqueda extends Component {
             const reservaEndDate = new Date(reserva.fechafin);
     
             return (
-              (startDate >= reservaStartDate && startDate <= reservaEndDate) ||
+             ( (startDate >= reservaStartDate && startDate <= reservaEndDate) ||
               (endDate >= reservaStartDate && endDate <= reservaEndDate) ||
-              (startDate <= reservaStartDate && endDate >= reservaEndDate)
+              (startDate <= reservaStartDate && endDate >= reservaEndDate)) 
+
+             && reserva.estado ==="aceptado" 
             );
           });
     
@@ -156,6 +159,11 @@ toggleFavorite = async (sitio) => {
         <body>
         <div className="verinm">
           {this.state.inmueble.map((sitio, index) => {
+            
+            const fechaIni = new Date(localStorage.getItem("fechaini"));
+            const fechaFin = new Date(localStorage.getItem("fechafin"));
+            const fechainicio = new Date(sitio.fechainicio);
+            const fechafin = new Date(sitio.fechafin)
             const precioSitio = parseInt(sitio.precio, 10);
             const esPrivado = parseInt(sitio.privado, 10) === 1;
             const esCompartido = parseInt(sitio.compartido, 10) === 1;
@@ -170,6 +178,10 @@ toggleFavorite = async (sitio) => {
                   (filtroRefrigerador && sitio.refrigerador) ||
                   (filtroLavadora && sitio.lavadora) ||
                   (filtroPiscina && sitio.piscina);
+           const estaPausado = (fechaIni>= fechainicio && fechaIni <= fechafin) ||
+                                (fechaFin >= fechainicio && fechaFin <= fechafin) ||
+                                (fechaIni <= fechainicio && fechaFin >= fechafin)
+                                console.log(estaPausado);
            if (sitio.ciudad === localStorage.getItem("destino") &&
                sitio.niños === parseInt(localStorage.getItem("niños")) &&
                sitio.mascotas === parseInt(localStorage.getItem("mascotas")) &&
@@ -182,7 +194,7 @@ toggleFavorite = async (sitio) => {
                  (habitacionesSeleccionadas === null || habitacionesSitio <= habitacionesSeleccionadas) &&
                  (camasSeleccionadas === null || camasSitio >= camasSeleccionadas) &&
                  (bañosSeleccionados === null || bañosSitio >= bañosSeleccionados)&&
-                   
+                   (!estaPausado) &&
                   cumpleCondicionesServicios
                 
               

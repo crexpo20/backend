@@ -188,9 +188,16 @@
     bottom: 10px; 
       right: 10px;
         padding: 10px 20px;
-    color:  #DA1467;
     font-size: 25px;
+
+    font-family: 'JejuMyeongjo';
+  font-size: larger;
+  background:  rgba(218, 20, 103, 0.85);
+  color: white;
+  border-radius: 25px;
   }
+  
+
   
   .property-type-selection {
     display: flex;

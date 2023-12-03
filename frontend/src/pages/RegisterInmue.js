@@ -306,7 +306,7 @@ class RegisterInmue extends Component {
         camas :parseInt(this.state.formData.camas),
         niños :this.state.formData.niños,
         normas :this.state.formData.normas,
-        mascotas :1,
+        mascotas :this.state.formData.mascotas,
         qr :"n hay",
         ciudad: this.state.formData.ciudad,
        wifi: this.state.formData.wifi,
@@ -1151,7 +1151,7 @@ class RegisterInmue extends Component {
           </div>
         </div>
         <div className="button-container">
-          {currentSlide > 0 && currentSlide < 16 &&(
+          {currentSlide > 0 && currentSlide < 17 &&(
             <button className="prev" onClick={this.handlePrevSlide}>
               <IoIosArrowDropleftCircle/>
             </button>

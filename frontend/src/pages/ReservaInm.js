@@ -75,6 +75,7 @@ class ReservaInm extends Component{
           politicacancelacion : "nohay",
           montototal :this.calcularTotal(),
           estado : "pendiente",
+          comentado:0,
         }
         const postReserva = async (url, reserva) => {
           const response = await fetch(url, {
@@ -143,7 +144,6 @@ class ReservaInm extends Component{
                         <div>
                             <div className='fecha'>
                                 <h3>Fechas</h3>
-                                <button onClick={this.openFechaModal}>Edita</button>
                             </div>
                             <h4>{localStorage.getItem("fechaini") } al {localStorage.getItem("fechafin") } </h4>
                         </div>
@@ -151,9 +151,9 @@ class ReservaInm extends Component{
                     <div className='Huespedes'>
                             <div className='huesped'>
                             <h3>Huéspedes</h3>
-                            <button onClick={this.openHuespedModal}>Edita</button>
+                            
                             </div>
-                        <h4>{localStorage.getItem("huespedes")} Huéspedes</h4>
+                        <h4> {this.state?.inmueble?.capacidad} huéspedes</h4>
                     </div>
                 </div>
                 <div className='Colum2'>

@@ -1,0 +1,128 @@
+
+
+h2 {
+  
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+   
+    margin-right: 20px;
+    
+    border-radius: 10px;
+  
+    color: rgba(218, 20, 103, 0.85);
+    font-size: 1.2em; 
+  }
+  .ModalContent {
+    position: relative;
+    background: rgb(220, 194, 210); 
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 80%;
+    max-height: 80%;
+    overflow-y: auto;
+  }
+  .ModalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999;
+  }
+  
+ 
+  
+  
+
+  .ModalTitle {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .DatePickerContainer {
+    margin-bottom: 20px;
+  }
+  
+
+  .ButtonContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .ButtonContainer button {
+    padding: 8px 16px;
+    margin-right: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .SaveButton {
+    background-color: rgb(200, 158, 184); 
+    color: white;
+  }
+  
+  .CancelButton {
+    background-color: rgb(200, 158, 184); 
+    color: white;
+  }
+  
+  .detailsContainer {
+    margin-bottom: 20px;
+    padding: 10px;
+   
+    border-radius: 5px;
+   
+  }
+  
+  .detailsContainer h4 {
+ 
+    
+    
+   
+    margin-right: 20px;
+    
+    border-radius: 10px;
+  
+    color: rgba(218, 20, 103, 0.85);
+    font-size: 1.2em; 
+  }
+  
+  .detailsContainer p {
+    
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+   
+    margin-right: 20px;
+    margin-left: 50px;
+    border-radius: 10px;
+  
+    color: rgba(218, 20, 103, 0.85);
+    font-size: 1.2em; 
+  }
+  
+  .detailsContainer button {
+    
+    margin-top: 20px;
+    margin-bottom: 20px;
+    
+   
+    margin-right: 20px;
+    margin-left: 50px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: rgb(200, 158, 184); 
+    color: white;
+  }
+  .detailsContainer button:hover {
+    background-color:rgba(218, 20, 103, 0.85);
+  }
+  
+  
